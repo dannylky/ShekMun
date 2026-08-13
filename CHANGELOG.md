@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.5.5] - 2026-08-13
+- Desktop controller: auto-starts everything on load - monitoring,
+  temp monitor and dashboard server + browser (skipped if already
+  running), with each action logged.
+
 ## [1.5.4] - 2026-08-13
 - Dashboard: KDS temperature update time shown in the header line
   ("KDS temps updated: HH:mm:ss", from snapshot's tempUpdatedAt) and

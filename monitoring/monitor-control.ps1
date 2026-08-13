@@ -15,6 +15,8 @@
       the server if needed and opens the browser) / Stop Server.
     - Statuses are polled every 1.5 s; run state survives app restarts
       (re-detected from running processes and the port).
+    - On load the app auto-starts the monitor, the temp monitor and the
+      dashboard server + browser (no-op if already running).
     - Closing the window stops the monitor, temp monitor and the
       dashboard server (background processes are killed).
 
@@ -34,7 +36,7 @@ $serverScript = Join-Path $root 'serve-dashboard.ps1'
 $snapshotPath = Join-Path $root 'snapshot.json'
 $tempScript = Join-Path $root 'temp-monitor.py'
 $tempSnapshotPath = Join-Path $root 'temp-snapshot.json'
-$script:version = '1.5.1'
+$script:version = '1.5.5'
 
 $script:monitorPid = $null
 $script:monitorStopRequested = $false
@@ -607,6 +609,13 @@ if ($Test) {
 
 # ------------------------------------------------------------------ app --
 $ui = New-Form
-$ui.form.Add_Shown({ $ui.timer.Start(); Update-Status })
+$ui.form.Add_Shown({
+    $ui.timer.Start()
+    Update-Status
+    Add-Log "Auto-start: $((Start-Monitoring))"
+    Add-Log "Auto-start: $((Start-TempMonitor))"
+    Add-Log "Auto-start: $((Open-Dashboard $script:port))"
+    Update-Status
+})
 [System.Windows.Forms.Application]::EnableVisualStyles()
 [System.Windows.Forms.Application]::Run($ui.form)
