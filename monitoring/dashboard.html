@@ -148,6 +148,9 @@ function fmt(iso) {
 
 function groupOf(d) { return GROUPS[d.role] || 'Control'; }
 
+const EXCLUDED = /TV-Res/;
+function isExcluded(d) { return EXCLUDED.test(d.name); }
+
 function sortDevices(list) {
   const mode = $sortSel.value;
   const arr = list.slice();
@@ -162,7 +165,7 @@ function sortDevices(list) {
 }
 
 function visibleDevices(list) {
-  const all = sortDevices(list);
+  const all = sortDevices(list.filter(d => !isExcluded(d)));
   if (!activeGroups) return all;
   return all.filter(d => activeGroups.has(groupOf(d)));
 }
@@ -204,9 +207,10 @@ function roomBlock(title, allDevices) {
   const devices = visibleDevices(allDevices);
   const div = document.createElement('div');
   div.className = 'room';
-  const ok = allDevices.filter(d => d.status === 'ok').length;
-  const fail = allDevices.filter(d => d.status === 'fail').length;
-  const unk = allDevices.length - ok - fail;
+  const shown = allDevices.filter(d => !isExcluded(d));
+  const ok = shown.filter(d => d.status === 'ok').length;
+  const fail = shown.filter(d => d.status === 'fail').length;
+  const unk = shown.length - ok - fail;
   div.className += (fail > 0) ? ' room-fail' : (unk > 0 ? '' : ' room-ok');
   div.innerHTML =
     '<h2><span>' + title + '</span><span class="counts">' +
@@ -217,27 +221,29 @@ function roomBlock(title, allDevices) {
 
 function render(snap) {
   $rooms.innerHTML = '';
-  let visible = 0, total = 0, ok = 0, fail = 0;
+  let visible = 0, total = 0, ok = 0, fail = 0, excluded = 0;
   for (const room of Object.keys(snap.rooms || {})) {
     const roomDevices = snap.rooms[room];
-    total += roomDevices.length;
+    total += roomDevices.filter(d => !isExcluded(d)).length;
+    excluded += roomDevices.filter(isExcluded).length;
     const shown = visibleDevices(roomDevices).length;
     visible += shown;
-    ok += roomDevices.filter(d => d.status === 'ok').length;
-    fail += roomDevices.filter(d => d.status === 'fail').length;
+    ok += roomDevices.filter(d => d.status === 'ok' && !isExcluded(d)).length;
+    fail += roomDevices.filter(d => d.status === 'fail' && !isExcluded(d)).length;
     $rooms.appendChild(roomBlock(room, roomDevices));
   }
   if (snap.unique && snap.unique.length) {
-    total += snap.unique.length;
+    total += snap.unique.filter(d => !isExcluded(d)).length;
+    excluded += snap.unique.filter(isExcluded).length;
     visible += visibleDevices(snap.unique).length;
-    ok += snap.unique.filter(d => d.status === 'ok').length;
-    fail += snap.unique.filter(d => d.status === 'fail').length;
+    ok += snap.unique.filter(d => d.status === 'ok' && !isExcluded(d)).length;
+    fail += snap.unique.filter(d => d.status === 'fail' && !isExcluded(d)).length;
     $unique.innerHTML = '';
     $unique.appendChild(roomBlock('Shared / Unique', snap.unique));
   } else {
     $unique.innerHTML = '';
   }
-  $summary.textContent = 'Showing ' + visible + ' / ' + total + ' devices · ' + ok + ' ok · ' + fail + ' fail';
+  $summary.textContent = 'Showing ' + visible + ' / ' + total + ' devices · ' + ok + ' ok · ' + fail + ' fail' + (excluded ? ' · ' + excluded + ' excluded (TV-Res)' : '');
 }
 
 async function load() {

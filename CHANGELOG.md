@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.4.3] - 2026-08-13
+- Dashboard: devices named "TV-Res*" are excluded from display and
+  counts (summary shows how many are excluded); monitoring still
+  pings them.
+
 ## [1.4.2] - 2026-08-13
 - Dashboard: device names are now clickable links to http://IP
   (opens in a new tab, accent-colored with hover underline).
