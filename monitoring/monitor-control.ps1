@@ -13,6 +13,8 @@
       the server if needed and opens the browser) / Stop Server.
     - Statuses are polled every 1.5 s; run state survives app restarts
       (re-detected from running processes and the port).
+    - Closing the window stops the monitor and the dashboard server
+      (background processes are killed).
 
     .\monitor-control.ps1        # normal GUI
     .\monitor-control.ps1 -Test  # headless self-test cycle, no GUI
@@ -28,6 +30,7 @@ $root = $PSScriptRoot
 $monitorScript = Join-Path $root 'monitor.ps1'
 $serverScript = Join-Path $root 'serve-dashboard.ps1'
 $snapshotPath = Join-Path $root 'snapshot.json'
+$script:version = '1.4.1'
 
 $script:monitorPid = $null
 $script:monitorStopRequested = $false
@@ -170,8 +173,8 @@ function Get-LastRunInfo {
 # ------------------------------------------------------------------ UI --
 function New-Form {
     $form = New-Object System.Windows.Forms.Form
-    $form.Text = 'Shek Mun Monitor Control'
-    $form.Size = New-Object System.Drawing.Size(400, 360)
+    $form.Text = "Shek Mun Monitor Control  v$script:version"
+    $form.Size = New-Object System.Drawing.Size(600, 560)
     $form.FormBorderStyle = 'FixedDialog'
     $form.MaximizeBox = $false
     $form.StartPosition = 'CenterScreen'
@@ -181,9 +184,9 @@ function New-Form {
     $layout.Padding = New-Object System.Windows.Forms.Padding(8)
     $layout.ColumnCount = 1
     $layout.RowCount = 3
-    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
-    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
-    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('Percent', 100)))
+    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('Percent', 42)))
+    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('Percent', 33)))
+    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('Percent', 25)))
 
     # --- monitoring group ---
     $grpMon = New-Object System.Windows.Forms.GroupBox
@@ -297,6 +300,13 @@ function New-Form {
     $layout.Controls.Add($script:logBox, 0, 2)
 
     $form.Controls.Add($layout)
+
+    $form.Add_FormClosing({
+        Add-Log "Exiting v$script:version - stopping background processes..."
+        Add-Log ("Monitoring: " + (Stop-Monitoring))
+        Add-Log ("Dashboard:  " + (Stop-Dashboard))
+        $script:formClosing = $true
+    })
 
     $timer = New-Object System.Windows.Forms.Timer
     $timer.Interval = 1500

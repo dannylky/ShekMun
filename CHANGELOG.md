@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.4.1] - 2026-08-13
+- Desktop controller: version number in the title bar; window enlarged
+  to 600x560 with the Monitoring/Dashboard boxes and log sized
+  42/33/25%; closing the app now stops the monitor and the dashboard
+  server (all background processes are killed).
+
 ## [1.4.0] - 2026-08-13
 - Desktop controller: Monitoring box now shows a live "Now checking"
   line - current device (room, name, IP, result, RTT) from the latest
