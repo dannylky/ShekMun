@@ -2,6 +2,16 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.1.0] - 2026-08-13
+- Added a live status snapshot: the monitor writes `monitoring/snapshot.json`
+  (latest status per device, debounced to one write per second) for both
+  one-shot and continuous runs.
+- Added `monitoring/dashboard.html`: web dashboard reading the snapshot,
+  auto-refreshing every 10 seconds. Room blocks arranged 4 per row, per-device
+  status dot / RTT / latest check time, plus page and snapshot update times.
+- Added `monitoring/serve-dashboard.ps1`: zero-dependency HTTP server for the
+  dashboard (default http://localhost:8080).
+
 ## [1.0.1] - 2026-08-13
 - Runs now save their results into the project folder automatically:
   every run (one-shot or continuous session end) writes

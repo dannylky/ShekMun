@@ -3,6 +3,29 @@
 Continuous ICMP monitoring of the Shek Mun AV systems, one check scheduler per device
 with randomized timing so devices are never all tested at the same instant.
 
+## Dashboard
+
+The latest status of every device is kept in `monitoring/snapshot.json`
+(written by the monitor, at most once per second, updated by both
+one-shot and continuous runs).
+
+```powershell
+# terminal 1 - monitoring (any mode)
+.\monitoring\monitor.ps1
+
+# terminal 2 - web dashboard
+.\monitoring\serve-dashboard.ps1          # default port 8080, use -Port to change
+```
+
+Open http://localhost:8080/dashboard.html
+
+- Room blocks arranged 4 per row (by room ID), one row per device
+- Each device shows its connection status dot, RTT and its own latest
+  check time
+- The header shows when the page last refreshed and when the snapshot
+  was last updated
+- The page auto-refreshes every 10 seconds
+
 ## Layout
 
 ```

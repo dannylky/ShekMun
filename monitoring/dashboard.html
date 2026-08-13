@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shek Mun AV Monitoring Dashboard</title>
+<style>
+  :root {
+    --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
+    --text: #cdd6f4; --muted: #a6adc8;
+    --ok: #a6e3a1; --fail: #f38ba8; --unknown: #6c7086;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px;
+  }
+  header { margin-bottom: 14px; }
+  h1 { font-size: 20px; margin: 0 0 6px; }
+  #meta { color: var(--muted); font-size: 13px; }
+  #meta b { color: var(--text); }
+  #error {
+    display: none; background: #3a1d24; border: 1px solid var(--fail);
+    color: var(--fail); padding: 8px 12px; border-radius: 6px; margin-bottom: 12px;
+  }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 1500px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+  .room {
+    background: var(--panel); border-radius: 8px; padding: 10px 12px;
+    border-left: 4px solid var(--unknown);
+  }
+  .room.room-ok { border-left-color: var(--ok); }
+  .room.room-fail { border-left-color: var(--fail); }
+  .room h2 { font-size: 14px; margin: 0 0 8px; display: flex; justify-content: space-between; }
+  .room .counts { color: var(--muted); font-weight: normal; font-size: 12px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  td { padding: 2px 4px; border-top: 1px solid #3a3b4d; white-space: nowrap; }
+  tr:first-child td { border-top: none; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
+  .dot.ok { background: var(--ok); }
+  .dot.fail { background: var(--fail); }
+  .dot.unknown { background: var(--unknown); }
+  .dev-name { max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
+  .rtt { color: var(--muted); text-align: right; }
+  .when { color: var(--muted); text-align: right; font-size: 11px; }
+  #unique { margin-top: 14px; max-width: 480px; }
+  .footer { margin-top: 14px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Shek Mun AV Monitoring Dashboard</h1>
+  <div id="meta">Loading snapshot...</div>
+</header>
+<div id="error">Cannot reach snapshot.json - is the monitoring server running?</div>
+<div id="rooms" class="grid"></div>
+<div id="unique"></div>
+<div class="footer">Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
+
+<script>
+const REFRESH_MS = 10000;
+
+const $rooms = document.getElementById('rooms');
+const $unique = document.getElementById('unique');
+const $meta = document.getElementById('meta');
+const $error = document.getElementById('error');
+
+function fmt(iso) {
+  if (!iso) return '-';
+  const d = new Date(iso);
+  const today = new Date().toDateString() === d.toDateString();
+  const time = d.toLocaleTimeString();
+  return today ? time : d.toLocaleDateString() + ' ' + time;
+}
+
+function deviceRow(d) {
+  const tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td><span class="dot ' + d.status + '"></span><span class="dev-name" title="' + d.ip + '">' + d.name + '</span></td>' +
+    '<td class="rtt">' + (d.rttMs >= 0 ? d.rttMs + ' ms' : '&ndash;') + '</td>' +
+    '<td class="when" title="IP: ' + d.ip + '">' + fmt(d.checkedAt) + '</td>';
+  return tr;
+}
+
+function roomBlock(title, devices) {
+  const div = document.createElement('div');
+  div.className = 'room';
+  const ok = devices.filter(d => d.status === 'ok').length;
+  const fail = devices.filter(d => d.status === 'fail').length;
+  const unk = devices.length - ok - fail;
+  div.className += (fail > 0) ? ' room-fail' : (unk > 0 ? '' : ' room-ok');
+  div.innerHTML =
+    '<h2><span>' + title + '</span><span class="counts">' +
+    ok + ' ok / ' + fail + ' fail' + (unk ? ' / ' + unk + ' unknown' : '') + '</span></h2>';
+  const table = document.createElement('table');
+  devices.forEach(d => table.appendChild(deviceRow(d)));
+  div.appendChild(table);
+  return div;
+}
+
+function render(snap) {
+  $rooms.innerHTML = '';
+  for (const room of Object.keys(snap.rooms || {})) {
+    $rooms.appendChild(roomBlock(room, snap.rooms[room]));
+  }
+  if (snap.unique && snap.unique.length) {
+    $unique.innerHTML = '';
+    $unique.appendChild(roomBlock('Shared / Unique', snap.unique));
+  } else {
+    $unique.innerHTML = '';
+  }
+}
+
+async function load() {
+  try {
+    const r = await fetch('snapshot.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const snap = await r.json();
+    $error.style.display = 'none';
+    $meta.innerHTML =
+      'Page updated: <b>' + new Date().toLocaleTimeString() + '</b>' +
+      ' &middot; Snapshot updated: <b>' + fmt(snap.updatedAt) + '</b>' +
+      ' &middot; Snapshot generated: ' + fmt(snap.generatedAt);
+    document.title = 'Shek Mun AV Monitoring (' + fmt(snap.updatedAt) + ')';
+    render(snap);
+  } catch (e) {
+    $error.style.display = 'block';
+    $meta.innerHTML = 'Last successful load: ' + new Date().toLocaleTimeString() + ' - ' + e.message;
+  }
+}
+
+load();
+setInterval(load, REFRESH_MS);
+</script>
+</body>
+</html>
