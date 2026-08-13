@@ -2,6 +2,14 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.0.1] - 2026-08-13
+- Runs now save their results into the project folder automatically:
+  every run (one-shot or continuous session end) writes
+  `monitoring/logs/report-YYYYMMDD-HHmmss.txt` with summary, failures by
+  room/role, and the full failure list. No manual console redirection needed.
+- Continuous sessions report each failing device once per session in the
+  report file.
+
 ## [1.0.0] - 2026-08-13
 - Initial release of the monitoring system.
 - Inventory built from the IP assignment tables in "Shek Mun SOP Short.docx".

@@ -13,8 +13,10 @@
         with -Interval (seconds).
 
     Results are appended to logs\status-YYYYMMDD.csv. Failures are also
-    printed to the console. Old log files are pruned after
-    logRetentionDays.
+    printed to the console. At the end of every run (one-shot finish or
+    Ctrl+C) a report file is written to logs\report-YYYYMMDD-HHmmss.txt
+    with the summary and the full failure list. Old log files are pruned
+    after logRetentionDays.
 
 .EXAMPLE
     .\monitor.ps1
@@ -98,6 +100,8 @@ function Test-Device {
 $started = Get-Date
 $pingCount = 0
 $failCount = 0
+$script:failures = [System.Collections.Generic.List[string]]::new()
+$script:seenThisRun = @{}
 $logFile = Join-Path $logDir ("status-" + (Get-Date).ToString('yyyyMMdd') + '.csv')
 
 if (-not (Test-Path $logFile)) {
@@ -107,45 +111,97 @@ if (-not (Test-Path $logFile)) {
 Write-Host "Monitoring started: $($jobs.Count) devices, master interval $($config.masterIntervalSeconds)s, jitter $($config.jitterFraction * 100)%, timeout $($config.timeoutMs)ms"
 Write-Host "Log: $logFile"
 
+function Write-RunReport {
+    param([string]$Label)
+    $reportFile = Join-Path $logDir ("report-" + (Get-Date).ToString('yyyyMMdd-HHmmss') + '.txt')
+    $ok = $pingCount - $failCount
+    $pct = if ($pingCount -gt 0) { [Math]::Round(100 * $ok / $pingCount, 1) } else { 0 }
+
+    $byRoom = $script:failures | ForEach-Object { ($_ -split ',')[0] } | Group-Object | Sort-Object Count -Descending
+    $byRoleList = foreach ($f in $script:failures) { $room, $name, $ip = $f -split ','; $roles[$ip] }
+    $byRole = $byRoleList | Group-Object | Sort-Object Count -Descending
+
+    $lines = [System.Collections.Generic.List[string]]::new()
+    $lines.Add("# Shek Mun monitoring report - $Label")
+    $lines.Add("generated: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')")
+    $lines.Add("session: $started  duration: $([Math]::Round(((Get-Date) - $started).TotalMinutes, 1)) min")
+    $lines.Add("devices: $($jobs.Count)  checked: $pingCount  OK: $ok  FAIL: $failCount  (OK rate: $pct%)")
+    $lines.Add('')
+    $lines.Add('Failures by room:')
+    if ($byRoom) { foreach ($g in $byRoom) { $lines.Add("  $($g.Name): $($g.Count)") } } else { $lines.Add('  (none)') }
+    $lines.Add('')
+    $lines.Add('Failures by role:')
+    if ($byRole) { foreach ($g in $byRole) { $lines.Add("  $($g.Name): $($g.Count)") } } else { $lines.Add('  (none)') }
+    $lines.Add('')
+    $lines.Add('Failed devices:')
+    if ($script:failures.Count) { foreach ($f in $script:failures) { $lines.Add("  $f") } } else { $lines.Add('  (none)') }
+
+    Set-Content -Path $reportFile -Value $lines -Encoding UTF8
+    Write-Host "Report: $reportFile"
+}
+
+$roles = @{}
+foreach ($d in $inventory.unique) { $roles[$d.ip] = $d.role }
+foreach ($roomName in $inventory.rooms.PSObject.Properties.Name) {
+    foreach ($d in $inventory.rooms.$roomName) { $roles[$d.ip] = $d.role }
+}
+
 if ($OneShot) {
     $jobs | Sort-Object { $rand.Next() } | ForEach-Object {
         $result = Test-Device $_
         $status = if ($result.ok) { 'OK' } else { 'FAIL' }
         $line = "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.fff'),$($_.room),$($_.name),$($_.ip),$status,$($result.rtt)"
         Write-LogLine -File $logFile -Line $line
-        if ($result.ok) { Write-Verbose $line } else { Write-Host "FAIL $($_.room) $($_.name) $($_.ip)" }
+        if ($result.ok) { Write-Verbose $line } else {
+            Write-Host "FAIL $($_.room) $($_.name) $($_.ip)"
+            $script:failures.Add("$($_.room),$($_.name),$($_.ip)")
+        }
+        $pingCount++
+        if (-not $result.ok) { $failCount++ }
     }
     Write-Host "One-shot pass complete."
+    Write-RunReport -Label 'One-shot'
     exit
 }
 
 # -------------------------------------------------------------- main loop --
-while ($true) {
-    Start-Sleep -Milliseconds 500
-    $now = Get-Date
+try {
+    while ($true) {
+        Start-Sleep -Milliseconds 500
+        $now = Get-Date
 
-    foreach ($job in $jobs) {
-        if ($now -lt $job.next) { continue }
+        foreach ($job in $jobs) {
+            if ($now -lt $job.next) { continue }
 
-        $result = Test-Device $job
-        $pingCount++
-        if (-not $result.ok) { $failCount++ }
+            $result = Test-Device $job
+            $pingCount++
+            if (-not $result.ok) { $failCount++ }
 
-        $status = if ($result.ok) { 'OK' } else { 'FAIL' }
-        $line = "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.fff'),$($job.room),$($job.name),$($job.ip),$status,$($result.rtt)"
-        Write-LogLine -File $logFile -Line $line
-        if ($result.ok) { Write-Verbose $line } else { Write-Host "FAIL $($job.room) $($job.name) $($job.ip) (rtt -1)" }
+            $status = if ($result.ok) { 'OK' } else { 'FAIL' }
+            $line = "$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.fff'),$($job.room),$($job.name),$($job.ip),$status,$($result.rtt)"
+            Write-LogLine -File $logFile -Line $line
+            if ($result.ok) { Write-Verbose $line } else {
+                Write-Host "FAIL $($job.room) $($job.name) $($job.ip) (rtt -1)"
+                if (-not $script:seenThisRun.ContainsKey($job.ip)) {
+                    $script:failures.Add("$($job.room),$($job.name),$($job.ip)")
+                    $script:seenThisRun[$job.ip] = $true
+                }
+            }
 
-        $job.next = (Get-Date).AddSeconds((Get-NextInterval))
+            $job.next = (Get-Date).AddSeconds((Get-NextInterval))
+        }
+
+        if ($script:lastHeartbeat -eq $null -or ((Get-Date) - $script:lastHeartbeat).TotalSeconds -ge 300) {
+            Write-Host "[heartbeat] $((Get-Date).ToString('yyyy-MM-dd HH:mm:ss')) pings=$pingCount fails=$failCount"
+            $script:lastHeartbeat = Get-Date
+        }
+
+        # prune old logs
+        Get-ChildItem $logDir -Filter 'status-*.csv' |
+            Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-$config.logRetentionDays) } |
+            Remove-Item -Force -ErrorAction SilentlyContinue
     }
-
-    if ($script:lastHeartbeat -eq $null -or ((Get-Date) - $script:lastHeartbeat).TotalSeconds -ge 300) {
-        Write-Host "[heartbeat] $((Get-Date).ToString('yyyy-MM-dd HH:mm:ss')) pings=$pingCount fails=$failCount"
-        $script:lastHeartbeat = Get-Date
-    }
-
-    # prune old logs
-    Get-ChildItem $logDir -Filter 'status-*.csv' |
-        Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-$config.logRetentionDays) } |
-        Remove-Item -Force -ErrorAction SilentlyContinue
+} finally {
+    Write-Host "Session ended."
+    Write-RunReport -Label 'Continuous session'
 }

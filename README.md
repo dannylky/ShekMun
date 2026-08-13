@@ -66,4 +66,7 @@ This bumps the config version, appends a CHANGELOG.md entry, and commits to git.
 ## Logs
 
 - `logs/status-YYYYMMDD.csv` - one line per check: `timestamp,room,device,ip,result,rttMs`
-- Old logs are pruned automatically after `logRetentionDays`.
+- `logs/report-YYYYMMDD-HHmmss.txt` - written automatically at the end of every
+  run (one-shot finish or Ctrl+C on a continuous session): summary, failures by
+  room and role, and the full failure list
+- Old CSV logs are pruned automatically after `logRetentionDays`
