@@ -223,6 +223,27 @@ function Get-MonitorErrorTail {
     return ''
 }
 
+function Get-LastTempCheckLine {
+    $today = "temp-" + (Get-Date).ToString('yyyyMMdd') + '.csv'
+    $logFile = Join-Path (Join-Path $root 'logs') $today
+    if (-not (Test-Path $logFile)) { return $null }
+    try {
+        $line = Get-Content $logFile -Tail 1 -ErrorAction Stop
+        if (-not $line) { return $null }
+        $parts = $line -split ','
+        if ($parts.Count -lt 7) { return $null }
+        return [PSCustomObject]@{
+            ts     = $parts[0]
+            room   = $parts[1]
+            device = $parts[2]
+            ip     = $parts[3]
+            result = $parts[4]
+            temp   = $parts[5]
+            rtt    = $parts[6]
+        }
+    } catch { return $null }
+}
+
 function Get-LastRunInfo {
     if ($script:lastKnownCreation) { return "Last run started: $($script:lastKnownCreation.ToString('yyyy-MM-dd HH:mm:ss'))" }
     $latestReport = Get-ChildItem (Join-Path $root 'logs') -Filter 'report-*.txt' -ErrorAction SilentlyContinue |
@@ -312,7 +333,8 @@ function New-Form {
     $tempLayout = New-Object System.Windows.Forms.TableLayoutPanel
     $tempLayout.Dock = 'Fill'
     $tempLayout.ColumnCount = 1
-    $tempLayout.RowCount = 3
+    $tempLayout.RowCount = 4
+    $tempLayout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
     $tempLayout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
     $tempLayout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
     $tempLayout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
@@ -321,6 +343,12 @@ function New-Form {
     $script:lblTempStatus.Text = 'Status: Idle'
     $script:lblTempStatus.Font = New-Object System.Drawing.Font('Segoe UI', 10, [System.Drawing.FontStyle]::Bold)
     $script:lblTempStatus.ForeColor = [System.Drawing.Color]::Gray
+
+    $script:lblTempNow = New-Object System.Windows.Forms.Label
+    $script:lblTempNow.Text = 'Now measuring: -'
+    $script:lblTempNow.AutoSize = $true
+    $script:lblTempNow.Font = New-Object System.Drawing.Font('Segoe UI', 9)
+    $script:lblTempNow.ForeColor = [System.Drawing.Color]::DimGray
 
     $script:lblTempLast = New-Object System.Windows.Forms.Label
     $script:lblTempLast.Text = 'Never run'
@@ -342,8 +370,9 @@ function New-Form {
     $tempBtnFlow.Controls.Add($script:btnTempStop)
 
     $tempLayout.Controls.Add($script:lblTempStatus, 0, 0)
-    $tempLayout.Controls.Add($script:lblTempLast, 0, 1)
-    $tempLayout.Controls.Add($tempBtnFlow, 0, 2)
+    $tempLayout.Controls.Add($script:lblTempNow, 0, 1)
+    $tempLayout.Controls.Add($script:lblTempLast, 0, 2)
+    $tempLayout.Controls.Add($tempBtnFlow, 0, 3)
     $grpTemp.Controls.Add($tempLayout)
     $layout.Controls.Add($grpTemp, 0, 1)
 
@@ -508,10 +537,23 @@ function Update-Status {
     if ($tempRunning) {
         if ($script:tempError) { $script:tempError = $null }
         Set-StatusLabel $script:lblTempStatus 'Status: RUNNING' 'SeaGreen'
+        $lastTemp = Get-LastTempCheckLine
+        if ($lastTemp) {
+            $clock = [DateTime]::Parse($lastTemp.ts).ToString('HH:mm:ss')
+            if ($lastTemp.result -eq 'OK') {
+                Set-StatusLabel $script:lblTempNow "Now measuring: $($lastTemp.room) - $($lastTemp.device) (IP:$($lastTemp.ip)) - $($lastTemp.temp)C - OK - $clock" 'SeaGreen'
+            } else {
+                Set-StatusLabel $script:lblTempNow "Now measuring: $($lastTemp.room) - $($lastTemp.device) (IP:$($lastTemp.ip)) - FAIL - $clock" 'Firebrick'
+            }
+        } else {
+            Set-StatusLabel $script:lblTempNow 'Now measuring: waiting for first reading...' 'DimGray'
+        }
     } elseif ($script:tempError) {
         Set-StatusLabel $script:lblTempStatus 'Status: ERROR' 'Firebrick'
+        Set-StatusLabel $script:lblTempNow 'Now measuring: -' 'DimGray'
     } else {
         Set-StatusLabel $script:lblTempStatus 'Status: Idle' 'Gray'
+        Set-StatusLabel $script:lblTempNow 'Now measuring: -' 'DimGray'
     }
     $script:lblTempLast.Text = Get-TempLastInfo
     $script:btnTempStart.Enabled = -not $tempRunning

@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.5.2] - 2026-08-13
+- Desktop controller: Temp Monitor box now shows a live "Now
+  measuring" line - the latest unit read (room, device, IP, temp,
+  result, time) from the temp CSV, colored green/red like the
+  monitoring box.
+
 ## [1.5.1] - 2026-08-13
 - Desktop controller: new "Temp Monitor (Kramer KDS)" group with
   Start/Stop for temp-monitor.py, live status (idle/running/error)
