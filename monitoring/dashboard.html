@@ -314,14 +314,14 @@ setInterval(() => {
   $countdown.textContent = 'Refresh in ' + rem + 's';
 }, 250);
 
-// refresh mediabox thumbnails every 60s (independent of page refresh)
+// refresh mediabox thumbnails every 0.1s (independent of page refresh)
 setInterval(() => {
   camTick = Date.now();
   document.querySelectorAll('.cam').forEach(img => {
     img.style.display = '';
     img.src = img.dataset.base + '?t=' + camTick;
   });
-}, 60000);
+}, 100);
 </script>
 </body>
 </html>
