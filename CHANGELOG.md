@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.4.4] - 2026-08-13
+- Dashboard: new "Device passwords" page (creds.html) listing
+  usernames/passwords with copy and show/hide buttons. Credentials
+  live in monitoring\creds.json which is gitignored - they are never
+  committed or pushed (creds.json.example is the committed template).
+
 ## [1.4.3] - 2026-08-13
 - Dashboard: devices named "TV-Res*" are excluded from display and
   counts (summary shows how many are excluded); monitoring still

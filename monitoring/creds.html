@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shek Mun - Device Passwords</title>
+<style>
+  :root {
+    --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
+    --text: #cdd6f4; --muted: #a6adc8;
+    --ok: #a6e3a1; --fail: #f38ba8; --accent: #89b4fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px;
+  }
+  header { margin-bottom: 12px; }
+  h1 { font-size: 20px; margin: 0 0 6px; }
+  #meta { color: var(--muted); font-size: 13px; }
+  a.back { color: var(--accent); text-decoration: none; font-size: 13px; }
+  a.back:hover { text-decoration: underline; }
+  #error {
+    display: none; background: #3a1d24; border: 1px solid var(--fail);
+    color: var(--fail); padding: 8px 12px; border-radius: 6px; margin-bottom: 12px;
+  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .card {
+    background: var(--panel); border-radius: 8px; padding: 12px 14px;
+    border-left: 4px solid var(--accent);
+  }
+  .card h2 { font-size: 14px; margin: 0 0 10px; }
+  .row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+  .row .lbl { color: var(--muted); width: 80px; flex-shrink: 0; }
+  .row .val {
+    background: var(--panel2); border-radius: 4px; padding: 4px 8px;
+    flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    font-family: Consolas, monospace;
+  }
+  button {
+    background: var(--accent); color: #11111b; border: none; border-radius: 4px;
+    padding: 4px 10px; cursor: pointer; font-size: 12px; flex-shrink: 0;
+  }
+  button:hover { filter: brightness(1.15); }
+  .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
+  .footer { margin-top: 14px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Device Passwords</h1>
+  <div id="meta"><a class="back" href="dashboard.html">&larr; back to dashboard</a></div>
+</header>
+<div id="error">Cannot reach creds.json - file missing (expected at monitoring\creds.json).</div>
+<div id="cards" class="grid"></div>
+<div class="footer">Stored in monitoring\creds.json (not committed to git).</div>
+
+<script>
+const $cards = document.getElementById('cards');
+const $error = document.getElementById('error');
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).catch(() => {});
+}
+
+function card(entry, i) {
+  const div = document.createElement('div');
+  div.className = 'card';
+  div.innerHTML =
+    '<h2>' + entry.name + '</h2>' +
+    '<div class="row"><span class="lbl">Username</span><span class="val">' + entry.username + '</span>' +
+    '<button data-copy="u' + i + '">Copy</button></div>' +
+    '<div class="row"><span class="lbl">Password</span><span class="val" id="p' + i + '">' + entry.password + '</span>' +
+    '<button data-copy="p' + i + '">Copy</button><button data-eye="p' + i + '">Hide</button></div>' +
+    (entry.note ? '<div class="note">' + entry.note + '</div>' : '');
+  div.addEventListener('click', (e) => {
+    const copy = e.target.dataset.copy;
+    if (copy) {
+      const el = document.getElementById(copy);
+      copyText(el.textContent);
+      e.target.textContent = 'Copied!';
+      setTimeout(() => { e.target.textContent = 'Copy'; }, 1200);
+      return;
+    }
+    const eye = e.target.dataset.eye;
+    if (eye) {
+      const el = document.getElementById(eye);
+      const hidden = el.style.webkitTextSecurity === 'disc';
+      if (hidden) { el.style.webkitTextSecurity = 'none'; e.target.textContent = 'Hide'; }
+      else { el.style.webkitTextSecurity = 'disc'; e.target.textContent = 'Show'; }
+    }
+  });
+  return div;
+}
+
+async function load() {
+  try {
+    const r = await fetch('creds.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const creds = await r.json();
+    $error.style.display = 'none';
+    $cards.innerHTML = '';
+    creds.forEach((c, i) => $cards.appendChild(card(c, i)));
+  } catch (e) {
+    $error.style.display = 'block';
+  }
+}
+
+load();
+</script>
+</body>
+</html>

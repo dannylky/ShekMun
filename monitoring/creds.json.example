@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Control Processor",
+    "username": "",
+    "password": "",
+    "note": ""
+  },
+  {
+    "name": "PTZ Camera",
+    "username": "",
+    "password": "",
+    "note": ""
+  },
+  {
+    "name": "Media box",
+    "username": "",
+    "password": "",
+    "note": ""
+  },
+  {
+    "name": "PCU",
+    "username": "",
+    "password": "",
+    "note": ""
+  }
+]
