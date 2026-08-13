@@ -3,6 +3,22 @@
 Continuous ICMP monitoring of the Shek Mun AV systems, one check scheduler per device
 with randomized timing so devices are never all tested at the same instant.
 
+## Desktop controller
+
+`monitoring\monitor-control.ps1` - tiny WinForms app to control everything:
+
+```powershell
+.\monitoring\monitor-control.ps1
+```
+
+- Start / Stop the monitoring run, with live status (**Idle / Running / Error**)
+  and the last run time (polled every 1.5 s)
+- Launch Dashboard button - starts the dashboard server on the chosen port
+  (default 8080) and opens the browser; shows server status and port
+- State survives app restarts: a monitor/server already running is detected
+  on load
+- Headless self-test: `.\monitoring\monitor-control.ps1 -Test`
+
 ## Dashboard
 
 The latest status of every device is kept in `monitoring/snapshot.json`

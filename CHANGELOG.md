@@ -2,6 +2,15 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.2.0] - 2026-08-13
+- Added `monitoring/monitor-control.ps1`: desktop controller app (WinForms)
+  with Start/Stop monitoring buttons, live status (idle/running/error),
+  last run time, and a Launch Dashboard button showing port + server status.
+  State survives app restarts; includes a headless self-test mode (-Test).
+- Fixed monitor.ps1 to not use `$PSScriptRoot` inside param() default
+  values (empty when spawned via `powershell -File`), which broke
+  programmatic start.
+
 ## [1.1.0] - 2026-08-13
 - Added a live status snapshot: the monitor writes `monitoring/snapshot.json`
   (latest status per device, debounced to one write per second) for both

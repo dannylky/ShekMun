@@ -27,14 +27,16 @@
 #>
 [CmdletBinding()]
 param(
-    [string]$ConfigPath = (Join-Path $PSScriptRoot 'config.json'),
-    [string]$DevicesPath = (Join-Path $PSScriptRoot 'devices.json'),
+    [string]$ConfigPath = '',
+    [string]$DevicesPath = '',
     [int]$Interval = -1,
     [switch]$OneShot
 )
 
 $ErrorActionPreference = 'Stop'
 
+if (-not $ConfigPath) { $ConfigPath = Join-Path $PSScriptRoot 'config.json' }
+if (-not $DevicesPath) { $DevicesPath = Join-Path $PSScriptRoot 'devices.json' }
 if (-not (Test-Path $ConfigPath)) { throw "Config not found: $ConfigPath" }
 if (-not (Test-Path $DevicesPath)) { throw "Devices not found: $DevicesPath. Run build-devices.ps1 first." }
 
