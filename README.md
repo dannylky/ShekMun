@@ -38,6 +38,11 @@ Open http://localhost:8080/dashboard.html
 - Room blocks arranged 4 per row (by room ID), one row per device
 - Each device shows its connection status dot, RTT and its own latest
   check time
+- Filter by group with the toolbar chips - **Video / Audio / Control**
+  (roles mapped: display, camera, media, avoip = Video; dante, audio =
+  Audio; control, switch = Control)
+- Sort devices by group (Video > Audio > Control), name, or status
+  (failures first)
 - The header shows when the page last refreshed and when the snapshot
   was last updated
 - The page auto-refreshes every 10 seconds

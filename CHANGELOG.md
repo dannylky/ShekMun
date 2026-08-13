@@ -2,6 +2,14 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.3.0] - 2026-08-13
+- Dashboard: added group filtering (Video / Audio / Control chips,
+  multi-select) and sorting (by group, by name, by status - failures
+  first). Role-to-group mapping: display/camera/media/avoip = Video,
+  dante/audio = Audio, control/switch = Control. Devices are sectioned by
+  group inside each room block when sorted by group; a summary line shows
+  visible/total counts.
+
 ## [1.2.0] - 2026-08-13
 - Added `monitoring/monitor-control.ps1`: desktop controller app (WinForms)
   with Start/Stop monitoring buttons, live status (idle/running/error),

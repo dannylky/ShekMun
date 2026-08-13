@@ -9,6 +9,7 @@
     --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
     --text: #cdd6f4; --muted: #a6adc8;
     --ok: #a6e3a1; --fail: #f38ba8; --unknown: #6c7086;
+    --accent: #89b4fa;
   }
   * { box-sizing: border-box; }
   body {
@@ -16,7 +17,7 @@
     background: var(--bg); color: var(--text);
     margin: 0; padding: 16px;
   }
-  header { margin-bottom: 14px; }
+  header { margin-bottom: 10px; }
   h1 { font-size: 20px; margin: 0 0 6px; }
   #meta { color: var(--muted); font-size: 13px; }
   #meta b { color: var(--text); }
@@ -24,6 +25,27 @@
     display: none; background: #3a1d24; border: 1px solid var(--fail);
     color: var(--fail); padding: 8px 12px; border-radius: 6px; margin-bottom: 12px;
   }
+
+  /* toolbar */
+  .toolbar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+    background: var(--panel); border-radius: 8px; padding: 8px 12px; margin-bottom: 12px;
+    font-size: 13px;
+  }
+  .chips { display: flex; gap: 6px; }
+  .chip {
+    background: var(--panel2); color: var(--text); border: none;
+    border-radius: 14px; padding: 4px 12px; cursor: pointer; font-size: 12px;
+  }
+  .chip:hover { filter: brightness(1.15); }
+  .chip.active { background: var(--accent); color: #11111b; font-weight: bold; }
+  .sort { margin-left: auto; display: flex; align-items: center; gap: 6px; color: var(--muted); }
+  .sort select {
+    background: var(--panel2); color: var(--text); border: none;
+    border-radius: 4px; padding: 4px 6px; font-size: 12px;
+  }
+  #summary { color: var(--muted); font-size: 12px; }
+
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   @media (max-width: 1500px) { .grid { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 1100px) { .grid { grid-template-columns: repeat(2, 1fr); } }
@@ -36,9 +58,12 @@
   .room.room-fail { border-left-color: var(--fail); }
   .room h2 { font-size: 14px; margin: 0 0 8px; display: flex; justify-content: space-between; }
   .room .counts { color: var(--muted); font-weight: normal; font-size: 12px; }
+  .group-head {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--muted); margin: 6px 0 2px; padding-top: 6px; border-top: 1px dashed #3a3b4d;
+  }
   table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  td { padding: 2px 4px; border-top: 1px solid #3a3b4d; white-space: nowrap; }
-  tr:first-child td { border-top: none; }
+  td { padding: 2px 4px; white-space: nowrap; }
   .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
   .dot.ok { background: var(--ok); }
   .dot.fail { background: var(--fail); }
@@ -46,6 +71,7 @@
   .dev-name { max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
   .rtt { color: var(--muted); text-align: right; }
   .when { color: var(--muted); text-align: right; font-size: 11px; }
+  .empty { color: var(--muted); font-size: 12px; padding: 6px 2px; }
   #unique { margin-top: 14px; max-width: 480px; }
   .footer { margin-top: 14px; color: var(--muted); font-size: 12px; }
 </style>
@@ -56,6 +82,25 @@
   <div id="meta">Loading snapshot...</div>
 </header>
 <div id="error">Cannot reach snapshot.json - is the monitoring server running?</div>
+
+<div class="toolbar">
+  <div class="chips" id="groupChips">
+    <button class="chip active" data-g="__all__">All</button>
+    <button class="chip" data-g="Video">Video</button>
+    <button class="chip" data-g="Audio">Audio</button>
+    <button class="chip" data-g="Control">Control</button>
+  </div>
+  <div class="sort">
+    <label for="sortSel">Sort:</label>
+    <select id="sortSel">
+      <option value="group">By Group</option>
+      <option value="name">By Name</option>
+      <option value="status">Status (failures first)</option>
+    </select>
+  </div>
+  <div id="summary"></div>
+</div>
+
 <div id="rooms" class="grid"></div>
 <div id="unique"></div>
 <div class="footer">Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
@@ -63,10 +108,24 @@
 <script>
 const REFRESH_MS = 10000;
 
+// role -> group mapping
+const GROUPS = {
+  'control': 'Control', 'switch': 'Control',
+  'dante': 'Audio', 'audio': 'Audio',
+  'display': 'Video', 'camera': 'Video', 'media': 'Video', 'avoip': 'Video'
+};
+const GROUP_ORDER = ['Video', 'Audio', 'Control'];
+const STATUS_ORDER = { 'fail': 0, 'unknown': 1, 'ok': 2 };
+
 const $rooms = document.getElementById('rooms');
 const $unique = document.getElementById('unique');
 const $meta = document.getElementById('meta');
 const $error = document.getElementById('error');
+const $summary = document.getElementById('summary');
+const $chips = document.getElementById('groupChips');
+const $sortSel = document.getElementById('sortSel');
+
+let activeGroups = null;            // null = all
 
 function fmt(iso) {
   if (!iso) return '-';
@@ -76,42 +135,98 @@ function fmt(iso) {
   return today ? time : d.toLocaleDateString() + ' ' + time;
 }
 
+function groupOf(d) { return GROUPS[d.role] || 'Control'; }
+
+function sortDevices(list) {
+  const mode = $sortSel.value;
+  const arr = list.slice();
+  if (mode === 'group') {
+    arr.sort((a, b) => (GROUP_ORDER.indexOf(groupOf(a)) - GROUP_ORDER.indexOf(groupOf(b))) || a.name.localeCompare(b.name));
+  } else if (mode === 'name') {
+    arr.sort((a, b) => a.name.localeCompare(b.name));
+  } else {
+    arr.sort((a, b) => (STATUS_ORDER[a.status] - STATUS_ORDER[b.status]) || a.name.localeCompare(b.name));
+  }
+  return arr;
+}
+
+function visibleDevices(list) {
+  const all = sortDevices(list);
+  if (!activeGroups) return all;
+  return all.filter(d => activeGroups.has(groupOf(d)));
+}
+
 function deviceRow(d) {
   const tr = document.createElement('tr');
   tr.innerHTML =
-    '<td><span class="dot ' + d.status + '"></span><span class="dev-name" title="' + d.ip + '">' + d.name + '</span></td>' +
+    '<td><span class="dot ' + d.status + '"></span><span class="dev-name" title="' + d.ip + ' [' + groupOf(d) + ']">' + d.name + '</span></td>' +
     '<td class="rtt">' + (d.rttMs >= 0 ? d.rttMs + ' ms' : '&ndash;') + '</td>' +
     '<td class="when" title="IP: ' + d.ip + '">' + fmt(d.checkedAt) + '</td>';
   return tr;
 }
 
-function roomBlock(title, devices) {
+function deviceTable(devices) {
+  const table = document.createElement('table');
+  if (devices.length === 0) {
+    table.innerHTML = '<tr><td class="empty">No devices in this view</td></tr>';
+    return table;
+  }
+  if ($sortSel.value === 'group') {
+    let lastGroup = null;
+    devices.forEach(d => {
+      const g = groupOf(d);
+      if (g !== lastGroup) {
+        const th = document.createElement('tr');
+        th.innerHTML = '<td colspan="3" class="group-head">' + g + '</td>';
+        table.appendChild(th);
+        lastGroup = g;
+      }
+      table.appendChild(deviceRow(d));
+    });
+  } else {
+    devices.forEach(d => table.appendChild(deviceRow(d)));
+  }
+  return table;
+}
+
+function roomBlock(title, allDevices) {
+  const devices = visibleDevices(allDevices);
   const div = document.createElement('div');
   div.className = 'room';
-  const ok = devices.filter(d => d.status === 'ok').length;
-  const fail = devices.filter(d => d.status === 'fail').length;
-  const unk = devices.length - ok - fail;
+  const ok = allDevices.filter(d => d.status === 'ok').length;
+  const fail = allDevices.filter(d => d.status === 'fail').length;
+  const unk = allDevices.length - ok - fail;
   div.className += (fail > 0) ? ' room-fail' : (unk > 0 ? '' : ' room-ok');
   div.innerHTML =
     '<h2><span>' + title + '</span><span class="counts">' +
     ok + ' ok / ' + fail + ' fail' + (unk ? ' / ' + unk + ' unknown' : '') + '</span></h2>';
-  const table = document.createElement('table');
-  devices.forEach(d => table.appendChild(deviceRow(d)));
-  div.appendChild(table);
+  div.appendChild(deviceTable(devices));
   return div;
 }
 
 function render(snap) {
   $rooms.innerHTML = '';
+  let visible = 0, total = 0, ok = 0, fail = 0;
   for (const room of Object.keys(snap.rooms || {})) {
-    $rooms.appendChild(roomBlock(room, snap.rooms[room]));
+    const roomDevices = snap.rooms[room];
+    total += roomDevices.length;
+    const shown = visibleDevices(roomDevices).length;
+    visible += shown;
+    ok += roomDevices.filter(d => d.status === 'ok').length;
+    fail += roomDevices.filter(d => d.status === 'fail').length;
+    $rooms.appendChild(roomBlock(room, roomDevices));
   }
   if (snap.unique && snap.unique.length) {
+    total += snap.unique.length;
+    visible += visibleDevices(snap.unique).length;
+    ok += snap.unique.filter(d => d.status === 'ok').length;
+    fail += snap.unique.filter(d => d.status === 'fail').length;
     $unique.innerHTML = '';
     $unique.appendChild(roomBlock('Shared / Unique', snap.unique));
   } else {
     $unique.innerHTML = '';
   }
+  $summary.textContent = 'Showing ' + visible + ' / ' + total + ' devices · ' + ok + ' ok · ' + fail + ' fail';
 }
 
 async function load() {
@@ -131,6 +246,30 @@ async function load() {
     $meta.innerHTML = 'Last successful load: ' + new Date().toLocaleTimeString() + ' - ' + e.message;
   }
 }
+
+// group filter chips: All resets; group chips toggle individually
+$chips.addEventListener('click', (e) => {
+  const btn = e.target.closest('.chip');
+  if (!btn) return;
+  const g = btn.dataset.g;
+  if (g === '__all__') {
+    activeGroups = null;
+    $chips.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c === btn));
+  } else {
+    if (!activeGroups) activeGroups = new Set();
+    if (activeGroups.has(g)) { activeGroups.delete(g); btn.classList.remove('active'); }
+    else { activeGroups.add(g); btn.classList.add('active'); }
+    if (activeGroups.size === 0) activeGroups = null;
+    const allChip = $chips.querySelector('.chip[data-g="__all__"]');
+    allChip.classList.toggle('active', activeGroups === null);
+  }
+  renderLast();
+});
+
+$sortSel.addEventListener('change', renderLast);
+
+let lastSnap = null;
+function renderLast() { if (lastSnap) render(lastSnap); }
 
 load();
 setInterval(load, REFRESH_MS);
