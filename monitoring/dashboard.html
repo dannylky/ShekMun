@@ -69,6 +69,12 @@
   .dot.fail { background: var(--fail); }
   .dot.unknown { background: var(--unknown); }
   .dev-name { max-width: 230px; overflow: hidden; text-overflow: ellipsis; }
+  a.dev-link {
+    color: var(--accent); text-decoration: none;
+    display: inline-block; max-width: 230px;
+    overflow: hidden; text-overflow: ellipsis; vertical-align: bottom;
+  }
+  a.dev-link:hover { text-decoration: underline; }
   .rtt { color: var(--muted); text-align: right; }
   .when { color: var(--muted); text-align: right; font-size: 11px; }
   .empty { color: var(--muted); font-size: 12px; padding: 6px 2px; }
@@ -164,7 +170,7 @@ function visibleDevices(list) {
 function deviceRow(d) {
   const tr = document.createElement('tr');
   tr.innerHTML =
-    '<td><span class="dot ' + d.status + '"></span><span class="dev-name" title="' + d.ip + ' [' + groupOf(d) + ']">' + d.name + ' (IP:' + d.ip + ')</span></td>' +
+    '<td><span class="dot ' + d.status + '"></span><a class="dev-link" href="http://' + d.ip + '" target="_blank" title="' + d.ip + ' [' + groupOf(d) + '] - click to open http://' + d.ip + '">' + d.name + ' (IP:' + d.ip + ')</a></td>' +
     '<td class="rtt">' + (d.rttMs >= 0 ? d.rttMs + ' ms' : '&ndash;') + '</td>' +
     '<td class="when" title="' + d.name + '">' + fmt(d.checkedAt) + '</td>';
   return tr;

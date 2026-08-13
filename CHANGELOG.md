@@ -2,6 +2,10 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.4.2] - 2026-08-13
+- Dashboard: device names are now clickable links to http://IP
+  (opens in a new tab, accent-colored with hover underline).
+
 ## [1.4.1] - 2026-08-13
 - Desktop controller: version number in the title bar; window enlarged
   to 600x560 with the Monitoring/Dashboard boxes and log sized
