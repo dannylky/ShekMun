@@ -45,6 +45,11 @@
     border-radius: 4px; padding: 4px 6px; font-size: 12px;
   }
   #summary { color: var(--muted); font-size: 12px; }
+  .creds-link {
+    background: var(--panel2); color: var(--accent); text-decoration: none;
+    border-radius: 14px; padding: 4px 12px; font-size: 12px; font-weight: bold;
+  }
+  .creds-link:hover { filter: brightness(1.15); text-decoration: underline; }
 
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   @media (max-width: 1500px) { .grid { grid-template-columns: repeat(3, 1fr); } }
@@ -85,7 +90,7 @@
 <body>
 <header>
   <h1>Shek Mun AV Monitoring Dashboard</h1>
-  <div id="meta">Loading snapshot... <a class="back" href="creds.html" style="color:var(--accent);text-decoration:none;font-size:12px;margin-left:10px;">Device passwords &rarr;</a></div>
+  <div id="meta">Loading snapshot...</div>
 </header>
 <div id="error">Cannot reach snapshot.json - is the monitoring server running?</div>
 
@@ -104,6 +109,7 @@
       <option value="status">Status (failures first)</option>
     </select>
   </div>
+  <a class="creds-link" href="creds.html">Device passwords &rarr;</a>
   <div id="summary"></div>
 </div>
 

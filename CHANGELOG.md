@@ -2,6 +2,10 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.4.5] - 2026-08-13
+- Dashboard: "Device passwords" link moved from the header into the
+  toolbar as a prominent pill button (right of the sort control).
+
 ## [1.4.4] - 2026-08-13
 - Dashboard: new "Device passwords" page (creds.html) listing
   usernames/passwords with copy and show/hide buttons. Credentials
