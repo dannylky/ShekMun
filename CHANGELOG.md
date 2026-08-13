@@ -2,6 +2,19 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.5.8] - 2026-08-13
+- Dashboard server: binds all interfaces (http://+:<port>) so other
+  machines on the LAN can open the dashboard; prints LAN URLs on
+  start; falls back to localhost-only with setup instructions if
+  Windows denies the bind. One-time elevated setup performed
+  (URL ACL + firewall rule for port 8080) and verified - HTTP 200
+  via LAN IPs.
+
+## [1.5.7] - 2026-08-13
+- Temp monitor: now also monitors the AVoIP-Manager (172.18.22.5) -
+  35 units total. It flows through to the dashboard automatically via
+  the snapshot merge (Shared / Unique section, temp badge 27C).
+
 ## [1.5.6] - 2026-08-13
 - Dashboard: temperature badge now shows the update time right beside
   the value (e.g. "36C 14:39:22", time in muted small text).
