@@ -63,6 +63,12 @@
   .room.room-fail { border-left-color: var(--fail); }
   .room h2 { font-size: 14px; margin: 0 0 8px; display: flex; justify-content: space-between; }
   .room .counts { color: var(--muted); font-weight: normal; font-size: 12px; }
+  .cam {
+    width: 96px; height: 54px; object-fit: cover; border-radius: 4px;
+    border: 1px solid var(--panel2); vertical-align: middle; margin-left: 10px;
+    background: var(--panel2);
+  }
+  .cam-wrap:hover .cam { border-color: var(--accent); }
   .group-head {
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
     color: var(--muted); margin: 6px 0 2px; padding-top: 6px; border-top: 1px dashed #3a3b4d;
@@ -143,6 +149,7 @@ $meta.appendChild($countdown);
 
 let activeGroups = null;            // null = all
 let lastLoaded = 0;
+let camTick = Date.now();           // cache-buster for mediabox snapshots
 
 function fmt(iso) {
   if (!iso) return '-';
@@ -217,9 +224,13 @@ function roomBlock(title, allDevices) {
   const ok = shown.filter(d => d.status === 'ok').length;
   const fail = shown.filter(d => d.status === 'fail').length;
   const unk = shown.length - ok - fail;
+  const mb = shown.find(d => /mediabox/i.test(d.name));
+  const camHtml = mb
+    ? '<a class="cam-wrap" href="http://' + mb.ip + '" target="_blank" title="MediaBox ' + mb.ip + '"><img class="cam" data-base="http://' + mb.ip + '/snapshot/snapshot" src="http://' + mb.ip + '/snapshot/snapshot?t=' + camTick + '" alt="MediaBox" onerror="this.style.display=\'none\'"></a>'
+    : '';
   div.className += (fail > 0) ? ' room-fail' : (unk > 0 ? '' : ' room-ok');
   div.innerHTML =
-    '<h2><span>' + title + '</span><span class="counts">' +
+    '<h2><span>' + title + camHtml + '</span><span class="counts">' +
     ok + ' ok / ' + fail + ' fail' + (unk ? ' / ' + unk + ' unknown' : '') + '</span></h2>';
   div.appendChild(deviceTable(devices));
   return div;
@@ -302,6 +313,15 @@ setInterval(() => {
   const rem = Math.max(0, Math.ceil((lastLoaded + REFRESH_MS - Date.now()) / 1000));
   $countdown.textContent = 'Refresh in ' + rem + 's';
 }, 250);
+
+// refresh mediabox thumbnails every 60s (independent of page refresh)
+setInterval(() => {
+  camTick = Date.now();
+  document.querySelectorAll('.cam').forEach(img => {
+    img.style.display = '';
+    img.src = img.dataset.base + '?t=' + camTick;
+  });
+}, 60000);
 </script>
 </body>
 </html>

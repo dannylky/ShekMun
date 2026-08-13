@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.4.7] - 2026-08-13
+- Dashboard: each room header now shows a small live thumbnail from
+  that room's MediaBox (http://IP/snapshot/snapshot, IP taken from
+  devices.json - e.g. SM-11-01 -> 172.18.22.101), refreshed every
+  60 s, hidden if unreachable, clickable to the MediaBox web UI.
+
 ## [1.4.6] - 2026-08-13
 - Bugfix: monitor no longer dies on transient file-lock errors (e.g.
   Windows Search indexer briefly holding status-*.csv). CSV log and
