@@ -2,6 +2,14 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.4.6] - 2026-08-13
+- Bugfix: monitor no longer dies on transient file-lock errors (e.g.
+  Windows Search indexer briefly holding status-*.csv). CSV log and
+  snapshot writes now retry 3x before giving up; per-device checks are
+  guarded; all I/O/check failures go to logs\monitor-error.log.
+- Controller: when the monitor ends unexpectedly it now shows the
+  tail of monitor-error.log in the log box so the cause is visible.
+
 ## [1.4.5] - 2026-08-13
 - Dashboard: "Device passwords" link moved from the header into the
   toolbar as a prominent pill button (right of the sort control).

@@ -156,6 +156,14 @@ function Get-LastCheckLine {
     } catch { return $null }
 }
 
+function Get-MonitorErrorTail {
+    $errFile = Join-Path (Join-Path $root 'logs') 'monitor-error.log'
+    if (-not (Test-Path $errFile)) { return '' }
+    $lines = Get-Content $errFile -Tail 3 -ErrorAction SilentlyContinue
+    if ($lines) { return "  " + ($lines -join "`r`n  ") }
+    return ''
+}
+
 function Get-LastRunInfo {
     if ($script:lastKnownCreation) { return "Last run started: $($script:lastKnownCreation.ToString('yyyy-MM-dd HH:mm:ss'))" }
     $latestReport = Get-ChildItem (Join-Path $root 'logs') -Filter 'report-*.txt' -ErrorAction SilentlyContinue |
@@ -334,6 +342,8 @@ function Update-Status {
         else {
             $script:monitorError = "process ended unexpectedly"
             Add-Log "Monitoring ERROR - process ended unexpectedly (PID $script:lastKnownPid)."
+            $errTail = Get-MonitorErrorTail
+            if ($errTail) { Add-Log "Monitor error log tail: $errTail" }
         }
         $script:lastKnownPid = $null
         $script:monitorStopRequested = $false
