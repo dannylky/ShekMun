@@ -74,6 +74,27 @@ foreach ($roomName in $inventory.rooms.PSObject.Properties.Name) {
 
 function Save-Snapshot {
     $script:snap.updatedAt = (Get-Date).ToString('o')
+
+    # merge latest Kramer KDS temperatures (from temp-monitor.py) by IP
+    $tempPath = Join-Path $PSScriptRoot 'temp-snapshot.json'
+    if (Test-Path $tempPath) {
+        try {
+            $tempSnap = Get-Content $tempPath -Raw | ConvertFrom-Json
+            $tempByIp = @{}
+            foreach ($u in $tempSnap.units) { $tempByIp[$u.ip] = $u.tempC }
+            foreach ($room in $script:snap.rooms.Values) {
+                foreach ($dev in $room) {
+                    $dev.tempC = $tempByIp[$dev.ip]
+                    $dev.tempAt = $tempSnap.updatedAt
+                }
+            }
+            foreach ($dev in $script:snap.unique) {
+                $dev.tempC = $tempByIp[$dev.ip]
+                $dev.tempAt = $tempSnap.updatedAt
+            }
+        } catch {}
+    }
+
     $json = $script:snap | ConvertTo-Json -Depth 6
     $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
     for ($i = 0; $i -lt 3; $i++) {

@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.5.3] - 2026-08-13
+- monitor.ps1 now merges the latest Kramer KDS temperatures (from
+  temp-monitor.py's temp-snapshot.json) into snapshot.json per IP
+  (tempC + tempAt fields).
+- Dashboard: KDS units show their temperature right beside the device
+  name - green below 45C, red at/above 45C.
+
 ## [1.5.2] - 2026-08-13
 - Desktop controller: Temp Monitor box now shows a live "Now
   measuring" line - the latest unit read (room, device, IP, temp,

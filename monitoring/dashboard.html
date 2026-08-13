@@ -86,6 +86,9 @@
     overflow: hidden; text-overflow: ellipsis; vertical-align: bottom;
   }
   a.dev-link:hover { text-decoration: underline; }
+  .temp { margin-left: 8px; font-size: 11px; font-weight: bold; }
+  .temp.t-ok { color: var(--ok); }
+  .temp.t-hot { color: var(--fail); }
   .rtt { color: var(--muted); text-align: right; }
   .when { color: var(--muted); text-align: right; font-size: 11px; }
   .empty { color: var(--muted); font-size: 12px; padding: 6px 2px; }
@@ -190,8 +193,11 @@ function visibleDevices(list) {
 
 function deviceRow(d) {
   const tr = document.createElement('tr');
+  const tempHtml = (typeof d.tempC === 'number')
+    ? '<span class="temp ' + (d.tempC < 45 ? 't-ok' : 't-hot') + '" title="KDS unit temperature">' + d.tempC + '&deg;C</span>'
+    : '';
   tr.innerHTML =
-    '<td><span class="dot ' + d.status + '"></span><a class="dev-link" href="http://' + d.ip + '" target="_blank" title="' + d.ip + ' [' + groupOf(d) + '] - click to open http://' + d.ip + '">' + d.name + ' (IP:' + d.ip + ')</a></td>' +
+    '<td><span class="dot ' + d.status + '"></span><a class="dev-link" href="http://' + d.ip + '" target="_blank" title="' + d.ip + ' [' + groupOf(d) + '] - click to open http://' + d.ip + '">' + d.name + ' (IP:' + d.ip + ')</a>' + tempHtml + '</td>' +
     '<td class="rtt">' + (d.rttMs >= 0 ? d.rttMs + ' ms' : '&ndash;') + '</td>' +
     '<td class="when" title="' + d.name + '">' + fmt(d.checkedAt) + '</td>';
   return tr;
