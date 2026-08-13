@@ -135,8 +135,10 @@ const GROUPS = {
 const GROUP_ORDER = ['Video', 'Audio', 'Control'];
 const STATUS_ORDER = { 'fail': 0, 'unknown': 1, 'ok': 2 };
 
-// temporarily disabled thumbnails (empty list = all enabled)
-const CAM_DISABLED_ROOMS = ['SM-11-05', 'Common Rm'];
+// thumbnail toggles (set CAM_ENABLED to true to turn back on)
+const CAM_ENABLED = false;
+// per-room overrides; rooms listed here stay hidden even when enabled
+const CAM_DISABLED_ROOMS = [];
 
 const $rooms = document.getElementById('rooms');
 const $unique = document.getElementById('unique');
@@ -227,7 +229,7 @@ function roomBlock(title, allDevices) {
   const ok = shown.filter(d => d.status === 'ok').length;
   const fail = shown.filter(d => d.status === 'fail').length;
   const unk = shown.length - ok - fail;
-  const mb = CAM_DISABLED_ROOMS.includes(title) ? null : shown.find(d => /mediabox/i.test(d.name));
+  const mb = (!CAM_ENABLED || CAM_DISABLED_ROOMS.includes(title)) ? null : shown.find(d => /mediabox/i.test(d.name));
   const camHtml = mb
     ? '<a class="cam-wrap" href="http://' + mb.ip + '" target="_blank" title="MediaBox ' + mb.ip + '"><img class="cam" data-base="http://' + mb.ip + '/snapshot/snapshot" src="http://' + mb.ip + '/snapshot/snapshot?t=' + camTick + '" alt="MediaBox" onerror="this.style.display=\'none\'"></a>'
     : '';
