@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.5.1] - 2026-08-13
+- Desktop controller: new "Temp Monitor (Kramer KDS)" group with
+  Start/Stop for temp-monitor.py, live status (idle/running/error)
+  and last-pass summary (OK count + min/max temp) from
+  temp-snapshot.json; closing the app also stops the temp monitor.
+
 ## [1.5.0] - 2026-08-13
 - New: temp-monitor.py - standalone process monitoring system
   temperature of all Kramer KDS-SW3-EN7 (EN-*) and KDS-DEC7

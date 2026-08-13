@@ -9,12 +9,14 @@
     - Monitoring group: status + live "now checking" device (from the
       latest status-CSV row, refreshed every 1.5 s), last run + duration,
       Start / Stop buttons.
+    - Temp monitor group: start/stop temp-monitor.py (Kramer KDS unit
+      temperatures), status + last pass summary from temp-snapshot.json.
     - Dashboard group: server status + port, Launch Dashboard (starts
       the server if needed and opens the browser) / Stop Server.
     - Statuses are polled every 1.5 s; run state survives app restarts
       (re-detected from running processes and the port).
-    - Closing the window stops the monitor and the dashboard server
-      (background processes are killed).
+    - Closing the window stops the monitor, temp monitor and the
+      dashboard server (background processes are killed).
 
     .\monitor-control.ps1        # normal GUI
     .\monitor-control.ps1 -Test  # headless self-test cycle, no GUI
@@ -30,13 +32,19 @@ $root = $PSScriptRoot
 $monitorScript = Join-Path $root 'monitor.ps1'
 $serverScript = Join-Path $root 'serve-dashboard.ps1'
 $snapshotPath = Join-Path $root 'snapshot.json'
-$script:version = '1.4.1'
+$tempScript = Join-Path $root 'temp-monitor.py'
+$tempSnapshotPath = Join-Path $root 'temp-snapshot.json'
+$script:version = '1.5.1'
 
 $script:monitorPid = $null
 $script:monitorStopRequested = $false
 $script:lastKnownPid = $null
 $script:lastKnownCreation = $null
 $script:monitorError = $null
+$script:tempPid = $null
+$script:tempStopRequested = $false
+$script:lastKnownTempPid = $null
+$script:tempError = $null
 $script:port = 8080
 $script:logBuffer = [System.Text.StringBuilder]::new()
 
@@ -136,6 +144,57 @@ function Open-Dashboard {
     return $result
 }
 
+function Get-TempProcess {
+    Get-CimInstance Win32_Process -Filter "Name = 'python.exe'" |
+        Where-Object { $_.CommandLine -like '*temp-monitor.py*' } |
+        Sort-Object CreationDate -Descending | Select-Object -First 1
+}
+
+function Start-TempMonitor {
+    if ($script:tempError) { $script:tempError = $null }
+    if (Get-TempProcess) { return 'already running' }
+    if (-not (Test-Path $tempScript)) { return "temp-monitor.py not found at $tempScript" }
+    try {
+        $p = Start-Process python -ArgumentList @('-u',"`"$tempScript`"") -WindowStyle Hidden -PassThru
+        Start-Sleep -Milliseconds 800
+        if ($p.HasExited) { return "temp monitor exited immediately (code $($p.ExitCode))" }
+        $script:tempPid = $p.Id
+        $script:tempStopRequested = $false
+        return "started (PID $($p.Id))"
+    } catch { return "start failed: $($_.Exception.Message)" }
+}
+
+function Stop-TempMonitor {
+    $tp = Get-TempProcess
+    if (-not $tp) { return 'not running' }
+    $script:tempStopRequested = $true
+    try {
+        Stop-Process -Id $tp.ProcessId -Force -ErrorAction Stop
+        $script:tempPid = $null
+        return "stopped (PID $($tp.ProcessId))"
+    } catch {
+        $script:tempStopRequested = $false
+        return "stop failed: $($_.Exception.Message)"
+    }
+}
+
+function Get-TempLastInfo {
+    if (-not (Test-Path $tempSnapshotPath)) { return 'Never run' }
+    try {
+        $snap = Get-Content $tempSnapshotPath -Raw | ConvertFrom-Json
+        $units = @($snap.units)
+        $ok = @($units | Where-Object { $_.status -eq 'ok' }).Count
+        $temps = @($units | Where-Object { $null -ne $_.tempC } | ForEach-Object { [int]$_.tempC })
+        $last = $snap.updatedAt
+        if ($temps.Count) {
+            $min = ($temps | Measure-Object -Minimum).Minimum
+            $max = ($temps | Measure-Object -Maximum).Maximum
+            return "Last pass: $(([DateTime]$last).ToString('HH:mm:ss')) · $ok/$($units.Count) OK · $min-$max`C"
+        }
+        return "Last pass: $(([DateTime]$last).ToString('HH:mm:ss')) · $ok/$($units.Count) OK"
+    } catch { return 'Never run' }
+}
+
 function Get-LastCheckLine {
     $today = "status-" + (Get-Date).ToString('yyyyMMdd') + '.csv'
     $logFile = Join-Path (Join-Path $root 'logs') $today
@@ -191,10 +250,11 @@ function New-Form {
     $layout.Dock = 'Fill'
     $layout.Padding = New-Object System.Windows.Forms.Padding(8)
     $layout.ColumnCount = 1
-    $layout.RowCount = 3
-    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('Percent', 42)))
-    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('Percent', 33)))
-    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('Percent', 25)))
+    $layout.RowCount = 4
+    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('Percent', 32)))
+    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('Percent', 26)))
+    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('Percent', 24)))
+    $layout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('Percent', 18)))
 
     # --- monitoring group ---
     $grpMon = New-Object System.Windows.Forms.GroupBox
@@ -245,6 +305,48 @@ function New-Form {
     $grpMon.Controls.Add($monLayout)
     $layout.Controls.Add($grpMon, 0, 0)
 
+    # --- temp monitor group ---
+    $grpTemp = New-Object System.Windows.Forms.GroupBox
+    $grpTemp.Text = 'Temp Monitor (Kramer KDS)'
+    $grpTemp.Dock = 'Fill'
+    $tempLayout = New-Object System.Windows.Forms.TableLayoutPanel
+    $tempLayout.Dock = 'Fill'
+    $tempLayout.ColumnCount = 1
+    $tempLayout.RowCount = 3
+    $tempLayout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
+    $tempLayout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
+    $tempLayout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
+
+    $script:lblTempStatus = New-Object System.Windows.Forms.Label
+    $script:lblTempStatus.Text = 'Status: Idle'
+    $script:lblTempStatus.Font = New-Object System.Drawing.Font('Segoe UI', 10, [System.Drawing.FontStyle]::Bold)
+    $script:lblTempStatus.ForeColor = [System.Drawing.Color]::Gray
+
+    $script:lblTempLast = New-Object System.Windows.Forms.Label
+    $script:lblTempLast.Text = 'Never run'
+    $script:lblTempLast.AutoSize = $true
+    $script:lblTempLast.ForeColor = [System.Drawing.Color]::DimGray
+
+    $tempBtnFlow = New-Object System.Windows.Forms.FlowLayoutPanel
+    $tempBtnFlow.Dock = 'Fill'
+    $script:btnTempStart = New-Object System.Windows.Forms.Button
+    $script:btnTempStart.Text = 'Start Temp Monitor'
+    $script:btnTempStart.Width = 150
+    $script:btnTempStart.Add_Click({ Add-Log ("Temp monitor: " + (Start-TempMonitor)) })
+    $script:btnTempStop = New-Object System.Windows.Forms.Button
+    $script:btnTempStop.Text = 'Stop'
+    $script:btnTempStop.Width = 90
+    $script:btnTempStop.Enabled = $false
+    $script:btnTempStop.Add_Click({ Add-Log ("Temp monitor: " + (Stop-TempMonitor)) })
+    $tempBtnFlow.Controls.Add($script:btnTempStart)
+    $tempBtnFlow.Controls.Add($script:btnTempStop)
+
+    $tempLayout.Controls.Add($script:lblTempStatus, 0, 0)
+    $tempLayout.Controls.Add($script:lblTempLast, 0, 1)
+    $tempLayout.Controls.Add($tempBtnFlow, 0, 2)
+    $grpTemp.Controls.Add($tempLayout)
+    $layout.Controls.Add($grpTemp, 0, 1)
+
     # --- dashboard group ---
     $grpDash = New-Object System.Windows.Forms.GroupBox
     $grpDash.Text = 'Dashboard'
@@ -294,7 +396,7 @@ function New-Form {
     $dashLayout.Controls.Add($portRow, 0, 1)
     $dashLayout.Controls.Add($script:lblDashLast, 0, 2)
     $grpDash.Controls.Add($dashLayout)
-    $layout.Controls.Add($grpDash, 0, 1)
+    $layout.Controls.Add($grpDash, 0, 2)
 
     # --- log ---
     $script:logBox = New-Object System.Windows.Forms.TextBox
@@ -305,13 +407,14 @@ function New-Form {
     $script:logBox.BackColor = [System.Drawing.Color]::FromArgb(30, 30, 46)
     $script:logBox.ForeColor = [System.Drawing.Color]::LightGray
     $script:logBox.Font = New-Object System.Drawing.Font('Consolas', 9)
-    $layout.Controls.Add($script:logBox, 0, 2)
+    $layout.Controls.Add($script:logBox, 0, 3)
 
     $form.Controls.Add($layout)
 
     $form.Add_FormClosing({
         Add-Log "Exiting v$script:version - stopping background processes..."
         Add-Log ("Monitoring: " + (Stop-Monitoring))
+        Add-Log ("Temp:       " + (Stop-TempMonitor))
         Add-Log ("Dashboard:  " + (Stop-Dashboard))
         $script:formClosing = $true
     })
@@ -385,6 +488,35 @@ function Update-Status {
     $script:btnMonStart.Enabled = -not $running
     $script:btnMonStop.Enabled = $running
 
+    $tp = Get-TempProcess
+    $tempRunning = $null -ne $tp
+
+    if ($tempRunning -and $null -eq $script:lastKnownTempPid) {
+        $script:lastKnownTempPid = $tp.ProcessId
+        Add-Log "Temp monitor detected: running (PID $($tp.ProcessId))"
+    }
+    if (-not $tempRunning -and $null -ne $script:lastKnownTempPid) {
+        if ($script:tempStopRequested) { Add-Log "Temp monitor stopped (PID $script:lastKnownTempPid)." }
+        else {
+            $script:tempError = "temp monitor ended unexpectedly"
+            Add-Log "Temp monitor ERROR - process ended unexpectedly (PID $script:lastKnownTempPid)."
+        }
+        $script:lastKnownTempPid = $null
+        $script:tempStopRequested = $false
+    }
+
+    if ($tempRunning) {
+        if ($script:tempError) { $script:tempError = $null }
+        Set-StatusLabel $script:lblTempStatus 'Status: RUNNING' 'SeaGreen'
+    } elseif ($script:tempError) {
+        Set-StatusLabel $script:lblTempStatus 'Status: ERROR' 'Firebrick'
+    } else {
+        Set-StatusLabel $script:lblTempStatus 'Status: Idle' 'Gray'
+    }
+    $script:lblTempLast.Text = Get-TempLastInfo
+    $script:btnTempStart.Enabled = -not $tempRunning
+    $script:btnTempStop.Enabled = $tempRunning
+
     $dashRunning = Test-PortListening $script:port
     if ($dashRunning) {
         Set-StatusLabel $script:lblDashStatus "Server: RUNNING  http://localhost:$($script:port)" 'SeaGreen'
@@ -418,6 +550,16 @@ if ($Test) {
     Write-Host "stop: $r4"
     Start-Sleep -Seconds 1
     Write-Host "listening after stop: $(Test-PortListening 8791)"
+
+    Write-Host '== Self test: temp monitor start/stop =='
+    $r5 = Start-TempMonitor
+    Write-Host "temp: $r5"
+    Start-Sleep -Seconds 4
+    Write-Host "detected running: $($null -ne (Get-TempProcess))"
+    $r6 = Stop-TempMonitor
+    Write-Host "stop: $r6"
+    Start-Sleep -Seconds 1
+    Write-Host "still running: $($null -ne (Get-TempProcess))"
     return
 }
 
