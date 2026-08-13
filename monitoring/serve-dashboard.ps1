@@ -5,8 +5,11 @@
 
 .DESCRIPTION
     Serves dashboard.html, snapshot.json and any other files in this
-    folder on http://localhost:<Port>. No admin rights needed. Stop
-    with Ctrl+C.
+    folder on http://localhost:<Port> and - when permissions allow -
+    on all network interfaces (http://+:<Port>) so other machines on
+    the LAN can open the dashboard. First-time LAN setup needs one
+    elevated netsh command (printed if the all-interface bind fails).
+    Stop with Ctrl+C.
 
 .EXAMPLE
     .\serve-dashboard.ps1
@@ -21,8 +24,16 @@ $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 
 $listener = [System.Net.HttpListener]::new()
-$listener.Prefixes.Add("http://localhost:$Port/")
-$listener.Start()
+$servingAll = $true
+$listener.Prefixes.Add("http://+:$Port/")
+try {
+    $listener.Start()
+} catch {
+    $listener.Prefixes.Clear()
+    $listener.Prefixes.Add("http://localhost:$Port/")
+    $listener.Start()
+    $servingAll = $false
+}
 
 $mime = @{
     '.html' = 'text/html; charset=utf-8'
@@ -35,7 +46,20 @@ $mime = @{
 }
 
 Write-Host "Serving $root"
-Write-Host "Dashboard: http://localhost:$Port/dashboard.html"
+if ($servingAll) {
+    $ips = Get-NetIPAddress -AddressFamily IPv4 -ErrorAction SilentlyContinue |
+        Where-Object { $_.IPAddress -notlike '127.*' -and $_.IPAddress -notlike '169.254.*' } |
+        Select-Object -ExpandProperty IPAddress
+    Write-Host "Dashboard: http://localhost:$Port/dashboard.html"
+    foreach ($ip in $ips) { Write-Host "Network:   http://$ip`:$Port/dashboard.html" }
+} else {
+    Write-Host "Dashboard: http://localhost:$Port/dashboard.html"
+    Write-Host 'WARNING: binding to all interfaces failed (permission denied).'
+    Write-Host "To allow LAN access, run once as admin:"
+    Write-Host "  netsh http add urlacl url=http://+:$Port/ user=$([System.Security.Principal.WindowsIdentity]::GetCurrent().Name)"
+    Write-Host '  netsh advfirewall firewall add rule name="ShekMun dashboard" dir=in action=allow protocol=TCP localport='
+    Write-Host "  (then rerun this script - no more admin needed on this machine)"
+}
 Write-Host "Press Ctrl+C to stop."
 
 try {
