@@ -2,6 +2,15 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.5.0] - 2026-08-13
+- New: temp-monitor.py - standalone process monitoring system
+  temperature of all Kramer KDS-SW3-EN7 (EN-*) and KDS-DEC7
+  (TV-DEC-*) units via Protocol 3000 (#HW-TEMP? 0,0, TCP 5000).
+  Auto-selects units from devices.json (AVoIP subnet only), queries in
+  parallel, logs to logs\temp-YYYYMMDD.csv and writes
+  temp-snapshot.json for the dashboard (gitignored). Verified against
+  the live units - response format "~01@HW-TEMP 0,36C" parsed.
+
 ## [1.4.7] - 2026-08-13
 - Dashboard: each room header now shows a small live thumbnail from
   that room's MediaBox (http://IP/snapshot/snapshot, IP taken from
