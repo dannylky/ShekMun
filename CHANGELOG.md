@@ -2,6 +2,10 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.5.6] - 2026-08-13
+- Dashboard: temperature badge now shows the update time right beside
+  the value (e.g. "36C 14:39:22", time in muted small text).
+
 ## [1.5.5] - 2026-08-13
 - Desktop controller: auto-starts everything on load - monitoring,
   temp monitor and dashboard server + browser (skipped if already
