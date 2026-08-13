@@ -77,9 +77,11 @@ function Save-Snapshot {
 
     # merge latest Kramer KDS temperatures (from temp-monitor.py) by IP
     $tempPath = Join-Path $PSScriptRoot 'temp-snapshot.json'
+    $script:snap.tempUpdatedAt = $null
     if (Test-Path $tempPath) {
         try {
             $tempSnap = Get-Content $tempPath -Raw | ConvertFrom-Json
+            $script:snap.tempUpdatedAt = $tempSnap.updatedAt
             $tempByIp = @{}
             foreach ($u in $tempSnap.units) { $tempByIp[$u.ip] = $u.tempC }
             foreach ($room in $script:snap.rooms.Values) {

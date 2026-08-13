@@ -194,7 +194,7 @@ function visibleDevices(list) {
 function deviceRow(d) {
   const tr = document.createElement('tr');
   const tempHtml = (typeof d.tempC === 'number')
-    ? '<span class="temp ' + (d.tempC < 45 ? 't-ok' : 't-hot') + '" title="KDS unit temperature">' + d.tempC + '&deg;C</span>'
+    ? '<span class="temp ' + (d.tempC < 45 ? 't-ok' : 't-hot') + '" title="KDS unit temperature, updated ' + fmt(d.tempAt) + '">' + d.tempC + '&deg;C</span>'
     : '';
   tr.innerHTML =
     '<td><span class="dot ' + d.status + '"></span><a class="dev-link" href="http://' + d.ip + '" target="_blank" title="' + d.ip + ' [' + groupOf(d) + '] - click to open http://' + d.ip + '">' + d.name + ' (IP:' + d.ip + ')</a>' + tempHtml + '</td>' +
@@ -283,7 +283,8 @@ async function load() {
     $meta.innerHTML =
       'Page updated: <b>' + new Date().toLocaleTimeString() + '</b>' +
       ' &middot; Snapshot updated: <b>' + fmt(snap.updatedAt) + '</b>' +
-      ' &middot; Snapshot generated: ' + fmt(snap.generatedAt);
+      ' &middot; Snapshot generated: ' + fmt(snap.generatedAt) +
+      ' &middot; KDS temps updated: <b>' + (snap.tempUpdatedAt ? fmt(snap.tempUpdatedAt) : 'n/a') + '</b>';
     document.title = 'Shek Mun AV Monitoring (' + fmt(snap.updatedAt) + ')';
     lastLoaded = Date.now();
     render(snap);

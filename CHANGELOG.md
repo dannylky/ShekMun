@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.5.4] - 2026-08-13
+- Dashboard: KDS temperature update time shown in the header line
+  ("KDS temps updated: HH:mm:ss", from snapshot's tempUpdatedAt) and
+  in the tooltip of each temperature badge.
+
 ## [1.5.3] - 2026-08-13
 - monitor.ps1 now merges the latest Kramer KDS temperatures (from
   temp-monitor.py's temp-snapshot.json) into snapshot.json per IP
