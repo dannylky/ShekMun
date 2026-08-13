@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.5.9] - 2026-08-13
+- Bugfix: controller no longer misdetects one-shot runs (monitor
+  -OneShot / temp --one-shot) as the live process - it only tracks
+  continuous processes, so running one-shot passes no longer trigger
+  a false "process ended unexpectedly" error.
+
 ## [1.5.8] - 2026-08-13
 - Dashboard server: binds all interfaces (http://+:<port>) so other
   machines on the LAN can open the dashboard; prints LAN URLs on

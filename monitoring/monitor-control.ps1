@@ -59,7 +59,7 @@ function Add-Log {
 
 function Get-MonitorProcess {
     Get-CimInstance Win32_Process -Filter "Name = 'powershell.exe'" |
-        Where-Object { $_.CommandLine -like '*monitor.ps1*' -and $_.CommandLine -notlike '*monitor-control.ps1*' } |
+        Where-Object { $_.CommandLine -like '*monitor.ps1*' -and $_.CommandLine -notlike '*monitor-control.ps1*' -and $_.CommandLine -notlike '*-OneShot*' } |
         Sort-Object CreationDate -Descending | Select-Object -First 1
 }
 
@@ -148,7 +148,7 @@ function Open-Dashboard {
 
 function Get-TempProcess {
     Get-CimInstance Win32_Process -Filter "Name = 'python.exe'" |
-        Where-Object { $_.CommandLine -like '*temp-monitor.py*' } |
+        Where-Object { $_.CommandLine -like '*temp-monitor.py*' -and $_.CommandLine -notlike '*--one-shot*' } |
         Sort-Object CreationDate -Descending | Select-Object -First 1
 }
 
