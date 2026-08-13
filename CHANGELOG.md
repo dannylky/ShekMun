@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.4.0] - 2026-08-13
+- Desktop controller: Monitoring box now shows a live "Now checking"
+  line - current device (room, name, IP, result, RTT) from the latest
+  status-CSV row, colored green/red, refreshed every 1.5 s; the
+  last-run line also shows elapsed run time.
+
 ## [1.3.1] - 2026-08-13
 - Dashboard: added a live "Refresh in Ns" countdown next to the page
   updated time; device names now show as "Name (IP:xxx.xxx.xxx.xxx)".

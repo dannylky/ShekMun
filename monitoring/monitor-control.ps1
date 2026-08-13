@@ -6,7 +6,9 @@
     WinForms app to start/stop the monitor and the dashboard server,
     showing live status (idle / running / error) and last run times.
 
-    - Monitoring group: status + last run, Start / Stop buttons.
+    - Monitoring group: status + live "now checking" device (from the
+      latest status-CSV row, refreshed every 1.5 s), last run + duration,
+      Start / Stop buttons.
     - Dashboard group: server status + port, Launch Dashboard (starts
       the server if needed and opens the browser) / Stop Server.
     - Statuses are polled every 1.5 s; run state survives app restarts
@@ -131,6 +133,26 @@ function Open-Dashboard {
     return $result
 }
 
+function Get-LastCheckLine {
+    $today = "status-" + (Get-Date).ToString('yyyyMMdd') + '.csv'
+    $logFile = Join-Path (Join-Path $root 'logs') $today
+    if (-not (Test-Path $logFile)) { return $null }
+    try {
+        $line = Get-Content $logFile -Tail 1 -ErrorAction Stop
+        if (-not $line) { return $null }
+        $parts = $line -split ','
+        if ($parts.Count -lt 6) { return $null }
+        return [PSCustomObject]@{
+            ts     = $parts[0]
+            room   = $parts[1]
+            device = $parts[2]
+            ip     = $parts[3]
+            result = $parts[4]
+            rtt    = $parts[5]
+        }
+    } catch { return $null }
+}
+
 function Get-LastRunInfo {
     if ($script:lastKnownCreation) { return "Last run started: $($script:lastKnownCreation.ToString('yyyy-MM-dd HH:mm:ss'))" }
     $latestReport = Get-ChildItem (Join-Path $root 'logs') -Filter 'report-*.txt' -ErrorAction SilentlyContinue |
@@ -170,7 +192,8 @@ function New-Form {
     $monLayout = New-Object System.Windows.Forms.TableLayoutPanel
     $monLayout.Dock = 'Fill'
     $monLayout.ColumnCount = 1
-    $monLayout.RowCount = 3
+    $monLayout.RowCount = 4
+    $monLayout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
     $monLayout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
     $monLayout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
     $monLayout.RowStyles.Add((New-Object System.Windows.Forms.RowStyle('AutoSize')))
@@ -179,6 +202,12 @@ function New-Form {
     $script:lblMonStatus.Text = 'Status: Idle'
     $script:lblMonStatus.Font = New-Object System.Drawing.Font('Segoe UI', 11, [System.Drawing.FontStyle]::Bold)
     $script:lblMonStatus.ForeColor = [System.Drawing.Color]::Gray
+
+    $script:lblMonNow = New-Object System.Windows.Forms.Label
+    $script:lblMonNow.Text = 'Now checking: -'
+    $script:lblMonNow.AutoSize = $true
+    $script:lblMonNow.Font = New-Object System.Drawing.Font('Segoe UI', 9)
+    $script:lblMonNow.ForeColor = [System.Drawing.Color]::DimGray
 
     $script:lblMonLast = New-Object System.Windows.Forms.Label
     $script:lblMonLast.Text = 'Never run'
@@ -199,8 +228,9 @@ function New-Form {
     $btnFlow.Controls.Add($script:btnMonStop)
 
     $monLayout.Controls.Add($script:lblMonStatus, 0, 0)
-    $monLayout.Controls.Add($script:lblMonLast, 0, 1)
-    $monLayout.Controls.Add($btnFlow, 0, 2)
+    $monLayout.Controls.Add($script:lblMonNow, 0, 1)
+    $monLayout.Controls.Add($script:lblMonLast, 0, 2)
+    $monLayout.Controls.Add($btnFlow, 0, 3)
     $grpMon.Controls.Add($monLayout)
     $layout.Controls.Add($grpMon, 0, 0)
 
@@ -310,13 +340,27 @@ function Update-Status {
         }
         if ($fresh) { Set-StatusLabel $script:lblMonStatus 'Status: RUNNING' 'SeaGreen' }
         else { Set-StatusLabel $script:lblMonStatus 'Status: RUNNING (no recent checks)' 'DarkOrange' }
-        $script:lblMonLast.Text = "Last run started: $($mp.CreationDate.ToString('yyyy-MM-dd HH:mm:ss'))"
+        $dur = (Get-Date) - $mp.CreationDate
+        $script:lblMonLast.Text = "Last run started: $($mp.CreationDate.ToString('yyyy-MM-dd HH:mm:ss'))  (running for $([Math]::Floor($dur.TotalMinutes))m $($dur.Seconds)s)"
+        $lastCheck = Get-LastCheckLine
+        if ($lastCheck) {
+            $clock = [DateTime]::Parse($lastCheck.ts).ToString('HH:mm:ss')
+            if ($lastCheck.result -eq 'OK') {
+                Set-StatusLabel $script:lblMonNow "Now checking: $($lastCheck.room) - $($lastCheck.device) (IP:$($lastCheck.ip)) - OK - $($lastCheck.rtt) ms - $clock" 'SeaGreen'
+            } else {
+                Set-StatusLabel $script:lblMonNow "Now checking: $($lastCheck.room) - $($lastCheck.device) (IP:$($lastCheck.ip)) - FAIL - $clock" 'Firebrick'
+            }
+        } else {
+            Set-StatusLabel $script:lblMonNow 'Now checking: waiting for first check...' 'DimGray'
+        }
     } elseif ($script:monitorError) {
         Set-StatusLabel $script:lblMonStatus 'Status: ERROR' 'Firebrick'
         $script:lblMonLast.Text = "$($script:monitorError) - " + (Get-LastRunInfo)
+        Set-StatusLabel $script:lblMonNow 'Now checking: -' 'DimGray'
     } else {
         Set-StatusLabel $script:lblMonStatus 'Status: Idle' 'Gray'
         $script:lblMonLast.Text = Get-LastRunInfo
+        Set-StatusLabel $script:lblMonNow 'Now checking: -' 'DimGray'
     }
     $script:btnMonStart.Enabled = -not $running
     $script:btnMonStop.Enabled = $running
