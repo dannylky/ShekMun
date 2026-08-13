@@ -1,0 +1,6 @@
+# logs
+monitoring/logs/
+
+# OS noise
+.DS_Store
+Thumbs.db

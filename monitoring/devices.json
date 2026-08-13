@@ -1,0 +1,1462 @@
+﻿{
+    "generatedAt":  "2026-08-13 11:34:17",
+    "inventoryVersion":  "1.0.0",
+    "source":  "Shek Mun SOP Short.docx (IP assignment tables)",
+    "unique":  [
+                   {
+                       "ip":  "172.18.2.6",
+                       "name":  "DSP-Ctrl",
+                       "role":  "control"
+                   },
+                   {
+                       "ip":  "172.18.2.7",
+                       "name":  "DSP-Dante",
+                       "role":  "dante"
+                   },
+                   {
+                       "ip":  "172.18.22.2",
+                       "name":  "XSM4216F",
+                       "role":  "switch"
+                   },
+                   {
+                       "ip":  "172.18.22.5",
+                       "name":  "AVoIP-Manager",
+                       "role":  "avoip"
+                   }
+               ],
+    "rooms":  {
+                  "SM-11-01":  [
+                                   {
+                                       "ip":  "172.18.22.51",
+                                       "name":  "TV-DEC-2",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.41",
+                                       "name":  "TV-DEC-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.71",
+                                       "name":  "TV-DEC-4",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.61",
+                                       "name":  "TV-DEC-3",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.31",
+                                       "name":  "SW-Lectern-2",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.231",
+                                       "name":  "Speaker-8",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.221",
+                                       "name":  "Speaker-7",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.21",
+                                       "name":  "SW-Lectern",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.11",
+                                       "name":  "SW-Rack",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.81",
+                                       "name":  "Cam-1",
+                                       "role":  "camera"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.161",
+                                       "name":  "TV-Res-3",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.151",
+                                       "name":  "TV-Res-2",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.181",
+                                       "name":  "Audio-DEC",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.171",
+                                       "name":  "TV-Res-4",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.141",
+                                       "name":  "TV-Res-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.101",
+                                       "name":  "MediaBox",
+                                       "role":  "media"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.91",
+                                       "name":  "Cam-2",
+                                       "role":  "camera"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.121",
+                                       "name":  "EN-Laptop-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.111",
+                                       "name":  "EN-PC-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.211",
+                                       "name":  "Speaker-6",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.71",
+                                       "name":  "Dock-2ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.61",
+                                       "name":  "Dock-4ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.91",
+                                       "name":  "Mixer-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.81",
+                                       "name":  "Antenna-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.51",
+                                       "name":  "AVProc-Pi5",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.21",
+                                       "name":  "PCU-Lectern",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.11",
+                                       "name":  "PCU-AVRack",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.41",
+                                       "name":  "HardKey",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.31",
+                                       "name":  "AVProc-Extron",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.101",
+                                       "name":  "USB-PC",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.181",
+                                       "name":  "Speaker-3",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.171",
+                                       "name":  "Speaker-2",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.201",
+                                       "name":  "Speaker-5",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.191",
+                                       "name":  "Speaker-4",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.161",
+                                       "name":  "Speaker-1",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.121",
+                                       "name":  "EN-Laptop-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.111",
+                                       "name":  "EN-PC-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.151",
+                                       "name":  "Mixer-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.141",
+                                       "name":  "Antenna-Dante",
+                                       "role":  "dante"
+                                   }
+                               ],
+                  "SM-11-02":  [
+                                   {
+                                       "ip":  "172.18.22.12",
+                                       "name":  "SW-Rack",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.242",
+                                       "name":  "Speaker-9-USBMac",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.42",
+                                       "name":  "TV-DEC-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.22",
+                                       "name":  "SW-Lectern",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.192",
+                                       "name":  "Speaker-4",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.182",
+                                       "name":  "Speaker-3",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.212",
+                                       "name":  "Speaker-6",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.202",
+                                       "name":  "Speaker-5",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.52",
+                                       "name":  "TV-DEC-2",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.142",
+                                       "name":  "TV-Res-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.132",
+                                       "name":  "EN-Mac-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.182",
+                                       "name":  "Audio-DEC",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.152",
+                                       "name":  "TV-Res-2",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.102",
+                                       "name":  "MediaBox",
+                                       "role":  "media"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.82",
+                                       "name":  "Cam-1",
+                                       "role":  "camera"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.122",
+                                       "name":  "EN-Laptop-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.112",
+                                       "name":  "EN-PC-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.62",
+                                       "name":  "Dock-4ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.52",
+                                       "name":  "AVProc-Pi5",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.82",
+                                       "name":  "Antenna-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.72",
+                                       "name":  "Dock-2ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.22",
+                                       "name":  "PCU-Lectern",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.12",
+                                       "name":  "PCU-AVRack",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.42",
+                                       "name":  "HardKey",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.32",
+                                       "name":  "AVProc-Extron",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.92",
+                                       "name":  "Mixer-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.152",
+                                       "name":  "Mixer-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.142",
+                                       "name":  "Antenna-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.172",
+                                       "name":  "Speaker-2",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.162",
+                                       "name":  "Speaker-1",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.112",
+                                       "name":  "EN-PC-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.102",
+                                       "name":  "USB-PC",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.132",
+                                       "name":  "EN-Mac-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.122",
+                                       "name":  "EN-Laptop-Dante",
+                                       "role":  "dante"
+                                   }
+                               ],
+                  "SM-11-03":  [
+                                   {
+                                       "ip":  "172.18.2.213",
+                                       "name":  "Speaker-6",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.13",
+                                       "name":  "SW-Rack",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.23",
+                                       "name":  "SW-Lectern",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.203",
+                                       "name":  "Speaker-5",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.173",
+                                       "name":  "Speaker-2",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.183",
+                                       "name":  "Speaker-3",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.193",
+                                       "name":  "Speaker-4",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.113",
+                                       "name":  "EN-PC-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.123",
+                                       "name":  "EN-Laptop-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.183",
+                                       "name":  "Audio-DEC",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.103",
+                                       "name":  "MediaBox",
+                                       "role":  "media"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.43",
+                                       "name":  "TV-DEC-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.83",
+                                       "name":  "Cam-1",
+                                       "role":  "camera"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.93",
+                                       "name":  "Cam-2",
+                                       "role":  "camera"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.163",
+                                       "name":  "Speaker-1",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.53",
+                                       "name":  "AVProc-Pi5",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.63",
+                                       "name":  "Dock-4ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.73",
+                                       "name":  "Dock-2ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.43",
+                                       "name":  "HardKey",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.13",
+                                       "name":  "PCU-AVRack",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.23",
+                                       "name":  "PCU-Lectern",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.33",
+                                       "name":  "AVProc-Extron",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.123",
+                                       "name":  "EN-Laptop-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.143",
+                                       "name":  "Antenna-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.153",
+                                       "name":  "Mixer-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.113",
+                                       "name":  "EN-PC-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.83",
+                                       "name":  "Antenna-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.93",
+                                       "name":  "Mixer-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.103",
+                                       "name":  "USB-PC",
+                                       "role":  "dante"
+                                   }
+                               ],
+                  "SM-11-04":  [
+                                   {
+                                       "ip":  "172.18.2.204",
+                                       "name":  "Speaker-5",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.214",
+                                       "name":  "Speaker-6",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.14",
+                                       "name":  "SW-Rack",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.194",
+                                       "name":  "Speaker-4",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.164",
+                                       "name":  "Speaker-1",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.174",
+                                       "name":  "Speaker-2",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.184",
+                                       "name":  "Speaker-3",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.114",
+                                       "name":  "EN-PC-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.124",
+                                       "name":  "EN-Laptop-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.184",
+                                       "name":  "Audio-DEC",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.104",
+                                       "name":  "MediaBox",
+                                       "role":  "media"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.24",
+                                       "name":  "SW-Lectern",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.44",
+                                       "name":  "TV-DEC-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.84",
+                                       "name":  "Cam-1",
+                                       "role":  "camera"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.54",
+                                       "name":  "AVProc-Pi5",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.64",
+                                       "name":  "Dock-4ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.74",
+                                       "name":  "Dock-2ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.44",
+                                       "name":  "HardKey",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.14",
+                                       "name":  "PCU-AVRack",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.24",
+                                       "name":  "PCU-Lectern",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.34",
+                                       "name":  "AVProc-Extron",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.124",
+                                       "name":  "EN-Laptop-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.144",
+                                       "name":  "Antenna-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.154",
+                                       "name":  "Mixer-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.114",
+                                       "name":  "EN-PC-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.84",
+                                       "name":  "Antenna-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.94",
+                                       "name":  "Mixer-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.104",
+                                       "name":  "USB-PC",
+                                       "role":  "dante"
+                                   }
+                               ],
+                  "SM-11-05":  [
+                                   {
+                                       "ip":  "172.18.2.215",
+                                       "name":  "Speaker-6",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.15",
+                                       "name":  "SW-Rack",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.25",
+                                       "name":  "SW-Lectern",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.205",
+                                       "name":  "Speaker-5",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.175",
+                                       "name":  "Speaker-2",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.185",
+                                       "name":  "Speaker-3",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.195",
+                                       "name":  "Speaker-4",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.115",
+                                       "name":  "EN-PC-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.125",
+                                       "name":  "EN-Laptop-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.185",
+                                       "name":  "Audio-DEC",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.105",
+                                       "name":  "MediaBox",
+                                       "role":  "media"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.45",
+                                       "name":  "TV-DEC-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.85",
+                                       "name":  "Cam-1",
+                                       "role":  "camera"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.95",
+                                       "name":  "Cam-2",
+                                       "role":  "camera"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.165",
+                                       "name":  "Speaker-1",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.55",
+                                       "name":  "AVProc-Pi5",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.65",
+                                       "name":  "Dock-4ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.75",
+                                       "name":  "Dock-2ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.45",
+                                       "name":  "HardKey",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.15",
+                                       "name":  "PCU-AVRack",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.25",
+                                       "name":  "PCU-Lectern",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.35",
+                                       "name":  "AVProc-Extron",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.125",
+                                       "name":  "EN-Laptop-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.145",
+                                       "name":  "Antenna-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.155",
+                                       "name":  "Mixer-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.115",
+                                       "name":  "EN-PC-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.85",
+                                       "name":  "Antenna-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.95",
+                                       "name":  "Mixer-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.105",
+                                       "name":  "USB-PC",
+                                       "role":  "dante"
+                                   }
+                               ],
+                  "SM-11-06":  [
+                                   {
+                                       "ip":  "172.18.2.206",
+                                       "name":  "Speaker-5",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.216",
+                                       "name":  "Speaker-6",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.16",
+                                       "name":  "SW-Rack",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.196",
+                                       "name":  "Speaker-4",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.166",
+                                       "name":  "Speaker-1",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.176",
+                                       "name":  "Speaker-2",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.186",
+                                       "name":  "Speaker-3",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.116",
+                                       "name":  "EN-PC-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.126",
+                                       "name":  "EN-Laptop-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.186",
+                                       "name":  "Audio-DEC",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.106",
+                                       "name":  "MediaBox",
+                                       "role":  "media"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.26",
+                                       "name":  "SW-Lectern",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.46",
+                                       "name":  "TV-DEC-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.86",
+                                       "name":  "Cam-1",
+                                       "role":  "camera"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.56",
+                                       "name":  "AVProc-Pi5",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.66",
+                                       "name":  "Dock-4ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.76",
+                                       "name":  "Dock-2ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.46",
+                                       "name":  "HardKey",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.16",
+                                       "name":  "PCU-AVRack",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.26",
+                                       "name":  "PCU-Lectern",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.36",
+                                       "name":  "AVProc-Extron",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.126",
+                                       "name":  "EN-Laptop-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.146",
+                                       "name":  "Antenna-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.156",
+                                       "name":  "Mixer-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.116",
+                                       "name":  "EN-PC-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.86",
+                                       "name":  "Antenna-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.96",
+                                       "name":  "Mixer-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.106",
+                                       "name":  "USB-PC",
+                                       "role":  "dante"
+                                   }
+                               ],
+                  "SM-11-07":  [
+                                   {
+                                       "ip":  "172.18.22.17",
+                                       "name":  "SW-Rack",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.27",
+                                       "name":  "SW-Lectern",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.47",
+                                       "name":  "TV-DEC-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.217",
+                                       "name":  "Speaker-6",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.187",
+                                       "name":  "Speaker-3",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.197",
+                                       "name":  "Speaker-4",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.207",
+                                       "name":  "Speaker-5",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.57",
+                                       "name":  "TV-DEC-2",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.147",
+                                       "name":  "TV-Res-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.157",
+                                       "name":  "TV-Res-2",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.187",
+                                       "name":  "Audio-DEC",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.127",
+                                       "name":  "EN-Laptop-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.87",
+                                       "name":  "Cam-1",
+                                       "role":  "camera"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.107",
+                                       "name":  "MediaBox",
+                                       "role":  "media"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.117",
+                                       "name":  "EN-PC-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.177",
+                                       "name":  "Speaker-2",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.57",
+                                       "name":  "AVProc-Pi5",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.67",
+                                       "name":  "Dock-4ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.77",
+                                       "name":  "Dock-2ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.47",
+                                       "name":  "HardKey",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.17",
+                                       "name":  "PCU-AVRack",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.27",
+                                       "name":  "PCU-Lectern",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.37",
+                                       "name":  "AVProc-Extron",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.87",
+                                       "name":  "Antenna-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.147",
+                                       "name":  "Antenna-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.157",
+                                       "name":  "Mixer-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.167",
+                                       "name":  "Speaker-1",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.127",
+                                       "name":  "EN-Laptop-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.97",
+                                       "name":  "Mixer-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.107",
+                                       "name":  "USB-PC",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.117",
+                                       "name":  "EN-PC-Dante",
+                                       "role":  "dante"
+                                   }
+                               ],
+                  "SM-11-08":  [
+                                   {
+                                       "ip":  "172.18.2.248",
+                                       "name":  "Speaker-9-USBMac",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.238",
+                                       "name":  "Speaker-8",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.28",
+                                       "name":  "SW-Lectern",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.18",
+                                       "name":  "SW-Rack",
+                                       "role":  "switch"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.208",
+                                       "name":  "Speaker-5",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.198",
+                                       "name":  "Speaker-4",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.228",
+                                       "name":  "Speaker-7",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.218",
+                                       "name":  "Speaker-6",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.48",
+                                       "name":  "TV-DEC-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.148",
+                                       "name":  "TV-Res-1",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.128",
+                                       "name":  "EN-Laptop-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.188",
+                                       "name":  "Audio-DEC",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.158",
+                                       "name":  "TV-Res-2",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.88",
+                                       "name":  "Cam-1",
+                                       "role":  "camera"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.58",
+                                       "name":  "TV-DEC-2",
+                                       "role":  "display"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.118",
+                                       "name":  "EN-PC-AVoIP",
+                                       "role":  "avoip"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.108",
+                                       "name":  "MediaBox",
+                                       "role":  "media"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.68",
+                                       "name":  "Dock-4ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.58",
+                                       "name":  "AVProc-Pi5",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.88",
+                                       "name":  "Antenna-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.78",
+                                       "name":  "Dock-2ch",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.28",
+                                       "name":  "PCU-Lectern",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.18",
+                                       "name":  "PCU-AVRack",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.48",
+                                       "name":  "HardKey",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.38",
+                                       "name":  "AVProc-Extron",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.98",
+                                       "name":  "Mixer-Ctrl",
+                                       "role":  "control"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.168",
+                                       "name":  "Speaker-1",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.158",
+                                       "name":  "Mixer-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.188",
+                                       "name":  "Speaker-3",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.178",
+                                       "name":  "Speaker-2",
+                                       "role":  "audio"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.118",
+                                       "name":  "EN-PC-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.108",
+                                       "name":  "USB-PC",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.148",
+                                       "name":  "Antenna-Dante",
+                                       "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.2.128",
+                                       "name":  "EN-Laptop-Dante",
+                                       "role":  "dante"
+                                   }
+                               ],
+                  "Common Rm":  [
+                                    {
+                                        "ip":  "172.18.2.229",
+                                        "name":  "Speaker-7",
+                                        "role":  "audio"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.239",
+                                        "name":  "Speaker-8",
+                                        "role":  "audio"
+                                    },
+                                    {
+                                        "ip":  "172.18.22.19",
+                                        "name":  "SW-Rack",
+                                        "role":  "switch"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.219",
+                                        "name":  "Speaker-6",
+                                        "role":  "audio"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.189",
+                                        "name":  "Speaker-3",
+                                        "role":  "audio"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.199",
+                                        "name":  "Speaker-4",
+                                        "role":  "audio"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.209",
+                                        "name":  "Speaker-5",
+                                        "role":  "audio"
+                                    },
+                                    {
+                                        "ip":  "172.18.22.29",
+                                        "name":  "SW-Lectern",
+                                        "role":  "switch"
+                                    },
+                                    {
+                                        "ip":  "172.18.22.129",
+                                        "name":  "EN-Laptop-AVoIP",
+                                        "role":  "avoip"
+                                    },
+                                    {
+                                        "ip":  "172.18.22.149",
+                                        "name":  "TV-Res-1",
+                                        "role":  "display"
+                                    },
+                                    {
+                                        "ip":  "172.18.22.189",
+                                        "name":  "Audio-DEC",
+                                        "role":  "audio"
+                                    },
+                                    {
+                                        "ip":  "172.18.22.119",
+                                        "name":  "EN-PC-AVoIP",
+                                        "role":  "avoip"
+                                    },
+                                    {
+                                        "ip":  "172.18.22.49",
+                                        "name":  "TV-DEC-1",
+                                        "role":  "display"
+                                    },
+                                    {
+                                        "ip":  "172.18.22.89",
+                                        "name":  "Cam-1",
+                                        "role":  "camera"
+                                    },
+                                    {
+                                        "ip":  "172.18.22.109",
+                                        "name":  "MediaBox",
+                                        "role":  "media"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.179",
+                                        "name":  "Speaker-2",
+                                        "role":  "audio"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.59",
+                                        "name":  "AVProc-Pi5",
+                                        "role":  "control"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.69",
+                                        "name":  "Dock-4ch",
+                                        "role":  "control"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.79",
+                                        "name":  "Dock-2ch",
+                                        "role":  "control"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.49",
+                                        "name":  "HardKey",
+                                        "role":  "control"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.19",
+                                        "name":  "PCU-AVRack",
+                                        "role":  "control"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.29",
+                                        "name":  "PCU-Lectern",
+                                        "role":  "control"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.39",
+                                        "name":  "AVProc-Extron",
+                                        "role":  "control"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.89",
+                                        "name":  "Antenna-Ctrl",
+                                        "role":  "control"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.149",
+                                        "name":  "Antenna-Dante",
+                                        "role":  "dante"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.159",
+                                        "name":  "Mixer-Dante",
+                                        "role":  "dante"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.169",
+                                        "name":  "Speaker-1",
+                                        "role":  "audio"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.129",
+                                        "name":  "EN-Laptop-Dante",
+                                        "role":  "dante"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.99",
+                                        "name":  "Mixer-Ctrl",
+                                        "role":  "control"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.109",
+                                        "name":  "USB-PC",
+                                        "role":  "dante"
+                                    },
+                                    {
+                                        "ip":  "172.18.2.119",
+                                        "name":  "EN-PC-Dante",
+                                        "role":  "dante"
+                                    }
+                                ]
+              }
+}

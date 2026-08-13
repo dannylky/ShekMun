@@ -1,0 +1,1 @@
+﻿{"version":"1.0.0","masterIntervalSeconds":10,"jitterFraction":0.5,"minIntervalSeconds":2,"timeoutMs":3000,"logRetentionDays":30,"logDirectory":"logs"}
