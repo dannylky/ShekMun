@@ -2,6 +2,10 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.3.1] - 2026-08-13
+- Dashboard: added a live "Refresh in Ns" countdown next to the page
+  updated time; device names now show as "Name (IP:xxx.xxx.xxx.xxx)".
+
 ## [1.3.0] - 2026-08-13
 - Dashboard: added group filtering (Video / Audio / Control chips,
   multi-select) and sorting (by group, by name, by status - failures

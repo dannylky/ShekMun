@@ -68,7 +68,7 @@
   .dot.ok { background: var(--ok); }
   .dot.fail { background: var(--fail); }
   .dot.unknown { background: var(--unknown); }
-  .dev-name { max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
+  .dev-name { max-width: 230px; overflow: hidden; text-overflow: ellipsis; }
   .rtt { color: var(--muted); text-align: right; }
   .when { color: var(--muted); text-align: right; font-size: 11px; }
   .empty { color: var(--muted); font-size: 12px; padding: 6px 2px; }
@@ -124,8 +124,13 @@ const $error = document.getElementById('error');
 const $summary = document.getElementById('summary');
 const $chips = document.getElementById('groupChips');
 const $sortSel = document.getElementById('sortSel');
+const $countdown = document.createElement('span');
+$countdown.id = 'countdown';
+$countdown.style.cssText = 'color:var(--accent);margin-left:10px;';
+$meta.appendChild($countdown);
 
 let activeGroups = null;            // null = all
+let lastLoaded = 0;
 
 function fmt(iso) {
   if (!iso) return '-';
@@ -159,9 +164,9 @@ function visibleDevices(list) {
 function deviceRow(d) {
   const tr = document.createElement('tr');
   tr.innerHTML =
-    '<td><span class="dot ' + d.status + '"></span><span class="dev-name" title="' + d.ip + ' [' + groupOf(d) + ']">' + d.name + '</span></td>' +
+    '<td><span class="dot ' + d.status + '"></span><span class="dev-name" title="' + d.ip + ' [' + groupOf(d) + ']">' + d.name + ' (IP:' + d.ip + ')</span></td>' +
     '<td class="rtt">' + (d.rttMs >= 0 ? d.rttMs + ' ms' : '&ndash;') + '</td>' +
-    '<td class="when" title="IP: ' + d.ip + '">' + fmt(d.checkedAt) + '</td>';
+    '<td class="when" title="' + d.name + '">' + fmt(d.checkedAt) + '</td>';
   return tr;
 }
 
@@ -240,6 +245,7 @@ async function load() {
       ' &middot; Snapshot updated: <b>' + fmt(snap.updatedAt) + '</b>' +
       ' &middot; Snapshot generated: ' + fmt(snap.generatedAt);
     document.title = 'Shek Mun AV Monitoring (' + fmt(snap.updatedAt) + ')';
+    lastLoaded = Date.now();
     render(snap);
   } catch (e) {
     $error.style.display = 'block';
@@ -273,6 +279,11 @@ function renderLast() { if (lastSnap) render(lastSnap); }
 
 load();
 setInterval(load, REFRESH_MS);
+
+setInterval(() => {
+  const rem = Math.max(0, Math.ceil((lastLoaded + REFRESH_MS - Date.now()) / 1000));
+  $countdown.textContent = 'Refresh in ' + rem + 's';
+}, 250);
 </script>
 </body>
 </html>
