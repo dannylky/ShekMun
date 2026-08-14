@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.6.4] - 2026-08-14
+- Bugfix: temp monitor could die when writing temp-snapshot.json -
+  os.replace fails on Windows if the controller is reading the file
+  (it polls every 1.5 s). Snapshot/CSV writes now retry and the
+  pass/loop never crash on I/O errors; failures go to
+  logs\temp-monitor-error.log. Verified under read-hammering.
+
 ## [1.6.3] - 2026-08-13
 - Tab renamed PTC -> PTZ; its iframe now loads
   http://10.107.147.121/dashboard_shekmun.html (verified HTTP 200).
