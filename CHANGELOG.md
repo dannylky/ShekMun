@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.6.2] - 2026-08-13
+- Port 80 released for Microsoft IIS: serve-dashboard.ps1 gained a
+  -SkipPort80 switch (controller uses it), the port-80 URL ACL and
+  firewall rule were removed. Server now runs on 8080 only.
+
 ## [1.6.1] - 2026-08-13
 - New "PTC" tab: ptc.html embeds http://localhost/dashboard_shekmun.html
   (port 80) in an iframe; tab added to all pages.

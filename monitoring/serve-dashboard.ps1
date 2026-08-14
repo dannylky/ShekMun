@@ -14,16 +14,21 @@
     Device list:   /dashboard.html
     Passwords:     /creds.html
 
+    Port 80 is also served unless -SkipPort80 is given (use it when
+    IIS or another web server owns port 80).
+
     First-time LAN / port-80 setup needs elevated netsh commands
     (printed if a bind fails). Stop with Ctrl+C.
 
 .EXAMPLE
     .\serve-dashboard.ps1
     .\serve-dashboard.ps1 -Port 9000
+    .\serve-dashboard.ps1 -SkipPort80
 #>
 [CmdletBinding()]
 param(
-    [int]$Port = 8080
+    [int]$Port = 8080,
+    [switch]$SkipPort80
 )
 
 $ErrorActionPreference = 'Stop'
@@ -50,7 +55,7 @@ try {
     $script:primaryLocalOnly = $true
 }
 
-if ($Port -ne 80) {
+if ($Port -ne 80 -and -not $SkipPort80) {
     $extra = New-Listener 80 -AllInterfaces
     try {
         $extra.Start()

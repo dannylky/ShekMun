@@ -112,7 +112,7 @@ function Start-Dashboard {
     if (Test-PortListening $Port) { return "port $Port already in use" }
     if (-not (Test-Path $serverScript)) { return "serve-dashboard.ps1 not found at $serverScript" }
     try {
-        $p = Start-Process powershell -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',"`"$serverScript`"",'-Port',"$Port") -WindowStyle Hidden -PassThru
+        $p = Start-Process powershell -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',"`"$serverScript`"",'-Port',"$Port",'-SkipPort80') -WindowStyle Hidden -PassThru
         Start-Sleep -Seconds 1
         if (Test-PortListening $Port) {
             $script:dashStopRequested = $false
