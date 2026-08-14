@@ -99,6 +99,7 @@
   .temp .temp-time { color: var(--muted); font-weight: normal; font-size: 10px; margin-left: 4px; }
   .rtt { color: var(--muted); text-align: right; }
   .when { color: var(--muted); text-align: right; font-size: 11px; }
+  .when.stale { color: var(--fail); font-weight: bold; }
   .empty { color: var(--muted); font-size: 12px; padding: 6px 2px; }
   #unique { margin-top: 14px; max-width: 480px; }
   .footer { margin-top: 14px; color: var(--muted); font-size: 12px; }
@@ -209,10 +210,11 @@ function deviceRow(d) {
   const tempHtml = (typeof d.tempC === 'number')
     ? '<span class="temp ' + (d.tempC < 45 ? 't-ok' : 't-hot') + '" title="KDS unit temperature, updated ' + fmt(d.tempAt) + '">' + d.tempC + '&deg;C<span class="temp-time">' + fmt(d.tempAt) + '</span></span>'
     : '';
+  const stale = !d.checkedAt || (Date.now() - new Date(d.checkedAt).getTime()) > 5 * 60 * 1000;
   tr.innerHTML =
     '<td><span class="dot ' + d.status + '"></span><a class="dev-link" href="http://' + d.ip + '" target="_blank" title="' + d.ip + ' [' + groupOf(d) + '] - click to open http://' + d.ip + '">' + d.name + ' (IP:' + d.ip + ')</a>' + tempHtml + '</td>' +
     '<td class="rtt">' + (d.rttMs >= 0 ? d.rttMs + ' ms' : '&ndash;') + '</td>' +
-    '<td class="when" title="' + d.name + '">' + fmt(d.checkedAt) + '</td>';
+    '<td class="when' + (stale ? ' stale' : '') + '" title="' + d.name + '">' + fmt(d.checkedAt) + '</td>';
   return tr;
 }
 

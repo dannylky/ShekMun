@@ -2,6 +2,10 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.6.5] - 2026-08-14
+- Dashboard: device last-update time turns bold red when older than
+  5 minutes (devices that stopped reporting stand out).
+
 ## [1.6.4] - 2026-08-14
 - Bugfix: temp monitor could die when writing temp-snapshot.json -
   os.replace fails on Windows if the controller is reading the file
