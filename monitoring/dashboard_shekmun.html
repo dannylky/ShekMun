@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shek Mun AV Monitoring</title>
+<style>
+  :root {
+    --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
+    --text: #cdd6f4; --muted: #a6adc8;
+    --ok: #a6e3a1; --fail: #f38ba8; --unknown: #6c7086;
+    --accent: #89b4fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px;
+  }
+  /* tab bar */
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--panel);
+    border-radius: 8px 8px 0 0; padding: 8px 12px 0; margin-bottom: 12px;
+  }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; font-size: 14px; font-weight: bold;
+    padding: 7px 18px; border-radius: 8px 8px 0 0;
+  }
+  nav.tabs a:hover { color: var(--text); background: var(--panel2); }
+  nav.tabs a.active { color: #11111b; background: var(--accent); }
+  h1 { font-size: 18px; margin: 0 0 8px; }
+  #meta { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+  #meta b { color: var(--text); }
+  #error {
+    display: none; background: #3a1d24; border: 1px solid var(--fail);
+    color: var(--fail); padding: 8px 12px; border-radius: 6px; margin-bottom: 12px;
+  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .card { background: var(--panel); border-radius: 8px; padding: 12px 14px; border-left: 4px solid var(--unknown); }
+  .card.good { border-left-color: var(--ok); }
+  .card.bad { border-left-color: var(--fail); }
+  .card h3 { margin: 0 0 4px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .card .big { font-size: 26px; font-weight: bold; }
+  .card .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .room {
+    background: var(--panel); border-radius: 8px; padding: 10px 12px;
+    border-left: 4px solid var(--unknown);
+  }
+  .room.room-ok { border-left-color: var(--ok); }
+  .room.room-fail { border-left-color: var(--fail); }
+  .room h2 { font-size: 13px; margin: 0 0 6px; display: flex; justify-content: space-between; }
+  .room .counts { color: var(--muted); font-weight: normal; font-size: 12px; }
+  .room .row { display: flex; justify-content: space-between; font-size: 12px; padding: 2px 0; }
+  .room .row .k { color: var(--muted); }
+  .row-hot { color: var(--fail); font-weight: bold; }
+  .row-ok { color: var(--ok); }
+  .panel { background: var(--panel); border-radius: 8px; padding: 10px 12px; margin-bottom: 16px; }
+  .panel h2 { font-size: 13px; margin: 0 0 8px; }
+  .panel ul { margin: 0; padding-left: 18px; font-size: 12px; color: var(--muted); }
+  .panel li { padding: 2px 0; }
+  .panel li .t-hot { color: var(--fail); font-weight: bold; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 900px) { .cols { grid-template-columns: 1fr; } }
+  .footer { margin-top: 14px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<nav class="tabs">
+  <a href="dashboard_shekmun.html" class="active">Main</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="creds.html">Passwords</a>
+</nav>
+
+<h1>Shek Mun AV Monitoring - Main</h1>
+<div id="meta">Loading...</div>
+<div id="error">Cannot reach snapshot.json - is the monitoring server running?</div>
+
+<div class="cards" id="cards"></div>
+<div class="rooms" id="rooms"></div>
+<div class="cols">
+  <div class="panel" id="hotPanel"><h2>Hot KDS units (&ge;45&deg;C)</h2><ul id="hotList"><li>Loading...</li></ul></div>
+  <div class="panel" id="failPanel"><h2>Latest failures</h2><ul id="failList"><li>Loading...</li></ul></div>
+</div>
+<div class="footer">Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
+
+<script>
+const REFRESH_MS = 10000;
+const GROUPS = {
+  'control': 'Control', 'switch': 'Control',
+  'dante': 'Audio', 'audio': 'Audio',
+  'display': 'Video', 'camera': 'Video', 'media': 'Video', 'avoip': 'Video'
+};
+
+const $cards = document.getElementById('cards');
+const $rooms = document.getElementById('rooms');
+const $meta = document.getElementById('meta');
+const $error = document.getElementById('error');
+const $hotList = document.getElementById('hotList');
+const $failList = document.getElementById('failList');
+
+function fmt(iso) {
+  if (!iso) return '-';
+  const d = new Date(iso);
+  const today = new Date().toDateString() === d.toDateString();
+  const time = d.toLocaleTimeString();
+  return today ? time : d.toLocaleDateString() + ' ' + time;
+}
+
+function allDevices(snap) {
+  const out = [];
+  for (const room of Object.keys(snap.rooms || {})) {
+    (snap.rooms[room] || []).forEach(d => out.push(d));
+  }
+  (snap.unique || []).forEach(d => out.push(d));
+  return out;
+}
+
+function card(icon, title, value, sub, cls) {
+  const div = document.createElement('div');
+  div.className = 'card ' + cls;
+  div.innerHTML = '<h3>' + title + '</h3><div class="big">' + value + '</div><div class="sub">' + sub + '</div>';
+  return div;
+}
+
+function render(snap) {
+  const devs = allDevices(snap);
+  const ok = devs.filter(d => d.status === 'ok').length;
+  const fail = devs.filter(d => d.status === 'fail').length;
+  const unk = devs.length - ok - fail;
+  const temps = devs.filter(d => typeof d.tempC === 'number' && d.tempC !== null).map(d => d.tempC);
+  const tempOk = temps.filter(t => t < 45).length;
+  const tempHot = temps.length - tempOk;
+  const avg = temps.length ? Math.round(temps.reduce((a, b) => a + b, 0) / temps.length) : null;
+
+  $cards.innerHTML = '';
+  $cards.appendChild(card('devices', 'Devices', devs.length, ok + ' ok / ' + fail + ' fail' + (unk ? ' / ' + unk + ' unknown' : ''), fail ? 'bad' : 'good'));
+  $cards.appendChild(card('kds', 'KDS units', temps.length, tempHot ? tempHot + ' hot (&ge;45&deg;C)' : 'all cool', tempHot ? 'bad' : 'good'));
+  $cards.appendChild(card('temp', 'Avg KDS temp', avg !== null ? avg + '&deg;C' : 'n/a', temps.length ? 'min ' + Math.min(...temps) + '&deg;C / max ' + Math.max(...temps) + '&deg;C' : 'no readings', tempHot ? 'bad' : 'good'));
+  $cards.appendChild(card('rate', 'OK rate', fail ? Math.round(100 * ok / devs.length) + '%' : '100%', 'of ' + devs.length + ' checked', fail ? 'bad' : 'good'));
+
+  $rooms.innerHTML = '';
+  for (const room of Object.keys(snap.rooms || {})) {
+    const rd = snap.rooms[room] || [];
+    const rOk = rd.filter(d => d.status === 'ok').length;
+    const rFail = rd.filter(d => d.status === 'fail').length;
+    const rUnk = rd.length - rOk - rFail;
+    const rTemps = rd.filter(d => typeof d.tempC === 'number').map(d => d.tempC);
+    const rHot = rTemps.filter(t => t >= 45);
+    const rMax = rTemps.length ? Math.max(...rTemps) : null;
+    const div = document.createElement('div');
+    div.className = 'room' + (rFail ? ' room-fail' : (rUnk ? '' : ' room-ok'));
+    div.innerHTML =
+      '<h2><span>' + room + '</span><span class="counts">' + rOk + ' ok / ' + rFail + ' fail' + (rUnk ? ' / ' + rUnk + ' unknown' : '') + '</span></h2>' +
+      (rMax !== null
+        ? '<div class="row"><span class="k">Max KDS temp</span><span class="' + (rHot.length ? 'row-hot' : 'row-ok') + '">' + rMax + '&deg;C' + (rHot.length ? ' (' + rHot.length + ' hot)' : '') + '</span></div>'
+        : '');
+    $rooms.appendChild(div);
+  }
+
+  $hotList.innerHTML = '';
+  const hot = devs.filter(d => typeof d.tempC === 'number' && d.tempC >= 45).sort((a, b) => b.tempC - a.tempC);
+  if (!hot.length) {
+    $hotList.innerHTML = '<li>No hot units</li>';
+  } else {
+    hot.forEach(d => {
+      const li = document.createElement('li');
+      li.innerHTML = d.name + ' (IP:' + d.ip + ') <span class="t-hot">' + d.tempC + '&deg;C</span> &middot; ' + fmt(d.tempAt);
+      $hotList.appendChild(li);
+    });
+  }
+
+  $failList.innerHTML = '';
+  const fails = devs.filter(d => d.status === 'fail').sort((a, b) => new Date(b.checkedAt) - new Date(a.checkedAt)).slice(0, 10);
+  if (!fails.length) {
+    $failList.innerHTML = '<li>No failures</li>';
+  } else {
+    fails.forEach(d => {
+      const li = document.createElement('li');
+      li.innerHTML = d.name + ' (IP:' + d.ip + ') &middot; ' + fmt(d.checkedAt);
+      $failList.appendChild(li);
+    });
+  }
+}
+
+async function load() {
+  try {
+    const r = await fetch('snapshot.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const snap = await r.json();
+    $error.style.display = 'none';
+    $meta.innerHTML =
+      'Page updated: <b>' + new Date().toLocaleTimeString() + '</b>' +
+      ' &middot; Snapshot updated: <b>' + fmt(snap.updatedAt) + '</b>' +
+      ' &middot; KDS temps updated: <b>' + (snap.tempUpdatedAt ? fmt(snap.tempUpdatedAt) : 'n/a') + '</b>';
+    document.title = 'Shek Mun AV Monitoring (' + fmt(snap.updatedAt) + ')';
+    render(snap);
+  } catch (e) {
+    $error.style.display = 'block';
+    $meta.innerHTML = 'Last successful load: ' + new Date().toLocaleTimeString() + ' - ' + e.message;
+  }
+}
+
+load();
+setInterval(load, REFRESH_MS);
+</script>
+</body>
+</html>

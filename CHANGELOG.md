@@ -2,6 +2,16 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.6.0] - 2026-08-13
+- New main page dashboard_shekmun.html: overview with summary cards
+  (devices, KDS temps, avg temp, OK rate), per-room cards with max
+  KDS temp, hot-unit list (>=45C) and latest failures. All three
+  pages (Main / Dashboard / Passwords) share a top tab bar.
+- Server also listens on port 80, so the main page is available as
+  http://localhost/dashboard_shekmun.html (plus the 8080 URL). Port
+  80 URL ACL + firewall rule added (elevated). Controller opens the
+  main page.
+
 ## [1.5.9] - 2026-08-13
 - Bugfix: controller no longer misdetects one-shot runs (monitor
   -OneShot / temp --one-shot) as the live process - it only tracks

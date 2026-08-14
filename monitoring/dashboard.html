@@ -26,6 +26,18 @@
     color: var(--fail); padding: 8px 12px; border-radius: 6px; margin-bottom: 12px;
   }
 
+  /* tab bar */
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--panel);
+    border-radius: 8px 8px 0 0; padding: 8px 12px 0; margin-bottom: 12px;
+  }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; font-size: 14px; font-weight: bold;
+    padding: 7px 18px; border-radius: 8px 8px 0 0;
+  }
+  nav.tabs a:hover { color: var(--text); background: var(--panel2); }
+  nav.tabs a.active { color: #11111b; background: var(--accent); }
+
   /* toolbar */
   .toolbar {
     display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
@@ -45,11 +57,6 @@
     border-radius: 4px; padding: 4px 6px; font-size: 12px;
   }
   #summary { color: var(--muted); font-size: 12px; }
-  .creds-link {
-    background: var(--panel2); color: var(--accent); text-decoration: none;
-    border-radius: 14px; padding: 4px 12px; font-size: 12px; font-weight: bold;
-  }
-  .creds-link:hover { filter: brightness(1.15); text-decoration: underline; }
 
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
   @media (max-width: 1500px) { .grid { grid-template-columns: repeat(3, 1fr); } }
@@ -98,6 +105,11 @@
 </style>
 </head>
 <body>
+<nav class="tabs">
+  <a href="dashboard_shekmun.html">Main</a>
+  <a href="dashboard.html" class="active">Dashboard</a>
+  <a href="creds.html">Passwords</a>
+</nav>
 <header>
   <h1>Shek Mun AV Monitoring Dashboard</h1>
   <div id="meta">Loading snapshot...</div>
@@ -119,7 +131,6 @@
       <option value="status">Status (failures first)</option>
     </select>
   </div>
-  <a class="creds-link" href="creds.html">Device passwords &rarr;</a>
   <div id="summary"></div>
 </div>
 

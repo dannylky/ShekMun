@@ -137,10 +137,10 @@ function Open-Dashboard {
     param([int]$Port)
     $result = Start-Dashboard $Port
     if ($result -like 'running*') {
-        Start-Process "http://localhost:$Port/dashboard.html"
+        Start-Process "http://localhost:$Port/dashboard_shekmun.html"
         return $result
     } elseif ($result -like 'port*in use') {
-        Start-Process "http://localhost:$Port/dashboard.html"
+        Start-Process "http://localhost:$Port/dashboard_shekmun.html"
         return $result
     }
     return $result

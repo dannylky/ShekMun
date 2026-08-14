@@ -19,12 +19,20 @@
   header { margin-bottom: 12px; }
   h1 { font-size: 20px; margin: 0 0 6px; }
   #meta { color: var(--muted); font-size: 13px; }
-  a.back { color: var(--accent); text-decoration: none; font-size: 13px; }
-  a.back:hover { text-decoration: underline; }
   #error {
     display: none; background: #3a1d24; border: 1px solid var(--fail);
     color: var(--fail); padding: 8px 12px; border-radius: 6px; margin-bottom: 12px;
   }
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--panel);
+    border-radius: 8px 8px 0 0; padding: 8px 12px 0; margin-bottom: 12px;
+  }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; font-size: 14px; font-weight: bold;
+    padding: 7px 18px; border-radius: 8px 8px 0 0;
+  }
+  nav.tabs a:hover { color: var(--text); background: var(--panel2); }
+  nav.tabs a.active { color: #11111b; background: var(--accent); }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
   .card {
     background: var(--panel); border-radius: 8px; padding: 12px 14px;
@@ -48,9 +56,13 @@
 </style>
 </head>
 <body>
+<nav class="tabs">
+  <a href="dashboard_shekmun.html">Main</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="creds.html" class="active">Passwords</a>
+</nav>
 <header>
   <h1>Device Passwords</h1>
-  <div id="meta"><a class="back" href="dashboard.html">&larr; back to dashboard</a></div>
 </header>
 <div id="error">Cannot reach creds.json - file missing (expected at monitoring\creds.json).</div>
 <div id="cards" class="grid"></div>
