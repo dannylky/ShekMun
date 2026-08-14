@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -108,7 +108,7 @@
 <nav class="tabs">
   <a href="dashboard_shekmun.html">Main</a>
   <a href="dashboard.html" class="active">Dashboard</a>
-  <a href="ptc.html">PTC</a>
+  <a href="ptc.html">PTZ</a>
   <a href="creds.html">Passwords</a>
 </nav>
 <header>
@@ -284,7 +284,7 @@ function render(snap) {
   } else {
     $unique.innerHTML = '';
   }
-  $summary.textContent = 'Showing ' + visible + ' / ' + total + ' devices · ' + ok + ' ok · ' + fail + ' fail' + (excluded ? ' · ' + excluded + ' excluded (TV-Res)' : '');
+  $summary.textContent = 'Showing ' + visible + ' / ' + total + ' devices 繚 ' + ok + ' ok 繚 ' + fail + ' fail' + (excluded ? ' 繚 ' + excluded + ' excluded (TV-Res)' : '');
 }
 
 async function load() {
@@ -350,3 +350,4 @@ setInterval(() => {
 </script>
 </body>
 </html>
+

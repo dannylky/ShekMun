@@ -2,6 +2,10 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.6.3] - 2026-08-13
+- Tab renamed PTC -> PTZ; its iframe now loads
+  http://10.107.147.121/dashboard_shekmun.html (verified HTTP 200).
+
 ## [1.6.2] - 2026-08-13
 - Port 80 released for Microsoft IIS: serve-dashboard.ps1 gained a
   -SkipPort80 switch (controller uses it), the port-80 URL ACL and
