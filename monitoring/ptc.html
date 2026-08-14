@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shek Mun AV Monitoring - PTC</title>
+<style>
+  :root {
+    --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
+    --text: #cdd6f4; --muted: #a6adc8; --accent: #89b4fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px;
+  }
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--panel);
+    border-radius: 8px 8px 0 0; padding: 8px 12px 0; margin-bottom: 12px;
+  }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; font-size: 14px; font-weight: bold;
+    padding: 7px 18px; border-radius: 8px 8px 0 0;
+  }
+  nav.tabs a:hover { color: var(--text); background: var(--panel2); }
+  nav.tabs a.active { color: #11111b; background: var(--accent); }
+  iframe {
+    width: 100%; height: calc(100vh - 110px);
+    border: 1px solid var(--panel2); border-radius: 8px; background: var(--panel);
+  }
+  #note { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
+</style>
+</head>
+<body>
+<nav class="tabs">
+  <a href="dashboard_shekmun.html">Main</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="ptc.html" class="active">PTC</a>
+  <a href="creds.html">Passwords</a>
+</nav>
+<div id="note">Showing http://localhost/dashboard_shekmun.html (port 80).</div>
+<iframe id="ptc" src="http://localhost/dashboard_shekmun.html" title="PTC main page"></iframe>
+</body>
+</html>

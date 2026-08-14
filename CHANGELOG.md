@@ -2,6 +2,10 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.6.1] - 2026-08-13
+- New "PTC" tab: ptc.html embeds http://localhost/dashboard_shekmun.html
+  (port 80) in an iframe; tab added to all pages.
+
 ## [1.6.0] - 2026-08-13
 - New main page dashboard_shekmun.html: overview with summary cards
   (devices, KDS temps, avg temp, OK rate), per-room cards with max
