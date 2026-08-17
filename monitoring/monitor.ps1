@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Continuously monitors all rooms/devices from devices.json using ICMP.
 
@@ -34,9 +34,10 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+$scriptRoot = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent ([System.Diagnostics.Process]::GetCurrentProcess().MainModule.FileName) }
 
-if (-not $ConfigPath) { $ConfigPath = Join-Path $PSScriptRoot 'config.json' }
-if (-not $DevicesPath) { $DevicesPath = Join-Path $PSScriptRoot 'devices.json' }
+if (-not $ConfigPath) { $ConfigPath = Join-Path $scriptRoot 'config.json' }
+if (-not $DevicesPath) { $DevicesPath = Join-Path $scriptRoot 'devices.json' }
 if (-not (Test-Path $ConfigPath)) { throw "Config not found: $ConfigPath" }
 if (-not (Test-Path $DevicesPath)) { throw "Devices not found: $DevicesPath. Run build-devices.ps1 first." }
 
@@ -46,7 +47,7 @@ if ($Interval -gt 0) { $config.masterIntervalSeconds = $Interval }
 $inventory = Get-Content $DevicesPath -Raw | ConvertFrom-Json
 
 $logDir = if ([System.IO.Path]::IsPathRooted($config.logDirectory)) { $config.logDirectory }
-          else { Join-Path $PSScriptRoot $config.logDirectory }
+          else { Join-Path $scriptRoot $config.logDirectory }
 New-Item -ItemType Directory -Path $logDir -Force | Out-Null
 $script:errorLog = Join-Path $logDir 'monitor-error.log'
 
@@ -60,7 +61,7 @@ function Write-ErrorLog {
 $rand = [System.Random]::new()
 
 # ------------------------------------------------------------- snapshot --
-$script:snapshotPath = Join-Path $PSScriptRoot 'snapshot.json'
+$script:snapshotPath = Join-Path $scriptRoot 'snapshot.json'
 $script:snap = @{
     version     = 1
     generatedAt = (Get-Date).ToString('o')
@@ -76,7 +77,7 @@ function Save-Snapshot {
     $script:snap.updatedAt = (Get-Date).ToString('o')
 
     # merge latest Kramer KDS temperatures (from temp-monitor.py) by IP
-    $tempPath = Join-Path $PSScriptRoot 'temp-snapshot.json'
+    $tempPath = Join-Path $scriptRoot 'temp-snapshot.json'
     $script:snap.tempUpdatedAt = $null
     if (Test-Path $tempPath) {
         try {
@@ -295,3 +296,4 @@ try {
     try { Write-RunReport -Label 'Continuous session' }
     catch { Write-ErrorLog "report write failed: $($_.Exception.Message)" }
 }
+

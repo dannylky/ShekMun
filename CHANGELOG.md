@@ -2,6 +2,22 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.7.0] - 2026-08-17
+- Deployment package: build-deploy.ps1 compiles the system into 4
+  EXEs (monitor, serve-dashboard, monitor-control via ps2exe;
+  temp-monitor via PyInstaller onefile) and zips
+  ShekMun-Monitor-v1.7.0.zip (34 MB, incl. SOP docx files).
+  Contents: EXEs + web pages + config + devices + creds template +
+  Start Monitor Control.bat + setup-once.bat + README-RUN.txt.
+  Creds.json stays out of the package (copied manually after unzip).
+- EXE portability: scripts now resolve their folder via the exe path
+  when $PSScriptRoot is empty (PS2EXE quirk); controller spawns and
+  detects the EXE processes, falling back to scripts when no EXEs
+  are present. Verified: controller self-test, temp one-shot, LAN
+  serving all pass from the packaged copy.
+- Repo backup taken before the build:
+  C:\Work\Projects\ShekMun-Backup-20260817-085026
+
 ## [1.6.5] - 2026-08-14
 - Dashboard: device last-update time turns bold red when older than
   5 minutes (devices that stopped reporting stand out).

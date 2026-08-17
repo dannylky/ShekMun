@@ -30,13 +30,22 @@ $ErrorActionPreference = 'SilentlyContinue'
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
-$root = $PSScriptRoot
+$root = if ($PSScriptRoot) { $PSScriptRoot } else { Split-Path -Parent ([System.Diagnostics.Process]::GetCurrentProcess().MainModule.FileName) }
 $monitorScript = Join-Path $root 'monitor.ps1'
 $serverScript = Join-Path $root 'serve-dashboard.ps1'
 $snapshotPath = Join-Path $root 'snapshot.json'
 $tempScript = Join-Path $root 'temp-monitor.py'
 $tempSnapshotPath = Join-Path $root 'temp-snapshot.json'
-$script:version = '1.5.5'
+$script:version = '1.7.0'
+
+# prefer compiled EXEs when present (deployment package), fall back to scripts
+function Get-LaunchTarget {
+    param([string]$BaseName)
+    $exe = Join-Path $root "$BaseName.exe"
+    $ps1 = Join-Path $root "$BaseName.ps1"
+    if (Test-Path $exe) { return $exe }
+    return $ps1
+}
 
 $script:monitorPid = $null
 $script:monitorStopRequested = $false
@@ -58,14 +67,14 @@ function Add-Log {
 }
 
 function Get-MonitorProcess {
-    Get-CimInstance Win32_Process -Filter "Name = 'powershell.exe'" |
-        Where-Object { $_.CommandLine -like '*monitor.ps1*' -and $_.CommandLine -notlike '*monitor-control.ps1*' -and $_.CommandLine -notlike '*-OneShot*' } |
+    Get-CimInstance Win32_Process -Filter "Name = 'powershell.exe' OR Name = 'monitor.exe'" |
+        Where-Object { ($_.CommandLine -like '*monitor.ps1*' -or $_.Name -eq 'monitor.exe') -and $_.CommandLine -notlike '*monitor-control*' -and $_.CommandLine -notlike '*-OneShot*' } |
         Sort-Object CreationDate -Descending | Select-Object -First 1
 }
 
 function Get-ServerProcess {
-    Get-CimInstance Win32_Process -Filter "Name = 'powershell.exe'" |
-        Where-Object { $_.CommandLine -like '*serve-dashboard.ps1*' } |
+    Get-CimInstance Win32_Process -Filter "Name = 'powershell.exe' OR Name = 'serve-dashboard.exe'" |
+        Where-Object { $_.CommandLine -like '*serve-dashboard.ps1*' -or $_.Name -eq 'serve-dashboard.exe' } |
         Sort-Object CreationDate -Descending | Select-Object -First 1
 }
 
@@ -82,9 +91,14 @@ function Test-PortListening {
 function Start-Monitoring {
     if ($script:monitorError) { $script:monitorError = $null }
     if (Get-MonitorProcess) { return 'already running' }
-    if (-not (Test-Path $monitorScript)) { return "monitor.ps1 not found at $monitorScript" }
+    $target = Get-LaunchTarget 'monitor'
+    if (-not (Test-Path $target)) { return "monitor not found at $target" }
     try {
-        $p = Start-Process powershell -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',"`"$monitorScript`"") -WindowStyle Hidden -PassThru
+        if ($target -like '*.exe') {
+            $p = Start-Process $target -WindowStyle Hidden -PassThru
+        } else {
+            $p = Start-Process powershell -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',"`"$target`"") -WindowStyle Hidden -PassThru
+        }
         Start-Sleep -Milliseconds 800
         if ($p.HasExited) { return "monitor exited immediately (code $($p.ExitCode))" }
         $script:monitorPid = $p.Id
@@ -110,9 +124,14 @@ function Stop-Monitoring {
 function Start-Dashboard {
     param([int]$Port)
     if (Test-PortListening $Port) { return "port $Port already in use" }
-    if (-not (Test-Path $serverScript)) { return "serve-dashboard.ps1 not found at $serverScript" }
+    $target = Get-LaunchTarget 'serve-dashboard'
+    if (-not (Test-Path $target)) { return "serve-dashboard not found at $target" }
     try {
-        $p = Start-Process powershell -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',"`"$serverScript`"",'-Port',"$Port",'-SkipPort80') -WindowStyle Hidden -PassThru
+        if ($target -like '*.exe') {
+            $p = Start-Process $target -ArgumentList @('-Port',"$Port",'-SkipPort80') -WindowStyle Hidden -PassThru
+        } else {
+            $p = Start-Process powershell -ArgumentList @('-NoProfile','-ExecutionPolicy','Bypass','-File',"`"$target`"",'-Port',"$Port",'-SkipPort80') -WindowStyle Hidden -PassThru
+        }
         Start-Sleep -Seconds 1
         if (Test-PortListening $Port) {
             $script:dashStopRequested = $false
@@ -147,17 +166,22 @@ function Open-Dashboard {
 }
 
 function Get-TempProcess {
-    Get-CimInstance Win32_Process -Filter "Name = 'python.exe'" |
-        Where-Object { $_.CommandLine -like '*temp-monitor.py*' -and $_.CommandLine -notlike '*--one-shot*' } |
+    Get-CimInstance Win32_Process -Filter "Name = 'python.exe' OR Name = 'temp-monitor.exe'" |
+        Where-Object { ($_.CommandLine -like '*temp-monitor.py*' -or $_.Name -eq 'temp-monitor.exe') -and $_.CommandLine -notlike '*--one-shot*' } |
         Sort-Object CreationDate -Descending | Select-Object -First 1
 }
 
 function Start-TempMonitor {
     if ($script:tempError) { $script:tempError = $null }
     if (Get-TempProcess) { return 'already running' }
-    if (-not (Test-Path $tempScript)) { return "temp-monitor.py not found at $tempScript" }
+    $target = Get-LaunchTarget 'temp-monitor'
+    if (-not (Test-Path $target)) { return "temp monitor not found at $target" }
     try {
-        $p = Start-Process python -ArgumentList @('-u',"`"$tempScript`"") -WindowStyle Hidden -PassThru
+        if ($target -like '*.exe') {
+            $p = Start-Process $target -WindowStyle Hidden -PassThru
+        } else {
+            $p = Start-Process python -ArgumentList @('-u',"`"$target`"") -WindowStyle Hidden -PassThru
+        }
         Start-Sleep -Milliseconds 800
         if ($p.HasExited) { return "temp monitor exited immediately (code $($p.ExitCode))" }
         $script:tempPid = $p.Id

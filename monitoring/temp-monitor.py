@@ -34,7 +34,11 @@ import sys
 import time
 from datetime import datetime
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+if getattr(sys, "frozen", False):
+    # running as a PyInstaller onefile EXE - use the EXE's own directory
+    SCRIPT_DIR = os.path.dirname(sys.executable)
+else:
+    SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DEVICES_JSON = os.path.join(SCRIPT_DIR, "devices.json")
 LOG_DIR = os.path.join(SCRIPT_DIR, "logs")
 SNAPSHOT_JSON = os.path.join(SCRIPT_DIR, "temp-snapshot.json")

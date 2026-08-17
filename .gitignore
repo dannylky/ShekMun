@@ -10,6 +10,10 @@ monitoring/temp-snapshot.json
 # device credentials (never commit real passwords)
 monitoring/creds.json
 
+# build artifacts (rebuilt by build-deploy.ps1)
+monitoring/*.exe
+deploy/
+
 # OS noise
 .DS_Store
 Thumbs.db
