@@ -47,11 +47,6 @@
                                        "role":  "display"
                                    },
                                    {
-                                       "ip":  "172.18.22.31",
-                                       "name":  "SW-Lectern-2",
-                                       "role":  "switch"
-                                   },
-                                   {
                                        "ip":  "172.18.2.231",
                                        "name":  "Speaker-8",
                                        "role":  "audio"
@@ -392,6 +387,11 @@
                                        "ip":  "172.18.2.122",
                                        "name":  "EN-Laptop-Dante",
                                        "role":  "dante"
+                                   },
+                                   {
+                                       "ip":  "172.18.22.32",
+                                       "name":  "SW-Lectern-2",
+                                       "role":  "switch"
                                    }
                                ],
                   "SM-11-03":  [

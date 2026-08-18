@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.7.3] - 2026-08-18
+- devices.json: SW-Lectern-2 moved from SM-11-01 to SM-11-02 and its
+  IP changed 172.18.22.31 -> 172.18.22.32 (172.18.22.23 was already
+  taken by SM-11-03/SW-Lectern). Monitor restarted with the new
+  inventory; dashboards reflect it via snapshot.json.
+
 ## [1.7.2] - 2026-08-18
 - Bugfix: dashboard page-total count referenced an undefined variable
   ($total), breaking render() ("$total is not defined" + stale
