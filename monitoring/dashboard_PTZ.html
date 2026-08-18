@@ -73,7 +73,7 @@
         // Data structure for the 9 blocks
         const cameraList = [
             { id: 'cam1', name: 'SM01', url: 'http://172.18.22.101/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.81'}, {name: 'Cam2', url: 'http://172.18.22.91'}] },
-            { id: 'cam2', name: 'SM02', url: 'http://172.18.22.102/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.82'}] },
+            { id: 'cam2', name: 'SM02', url: 'http://172.18.22.102/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.82'}], controlUrl: 'http://172.18.2.52:8000/tablet?max_col=4&max_row=2&min_col=0&pages=1' },
             { id: 'cam3', name: 'SM03', url: 'http://172.18.22.103/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.83'}, {name: 'Cam2', url: 'http://172.18.22.93'}] },
             { id: 'cam4', name: 'SM04', url: 'http://172.18.22.104/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.84'}] },
             { id: 'cam5', name: 'SM05', url: 'http://172.18.22.105/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.85'}, {name: 'Cam2', url: 'http://172.18.22.95'}] },
@@ -207,7 +207,11 @@
                                             <svg class="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                             <span>${p.name}</span>
                                         </a>
-                                    `).join('') + `</div>` : ''}
+                                    `).join('') + (cam.controlUrl ? `
+<a href="${cam.controlUrl}" target="_blank" class="flex items-center gap-1 text-[10px] font-medium bg-slate-900 hover:bg-slate-700 border border-slate-700 hover:border-blue-500 text-slate-300 hover:text-blue-300 px-1.5 py-0.5 rounded transition-all" title="Open control panel">
+<svg class="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+<span>Control</span>
+</a>` : '') + `</div>` : ''}
 
                                     <div class="flex items-center border-l border-slate-700/60 pl-1 sm:pl-2 ml-1 sm:ml-2">
                                         <button onclick="maximizeCamera('${cam.id}', '${cam.name}')" class="p-1 mr-1 transition-colors rounded hover:bg-slate-700 focus:outline-none text-slate-400 hover:text-white" title="Open in New Window">
