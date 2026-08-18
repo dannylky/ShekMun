@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shek Mun AV Monitoring - AVoIP</title>
+<style>
+  :root {
+    --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
+    --text: #cdd6f4; --muted: #a6adc8; --accent: #89b4fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px;
+  }
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--panel);
+    border-radius: 8px 8px 0 0; padding: 8px 12px 0; margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; font-size: 14px; font-weight: bold;
+    padding: 7px 18px; border-radius: 8px 8px 0 0;
+  }
+  nav.tabs a:hover { color: var(--text); background: var(--panel2); }
+  nav.tabs a.active { color: #11111b; background: var(--accent); }
+  h1 { font-size: 18px; margin: 0 0 8px; }
+  #meta { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+  .rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+  .room {
+    background: var(--panel); border-radius: 8px; padding: 10px 12px;
+    border-left: 4px solid var(--accent);
+  }
+  .room h2 { font-size: 14px; margin: 0 0 8px; }
+  .grid5 {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto; gap: 8px;
+  }
+  .grid5 .cell { position: relative; border-radius: 4px; overflow: hidden; background: var(--panel2); aspect-ratio: 16/9; }
+  .grid5 .cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .grid5 .cell .cap {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.65); color: #fff; font-size: 10px;
+    padding: 2px 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .grid5 .c-bl, .grid5 .c-br { grid-column: span 1; }
+  .empty { color: var(--muted); font-size: 12px; padding: 8px 2px; }
+</style>
+</head>
+<body>
+<nav class="tabs">
+  <a href="dashboard_shekmun.html">Main</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="ptc.html">PTZ</a>
+  <a href="avoip.html" class="active">AVoIP</a>
+  <a href="creds.html">Passwords</a>
+</nav>
+<h1>Shek Mun AVoIP - Room Views</h1>
+<div id="meta">AVoIP snapshots from the Kramer manager (172.18.22.5). Refresh every 5s.</div>
+<div class="rooms" id="rooms"></div>
+
+<script>
+const REFRESH_MS = 5000;
+const ROOMS = [
+  'SM-11-01', 'SM-11-02', 'SM-11-03', 'SM-11-04', 'SM-11-05',
+  'SM-11-06', 'SM-11-07', 'SM-11-08', 'Common Rm'
+];
+
+// Room 7 AVoIP layout: label -> snapshot URL on the AVoIP manager
+const ROOM7 = [
+  { cap: '11-07-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3888' },
+  { cap: '11-07-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560DFB55' },
+  { cap: '11-07-TV2-DEC7',   url: 'https://172.18.22.5/snap/001D560D394C' },
+  { cap: '11-07-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCF4' },
+  { cap: '11-07-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCC6' }
+];
+const positions = ['c-tl', 'c-tm', 'c-tr', 'c-bl', 'c-br'];
+
+const $rooms = document.getElementById('rooms');
+
+let tick = Date.now();
+
+function buildRooms() {
+  $rooms.innerHTML = '';
+  ROOMS.forEach(room => {
+    const div = document.createElement('div');
+    div.className = 'room';
+    const is7 = room === 'SM-11-07';
+    div.innerHTML = '<h2>' + room + '</h2>';
+    if (is7) {
+      const g = document.createElement('div');
+      g.className = 'grid5';
+      ROOM7.forEach((snap, i) => {
+        const cell = document.createElement('div');
+        cell.className = 'cell ' + positions[i];
+        cell.innerHTML = '<img data-src="' + snap.url + '" alt="' + snap.cap + '" onerror="this.parentElement.innerHTML=this.alt+(\' unavailable\')">' +
+          '<span class="cap">' + snap.cap + '</span>';
+        g.appendChild(cell);
+      });
+      div.appendChild(g);
+    } else {
+      const e = document.createElement('div');
+      e.className = 'empty';
+      e.textContent = 'No AVoIP snapshot layout configured for this room.';
+      div.appendChild(e);
+    }
+    $rooms.appendChild(div);
+  });
+  refreshImages();
+}
+
+function refreshImages() {
+  tick = Date.now();
+  document.querySelectorAll('.grid5 img').forEach(img => {
+    img.src = img.dataset.src + '?t=' + tick;
+  });
+}
+
+buildRooms();
+setInterval(refreshImages, REFRESH_MS);
+</script>
+</body>
+</html>

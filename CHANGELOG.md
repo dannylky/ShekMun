@@ -2,6 +2,14 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.7.4] - 2026-08-18
+- New "AVoIP" tab: avoip.html shows each room in a block view. Room 7
+  (SM-11-07) has 5 live snapshots from the Kramer manager
+  (172.18.22.5/snap/...) laid out as TV1 (top-left), Audio-DEC7
+  (top-middle), TV2 (top-right), PC-EN7 (bottom-left),
+  Laptop-EN7 (bottom-right); refreshed every 5s. Other rooms show a
+  placeholder. Tab added to all pages.
+
 ## [1.7.3] - 2026-08-18
 - devices.json: SW-Lectern-2 moved from SM-11-01 to SM-11-02 and its
   IP changed 172.18.22.31 -> 172.18.22.32 (172.18.22.23 was already
