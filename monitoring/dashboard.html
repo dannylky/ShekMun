@@ -68,8 +68,9 @@
   }
   .room.room-ok { border-left-color: var(--ok); }
   .room.room-fail { border-left-color: var(--fail); }
-  .room h2 { font-size: 14px; margin: 0 0 8px; display: flex; justify-content: space-between; }
+.room h2 { font-size: 14px; margin: 0 0 8px; display: flex; justify-content: space-between; }
   .room .counts { color: var(--muted); font-weight: normal; font-size: 12px; }
+  .room .room-total { color: var(--accent); font-size: 12px; font-weight: normal; margin-left: 4px; }
   .cam {
     width: 96px; height: 54px; object-fit: cover; border-radius: 4px;
     border: 1px solid var(--panel2); vertical-align: middle; margin-left: 10px;
@@ -80,6 +81,7 @@
     font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
     color: var(--muted); margin: 6px 0 2px; padding-top: 6px; border-top: 1px dashed #3a3b4d;
   }
+  .group-head .group-count { color: var(--accent); }
   table { width: 100%; border-collapse: collapse; font-size: 12px; }
   td { padding: 2px 4px; white-space: nowrap; }
   .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
@@ -113,7 +115,7 @@
   <a href="creds.html">Passwords</a>
 </nav>
 <header>
-  <h1>Shek Mun AV Monitoring Dashboard</h1>
+  <h1>Shek Mun AV Monitoring Dashboard <span id="titleCount" style="color:var(--muted);font-size:13px;font-weight:normal;"></span></h1>
   <div id="meta">Loading snapshot...</div>
 </header>
 <div id="error">Cannot reach snapshot.json - is the monitoring server running?</div>
@@ -164,6 +166,7 @@ const $error = document.getElementById('error');
 const $summary = document.getElementById('summary');
 const $chips = document.getElementById('groupChips');
 const $sortSel = document.getElementById('sortSel');
+const $titleCount = document.getElementById('titleCount');
 const $countdown = document.createElement('span');
 $countdown.id = 'countdown';
 $countdown.style.cssText = 'color:var(--accent);margin-left:10px;';
@@ -224,13 +227,14 @@ function deviceTable(devices) {
     table.innerHTML = '<tr><td class="empty">No devices in this view</td></tr>';
     return table;
   }
-  if ($sortSel.value === 'group') {
+if ($sortSel.value === 'group') {
     let lastGroup = null;
     devices.forEach(d => {
       const g = groupOf(d);
       if (g !== lastGroup) {
+        const gCount = devices.filter(x => groupOf(x) === g).length;
         const th = document.createElement('tr');
-        th.innerHTML = '<td colspan="3" class="group-head">' + g + '</td>';
+        th.innerHTML = '<td colspan="3" class="group-head">' + g + ' <span class="group-count">(' + gCount + ')</span></td>';
         table.appendChild(th);
         lastGroup = g;
       }
@@ -254,9 +258,9 @@ function roomBlock(title, allDevices) {
   const camHtml = mb
     ? '<a class="cam-wrap" href="http://' + mb.ip + '" target="_blank" title="MediaBox ' + mb.ip + '"><img class="cam" data-base="http://' + mb.ip + '/snapshot/snapshot" src="http://' + mb.ip + '/snapshot/snapshot?t=' + camTick + '" alt="MediaBox" onerror="this.style.display=\'none\'"></a>'
     : '';
-  div.className += (fail > 0) ? ' room-fail' : (unk > 0 ? '' : ' room-ok');
+div.className += (fail > 0) ? ' room-fail' : (unk > 0 ? '' : ' room-ok');
   div.innerHTML =
-    '<h2><span>' + title + camHtml + '</span><span class="counts">' +
+    '<h2><span>' + title + '<span class="room-total">(' + shown.length + ')</span></span><span class="counts">' +
     ok + ' ok / ' + fail + ' fail' + (unk ? ' / ' + unk + ' unknown' : '') + '</span></h2>';
   div.appendChild(deviceTable(devices));
   return div;
@@ -287,6 +291,7 @@ function render(snap) {
     $unique.innerHTML = '';
   }
   $summary.textContent = 'Showing ' + visible + ' / ' + total + ' devices 繚 ' + ok + ' ok 繚 ' + fail + ' fail' + (excluded ? ' 繚 ' + excluded + ' excluded (TV-Res)' : '');
+  $titleCount.textContent = '(' + $total + ' devices)';
 }
 
 async function load() {
@@ -352,4 +357,5 @@ setInterval(() => {
 </script>
 </body>
 </html>
+
 

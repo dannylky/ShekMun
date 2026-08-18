@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.7.1] - 2026-08-18
+- Dashboard: device counts added - per room next to the room name,
+  per category next to the category name (Video/Audio/Control), and
+  the total for all rooms next to the page title. Main page also
+  shows a "By category" strip.
+
 ## [1.7.0] - 2026-08-17
 - Deployment package: build-deploy.ps1 compiles the system into 4
   EXEs (monitor, serve-dashboard, monitor-control via ps2exe;
