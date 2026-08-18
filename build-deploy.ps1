@@ -25,7 +25,7 @@
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $MyInvocation.MyCommand.Path
 $mon = Join-Path $repo 'monitoring'
-$version = '1.7.0'
+$version = '1.7.1'
 $pkgName = "ShekMun-Monitor-v$version"
 $pkgRoot = Join-Path $repo 'deploy'
 $pkgDir = Join-Path $pkgRoot $pkgName
@@ -42,6 +42,7 @@ foreach ($exeName in @('monitor.exe', 'serve-dashboard.exe', 'temp-monitor.exe',
         ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
 }
 Start-Sleep -Seconds 1
+Write-Host "  (stopped running instances; restart services after the build if needed)"
 
 # ---- 1. rebuild the EXEs from the current scripts ----
 Import-Module ps2exe
