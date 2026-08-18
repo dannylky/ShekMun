@@ -22,5 +22,11 @@
     "username": "",
     "password": "",
     "note": ""
+  },
+  {
+    "name": "AVoIP Manager",
+    "username": "",
+    "password": "",
+    "note": "Kramer AVoIP Manager (172.18.22.5)"
   }
 ]
