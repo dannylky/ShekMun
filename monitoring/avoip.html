@@ -28,7 +28,9 @@
   nav.tabs a.active { color: #11111b; background: var(--accent); }
   h1 { font-size: 18px; margin: 0 0 8px; }
   #meta { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
-  .rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(680px, 1fr)); gap: 16px; justify-content: center; }
+  .rooms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 1400px) { .rooms { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 900px) { .rooms { grid-template-columns: 1fr; } }
   .room {
     background: var(--panel); border-radius: 8px; padding: 10px 12px;
     border-left: 4px solid var(--accent);
@@ -41,6 +43,7 @@
   .grid5 .cell {
     position: relative; border-radius: 6px; overflow: hidden;
     background: var(--panel2); aspect-ratio: 16/9;
+    width: 70%; justify-self: center;
     display: flex; align-items: center; justify-content: center;
   }
   .grid5 .cell img {
