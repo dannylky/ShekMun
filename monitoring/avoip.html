@@ -89,12 +89,14 @@ const LAYOUTS = {
   'SM-11-03': [
     { cap: '11-03-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3866' },
     { cap: '11-03-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560D3970' },
+    null,
     { cap: '11-03-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCE0' },
     { cap: '11-03-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCBB' }
   ],
   'SM-11-04': [
     { cap: '11-04-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3870' },
     { cap: '11-04-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560D397A' },
+    null,
     { cap: '11-04-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCE6' },
     { cap: '11-04-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCBE' }
   ]
@@ -116,6 +118,7 @@ function buildRooms() {
       const g = document.createElement('div');
       g.className = 'grid5';
       snaps.forEach((snap, i) => {
+        if (!snap) return;
         const cell = document.createElement('div');
         cell.className = 'cell ' + positions[i];
         if (snap.url) {
