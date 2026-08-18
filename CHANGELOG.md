@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.7.6] - 2026-08-18
+- Removed the video route function (SM-11-06 dropdown, Route button
+  and the /api/routing proxy) - the manager firmware (KDS-7-MNGR)
+  doesn't expose the reference API endpoint.
+
 ## [1.7.5] - 2026-08-18
 - AVoIP tab: video routing for SM-11-06 - a dropdown lets you route
   11-06-TV1-DEC7 from 11-06-PC-EN7 or 11-04-PC-EN7. Calls
