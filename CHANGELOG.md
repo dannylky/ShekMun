@@ -2,6 +2,15 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.7.5] - 2026-08-18
+- AVoIP tab: video routing for SM-11-06 - a dropdown lets you route
+  11-06-TV1-DEC7 from 11-06-PC-EN7 or 11-04-PC-EN7. Calls
+  POST /api/control-add-signal-routing on 172.18.22.5 (signalType
+  VIDEO, MACs in colon form) via a same-origin proxy
+  (serve-dashboard.ps1 /api/routing) to avoid browser CORS.
+- Note: the live manager returns 404 for that endpoint (its web app
+  requires a login token; none of the known credentials accepted).
+
 ## [1.7.4] - 2026-08-18
 - New "AVoIP" tab: avoip.html shows each room in a block view. Room 7
   (SM-11-07) has 5 live snapshots from the Kramer manager

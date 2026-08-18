@@ -112,6 +112,22 @@ function Send-Response {
     try {
         $path = [System.Uri]::UnescapeDataString($Ctx.Request.Url.AbsolutePath).TrimStart('/')
         if ($path -eq '') { $path = 'dashboard_shekmun.html' }
+
+        # --- proxy: route a signal to the AVoIP manager (avoids browser CORS) ---
+        if ($path -eq 'api/routing' -and $Ctx.Request.HttpMethod -eq 'POST') {
+            $reader = [System.IO.StreamReader]::new($Ctx.Request.InputStream)
+            $body = $reader.ReadToEnd()
+            $reader.Dispose()
+            $out = & curl.exe -sk -X POST 'https://172.18.22.5/api/control-add-signal-routing' -H 'Content-Type: application/json' -d $body 2>&1
+            $payload = @{ ok = ($LASTEXITCODE -eq 0); exitCode = $LASTEXITCODE; managerResponse = ($out -join "`n") } | ConvertTo-Json -Compress
+            $data = [System.Text.Encoding]::UTF8.GetBytes($payload)
+            $res.ContentType = 'application/json; charset=utf-8'
+            $res.StatusCode = 200
+            $res.ContentLength64 = $data.Length
+            $res.OutputStream.Write($data, 0, $data.Length)
+            return
+        }
+
         $full = [System.IO.Path]::GetFullPath((Join-Path $root $path))
 
         if (-not $full.StartsWith($root, [System.StringComparison]::OrdinalIgnoreCase)) {

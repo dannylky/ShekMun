@@ -57,6 +57,20 @@
     text-align: center;
   }
   .empty { color: var(--muted); font-size: 12px; padding: 8px 2px; text-align: center; }
+  .route {
+    margin-top: 10px; padding-top: 8px; border-top: 1px dashed #3a3b4d;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12px;
+  }
+  .route label { color: var(--muted); }
+  .route select, .route button {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--panel2);
+    border-radius: 4px; padding: 4px 8px; font-size: 12px; cursor: pointer;
+  }
+  .route button { background: var(--accent); color: #11111b; font-weight: bold; }
+  .route button:disabled { opacity: 0.5; cursor: default; }
+  .route .res { color: var(--muted); font-size: 11px; word-break: break-all; }
+  .route .res.ok { color: var(--ok); }
+  .route .res.err { color: var(--fail); }
 </style>
 </head>
 <body>
@@ -179,6 +193,19 @@ const LAYOUTS = {
   ]
 };
 
+// Video routing options per room: destination decoder + selectable encoder sources
+const ROUTING = {
+  'SM-11-06': {
+    destination: { cap: '11-06-TV1-DEC7', mac: '001D560D387C' },
+    sources: [
+      { cap: '11-06-PC-EN7', mac: '001D560DFCC2' },
+      { cap: '11-04-PC-EN7', mac: '001D560DFCBE' }
+    ]
+  }
+};
+
+function macColon(mac) { return mac.toUpperCase().match(/.{2}/g).join(':'); }
+
 const $rooms = document.getElementById('rooms');
 let tick = Date.now();
 
@@ -216,9 +243,65 @@ function buildRooms() {
       e.textContent = 'No AVoIP snapshot layout configured for this room.';
       div.appendChild(e);
     }
+
+    if (ROUTING[room]) {
+      div.appendChild(buildRoute(room));
+    }
     $rooms.appendChild(div);
   });
   refreshImages();
+}
+
+function buildRoute(room) {
+  const cfg = ROUTING[room];
+  const wrap = document.createElement('div');
+  wrap.className = 'route';
+  const lbl = document.createElement('label');
+  lbl.textContent = 'Route ' + cfg.destination.cap + ' video from:';
+  const sel = document.createElement('select');
+  cfg.sources.forEach((s, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = s.cap;
+    sel.appendChild(opt);
+  });
+  const btn = document.createElement('button');
+  btn.textContent = 'Route';
+  const res = document.createElement('span');
+  res.className = 'res';
+  res.textContent = '';
+  btn.addEventListener('click', async () => {
+    const src = cfg.sources[parseInt(sel.value, 10)];
+    const payload = {
+      routingRule: {
+        signalType: 'VIDEO',
+        sourceId: macColon(src.mac),
+        destinationIds: [macColon(cfg.destination.mac)]
+      }
+    };
+    btn.disabled = true;
+    res.className = 'res';
+    res.textContent = 'Routing ' + src.cap + ' -> ' + cfg.destination.cap + '...';
+    try {
+      const r = await fetch('api/routing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const j = await r.json();
+      res.textContent = (j.managerResponse || ('exit ' + j.exitCode)).trim();
+      res.className = 'res ' + (j.ok ? 'ok' : 'err');
+    } catch (e) {
+      res.textContent = 'Proxy error: ' + e.message;
+      res.className = 'res err';
+    }
+    btn.disabled = false;
+  });
+  wrap.appendChild(lbl);
+  wrap.appendChild(sel);
+  wrap.appendChild(btn);
+  wrap.appendChild(res);
+  return wrap;
 }
 
 function refreshImages() {
