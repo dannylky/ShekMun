@@ -36,26 +36,25 @@
     border-left: 4px solid var(--accent);
   }
   .room h2 { font-size: 14px; margin: 0 0 8px; text-align: center; }
-  .grid5 {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto auto; gap: 10px;
+  .rowhead {
+    text-align: center; font-size: 11px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin: 6px 0 4px;
   }
-  .grid5 .cell {
+  .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .cell {
     position: relative; border-radius: 6px; overflow: hidden;
     background: var(--panel2); aspect-ratio: 16/9;
     width: 70%; justify-self: center;
     display: flex; align-items: center; justify-content: center;
   }
-  .grid5 .cell img {
-    width: 100%; height: 100%; object-fit: contain; display: block;
-  }
-  .grid5 .cell .cap {
+  .cell img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .cell .cap {
     position: absolute; left: 0; right: 0; bottom: 0;
     background: rgba(0,0,0,0.65); color: #fff; font-size: 10px;
     padding: 2px 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .grid5 .c-bl, .grid5 .c-br { grid-column: span 1; }
-  .empty { color: var(--muted); font-size: 12px; padding: 8px 2px; }
+  .empty { color: var(--muted); font-size: 12px; padding: 8px 2px; text-align: center; }
 </style>
 </head>
 <body>
@@ -77,34 +76,43 @@ const ROOMS = [
   'SM-11-06', 'SM-11-07', 'SM-11-08', 'Common Rm'
 ];
 
-// Per-room AVoIP layouts: label -> snapshot URL on the AVoIP manager
+// Per-room layout: rows with a legend; items are snapshots from the AVoIP manager.
+// First line = Output (TV1, TV2, Audio), second line = Input (PC, Laptop).
 const LAYOUTS = {
   'SM-11-07': [
-    { cap: '11-07-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3888' },
-    { cap: '11-07-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560DFB55' },
-    { cap: '11-07-TV2-DEC7',   url: 'https://172.18.22.5/snap/001D560D394C' },
-    { cap: '11-07-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCC6' },
-    { cap: '11-07-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCF4' }
+    { legend: 'Output', items: [
+      { cap: '11-07-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3888' },
+      { cap: '11-07-TV2-DEC7',   url: 'https://172.18.22.5/snap/001D560D394C' },
+      { cap: '11-07-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560DFB55' }
+    ]},
+    { legend: 'Input', items: [
+      { cap: '11-07-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCC6' },
+      { cap: '11-07-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCF4' }
+    ]}
   ],
   'SM-11-03': [
-    { cap: '11-03-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3866' },
-    { cap: '11-03-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560D3970' },
-    null,
-    { cap: '11-03-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCE0' },
-    { cap: '11-03-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCBB' }
+    { legend: 'Output', items: [
+      { cap: '11-03-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3866' },
+      { cap: '11-03-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560D3970' }
+    ]},
+    { legend: 'Input', items: [
+      { cap: '11-03-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCBB' },
+      { cap: '11-03-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCE0' }
+    ]}
   ],
   'SM-11-04': [
-    { cap: '11-04-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3870' },
-    { cap: '11-04-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560D397A' },
-    null,
-    { cap: '11-04-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCE6' },
-    { cap: '11-04-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCBE' }
+    { legend: 'Output', items: [
+      { cap: '11-04-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3870' },
+      { cap: '11-04-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560D397A' }
+    ]},
+    { legend: 'Input', items: [
+      { cap: '11-04-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCBE' },
+      { cap: '11-04-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCE6' }
+    ]}
   ]
 };
-const positions = ['c-tl', 'c-tm', 'c-tr', 'c-bl', 'c-br'];
 
 const $rooms = document.getElementById('rooms');
-
 let tick = Date.now();
 
 function buildRooms() {
@@ -112,24 +120,29 @@ function buildRooms() {
   ROOMS.forEach(room => {
     const div = document.createElement('div');
     div.className = 'room';
-    const snaps = LAYOUTS[room] || null;
+    const layout = LAYOUTS[room] || null;
     div.innerHTML = '<h2>' + room + '</h2>';
-    if (snaps) {
-      const g = document.createElement('div');
-      g.className = 'grid5';
-      snaps.forEach((snap, i) => {
-        if (!snap) return;
-        const cell = document.createElement('div');
-        cell.className = 'cell ' + positions[i];
-        if (snap.url) {
-          cell.innerHTML = '<img data-src="' + snap.url + '" alt="' + snap.cap + '" onerror="this.parentElement.innerHTML=this.alt+(\' unavailable\')">' +
-            '<span class="cap">' + snap.cap + '</span>';
-        } else {
-          cell.innerHTML = '<span style="color:var(--muted);font-size:11px;text-align:center;padding:4px;">' + snap.cap + '<br>(URL missing)</span>';
-        }
-        g.appendChild(cell);
+    if (layout) {
+      layout.forEach(group => {
+        const rh = document.createElement('div');
+        rh.className = 'rowhead';
+        rh.textContent = group.legend;
+        div.appendChild(rh);
+        const row = document.createElement('div');
+        row.className = 'row';
+        group.items.forEach(snap => {
+          const cell = document.createElement('div');
+          cell.className = 'cell';
+          if (snap.url) {
+            cell.innerHTML = '<img data-src="' + snap.url + '" alt="' + snap.cap + '" onerror="this.parentElement.innerHTML=this.alt+(\' unavailable\')">' +
+              '<span class="cap">' + snap.cap + '</span>';
+          } else {
+            cell.innerHTML = '<span style="color:var(--muted);font-size:11px;text-align:center;padding:4px;">' + snap.cap + '<br>(URL missing)</span>';
+          }
+          row.appendChild(cell);
+        });
+        div.appendChild(row);
       });
-      div.appendChild(g);
     } else {
       const e = document.createElement('div');
       e.className = 'empty';
@@ -143,7 +156,7 @@ function buildRooms() {
 
 function refreshImages() {
   tick = Date.now();
-  document.querySelectorAll('.grid5 img').forEach(img => {
+  document.querySelectorAll('.cell img').forEach(img => {
     img.src = img.dataset.src + '?t=' + tick;
   });
 }
