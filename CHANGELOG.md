@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.7.8] - 2026-08-18
+- AVoIP page: each thumbnail now shows the latest KDS temperature
+  badge (top-right corner), matched from snapshot.json by parsing the
+  device label (11-XX-TVn-DEC7 -> TV-DEC-n, Audio-DEC7 -> Audio-DEC,
+  PC-EN7 -> EN-PC-AVoIP, Laptop-EN7 -> EN-Laptop-AVoIP). Green below
+  45C, red at/above 45C, "--" when no reading. Updated every 10s.
+
 ## [1.7.7] - 2026-08-18
 - Bugfix: AVoIP thumbnails (e.g. 11-01-TV2-DEC7) showing persistent
   "unavailable". Root cause: the Kramer manager intermittently 404s
