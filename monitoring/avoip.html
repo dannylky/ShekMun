@@ -42,6 +42,7 @@
     margin: 6px 0 4px;
   }
   .row { display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .row-many .cell { width: 18%; flex: 0 0 18%; max-width: 200px; }
   .cell {
     position: relative; border-radius: 6px; overflow: hidden;
     background: var(--panel2); aspect-ratio: 16/9;
@@ -79,6 +80,19 @@ const ROOMS = [
 // Per-room layout: rows with a legend; items are snapshots from the AVoIP manager.
 // First line = Output (TV1, TV2, Audio), second line = Input (PC, Laptop).
 const LAYOUTS = {
+  'SM-11-01': [
+    { legend: 'Output', items: [
+      { cap: '11-01-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3811' },
+      { cap: '11-01-TV2-DEC7',   url: 'https://172.18.22.5/snap/001D560D391A' },
+      { cap: '11-01-TV3-DEC7',   url: 'https://172.18.22.5/snap/001D560D394F' },
+      { cap: '11-01-TV4-DEC7',   url: 'https://172.18.22.5/snap/001D560D3951' },
+      { cap: '11-01-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560D3967' }
+    ]},
+    { legend: 'Input', items: [
+      { cap: '11-01-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCA5' },
+      { cap: '11-01-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCD5' }
+    ]}
+  ],
   'SM-11-07': [
     { legend: 'Output', items: [
       { cap: '11-07-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3888' },
@@ -129,7 +143,7 @@ function buildRooms() {
         rh.textContent = group.legend;
         div.appendChild(rh);
         const row = document.createElement('div');
-        row.className = 'row';
+        row.className = 'row' + (group.items.length >= 4 ? ' row-many' : '');
         group.items.forEach(snap => {
           const cell = document.createElement('div');
           cell.className = 'cell';
