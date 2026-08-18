@@ -25,37 +25,10 @@
   }
   nav.tabs a:hover { color: var(--text); background: var(--panel2); }
   nav.tabs a.active { color: #11111b; background: var(--accent); }
-  h1 { font-size: 18px; margin: 0 0 8px; }
-  #note { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
-  @media (max-width: 1400px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-  .room {
-    background: var(--panel); border-radius: 8px; padding: 12px 14px;
-    border-left: 4px solid var(--accent);
-    display: flex; align-items: center; justify-content: space-between;
-    min-height: 56px; gap: 10px;
-  }
-  .room .name { font-size: 14px; font-weight: bold; }
-  .btns { display: inline-flex; align-items: center; gap: 8px; }
-  .cam {
-    background: var(--panel2); color: var(--text); border: 1px solid var(--panel2);
-    border-radius: 6px; padding: 5px 12px; cursor: pointer; text-decoration: none;
-    font-size: 12px; font-weight: bold;
-  }
-  .cam:hover { filter: brightness(1.2); border-color: var(--accent); }
-  .ctrl {
-    display: inline-flex; align-items: center; justify-content: center;
-    background: var(--panel2); color: var(--accent); border: 1px solid var(--panel2);
-    border-radius: 6px; width: 32px; height: 32px; cursor: pointer; text-decoration: none;
-  }
-  .ctrl:hover { filter: brightness(1.2); border-color: var(--accent); }
-  .ctrl svg { width: 18px; height: 18px; fill: var(--accent); }
   iframe {
-    width: 100%; height: calc(100vh - 340px); min-height: 320px;
+    width: 100%; height: calc(100vh - 110px); min-height: 320px;
     border: 1px solid var(--panel2); border-radius: 8px; background: var(--panel);
   }
-  .sec { color: var(--muted); font-size: 12px; margin: 0 0 8px; }
 </style>
 </head>
 <body>
@@ -66,40 +39,6 @@
   <a href="avoip.html">AVoIP</a>
   <a href="creds.html">Passwords</a>
 </nav>
-<h1>PTZ Grid Monitoring</h1>
-<div id="note">Cam 1 opens the room's PTZ camera; the gear icon opens the AVProc tablet control.</div>
-<div class="grid" id="rooms"></div>
-<div class="sec">Live main page:</div>
 <iframe id="ptc" src="http://10.107.147.121/dashboard_shekmun.html" title="PTZ main page"></iframe>
-
-<script>
-const ROOMS = [
-  { room: 'SM-11-01', cam: '172.18.22.81', avproc: '172.18.2.51' },
-  { room: 'SM-11-02', cam: '172.18.22.82', avproc: '172.18.2.52' },
-  { room: 'SM-11-03', cam: '172.18.22.83', avproc: '172.18.2.53' },
-  { room: 'SM-11-04', cam: '172.18.22.84', avproc: '172.18.2.54' },
-  { room: 'SM-11-05', cam: '172.18.22.85', avproc: '172.18.2.55' },
-  { room: 'SM-11-06', cam: '172.18.22.86', avproc: '172.18.2.56' },
-  { room: 'SM-11-07', cam: '172.18.22.87', avproc: '172.18.2.57' },
-  { room: 'SM-11-08', cam: '172.18.22.88', avproc: '172.18.2.58' },
-  { room: 'Common Rm', cam: '172.18.22.89', avproc: '172.18.2.59' }
-];
-const TABLET_PATH = '/tablet/?max_col=4&max_row=2&min_col=0&pages=1';
-const GEAR = '<svg viewBox="0 0 24 24"><path d="M19.14 12.94a7.07 7.07 0 0 0 .05-.94 7.07 7.07 0 0 0-.05-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.05 7.05 0 0 0-1.62-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 0 0-.61.22L2.55 8.84a.5.5 0 0 0 .12.64l2.03 1.58a7.07 7.07 0 0 0 0 1.88l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.3.61.22l2.39-.96c.49.38 1.03.7 1.62.94l.36 2.54c.05.24.25.42.5.42h3.84c.25 0 .45-.18.5-.42l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.48 0 .61-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>';
-
-const $rooms = document.getElementById('rooms');
-ROOMS.forEach(r => {
-  const div = document.createElement('div');
-  div.className = 'room';
-  const ctrlUrl = 'http://' + r.avproc + ':8000' + TABLET_PATH;
-  div.innerHTML =
-    '<span class="name">' + r.room + '</span>' +
-    '<span class="btns">' +
-      '<a class="cam" href="http://' + r.cam + '" target="_blank" title="Open PTZ camera ' + r.cam + '">Cam 1</a>' +
-      '<a class="ctrl" href="' + ctrlUrl + '" target="_blank" title="Open tablet control ' + ctrlUrl + '">' + GEAR + '</a>' +
-    '</span>';
-  $rooms.appendChild(div);
-});
-</script>
 </body>
 </html>
