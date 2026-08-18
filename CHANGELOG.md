@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.7.2] - 2026-08-18
+- Bugfix: dashboard page-total count referenced an undefined variable
+  ($total), breaking render() ("$total is not defined" + stale
+  snapshot error banner). Now uses the correct total variable.
+
 ## [1.7.1] - 2026-08-18
 - Dashboard: device counts added - per room next to the room name,
   per category next to the category name (Video/Audio/Control), and

@@ -291,7 +291,7 @@ function render(snap) {
     $unique.innerHTML = '';
   }
   $summary.textContent = 'Showing ' + visible + ' / ' + total + ' devices 繚 ' + ok + ' ok 繚 ' + fail + ' fail' + (excluded ? ' 繚 ' + excluded + ' excluded (TV-Res)' : '');
-  $titleCount.textContent = '(' + $total + ' devices)';
+  $titleCount.textContent = '(' + total + ' devices)';
 }
 
 async function load() {
@@ -357,5 +357,6 @@ setInterval(() => {
 </script>
 </body>
 </html>
+
 
 
