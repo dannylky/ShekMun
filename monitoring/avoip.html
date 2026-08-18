@@ -77,14 +77,22 @@ const ROOMS = [
   'SM-11-06', 'SM-11-07', 'SM-11-08', 'Common Rm'
 ];
 
-// Room 7 AVoIP layout: label -> snapshot URL on the AVoIP manager
-const ROOM7 = [
-  { cap: '11-07-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3888' },
-  { cap: '11-07-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560DFB55' },
-  { cap: '11-07-TV2-DEC7',   url: 'https://172.18.22.5/snap/001D560D394C' },
-  { cap: '11-07-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCC6' },
-  { cap: '11-07-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCF4' }
-];
+// Per-room AVoIP layouts: label -> snapshot URL on the AVoIP manager
+const LAYOUTS = {
+  'SM-11-07': [
+    { cap: '11-07-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3888' },
+    { cap: '11-07-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560DFB55' },
+    { cap: '11-07-TV2-DEC7',   url: 'https://172.18.22.5/snap/001D560D394C' },
+    { cap: '11-07-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCC6' },
+    { cap: '11-07-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCF4' }
+  ],
+  'SM-11-03': [
+    { cap: '11-03-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3866' },
+    { cap: '11-03-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560D3970' },
+    { cap: '11-03-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCBB' },
+    { cap: '11-03-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCE0' }
+  ]
+};
 const positions = ['c-tl', 'c-tm', 'c-tr', 'c-bl', 'c-br'];
 
 const $rooms = document.getElementById('rooms');
@@ -96,12 +104,12 @@ function buildRooms() {
   ROOMS.forEach(room => {
     const div = document.createElement('div');
     div.className = 'room';
-    const is7 = room === 'SM-11-07';
+    const snaps = LAYOUTS[room] || null;
     div.innerHTML = '<h2>' + room + '</h2>';
-    if (is7) {
+    if (snaps) {
       const g = document.createElement('div');
       g.className = 'grid5';
-      ROOM7.forEach((snap, i) => {
+      snaps.forEach((snap, i) => {
         const cell = document.createElement('div');
         cell.className = 'cell ' + positions[i];
         cell.innerHTML = '<img data-src="' + snap.url + '" alt="' + snap.cap + '" onerror="this.parentElement.innerHTML=this.alt+(\' unavailable\')">' +
