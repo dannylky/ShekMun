@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9-Block Camera Monitoring Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for a cleaner look if content overflows */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        
+        /* Smooth fade for image transitions to minimize flicker */
+        .cam-feed {
+            transition: opacity 0.15s ease-in-out;
+        }
+
+        /* Responsive grid height assurance */
+        @media (min-width: 1024px) {
+            .grid-h-full { height: 100%; min-height: 800px; }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 h-screen w-screen overflow-hidden flex flex-col font-sans">
+
+    <!-- Header -->
+    <header class="bg-slate-900 border-b border-slate-800 p-3 md:p-4 flex justify-between items-center shrink-0 shadow-md z-10 flex-wrap gap-4">
+        <div class="flex items-center flex-wrap gap-3">
+            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+            </svg>
+            <h1 class="text-xl font-bold tracking-wide text-white">Grid Monitoring</h1>
+            
+            <!-- Refresh Rate Slider -->
+            <div class="ml-0 md:ml-4 flex items-center gap-2 md:border-l border-slate-700 md:pl-4">
+                <label for="refresh-slider" class="text-sm text-slate-400 whitespace-nowrap">Refresh: <span id="refresh-value" class="text-blue-400 font-mono">0.1s</span></label>
+                <input type="range" id="refresh-slider" min="100" max="5000" step="100" value="100" class="w-24 md:w-32 accent-blue-500 cursor-pointer">
+            </div>
+        </div>
+        <div id="global-status" class="flex items-center gap-2 px-3 py-1 bg-slate-800 rounded-full border border-slate-700">
+            <span class="relative flex h-3 w-3">
+              <span id="global-pulse" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span id="global-dot" class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </span>
+            <span id="global-text" class="text-xs font-medium text-green-400 uppercase tracking-wider">System Active</span>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-3 md:p-4 overflow-y-auto">
+        <!-- 3x3 Grid Container (Dynamic injection happens here) -->
+        <div id="camera-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 grid-h-full max-w-[1800px] mx-auto w-full">
+            <!-- Blocks will be injected here via JavaScript -->
+        </div>
+    </main>
+
+    <!-- HTTPS Mixed Content Warning (Hidden by default) -->
+    <div id="https-warning" class="hidden fixed bottom-4 right-4 bg-yellow-900/90 border border-yellow-700 text-yellow-100 p-4 rounded-lg shadow-2xl max-w-sm backdrop-blur-md z-50">
+        <h3 class="font-bold flex items-center gap-2 mb-2">
+            <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+            Mixed Content Blocked
+        </h3>
+        <p class="text-sm text-yellow-200">
+            You are viewing this site over HTTPS, but your camera feeds use HTTP. Your browser is likely blocking them. 
+            To view the feeds, open this file locally or configure your browser to allow mixed content.
+        </p>
+        <button onclick="document.getElementById('https-warning').style.display='none'" class="mt-3 text-xs bg-yellow-800 hover:bg-yellow-700 px-3 py-1 rounded transition">Dismiss</button>
+    </div>
+
+    <script>
+        // Data structure for the 9 blocks
+        const cameraList = [
+            { id: 'cam1', name: 'SM01', url: 'http://172.18.22.101/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.81'}, {name: 'Cam2', url: 'http://172.18.22.91'}] },
+            { id: 'cam2', name: 'SM02', url: 'http://172.18.22.102/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.82'}] },
+            { id: 'cam3', name: 'SM03', url: 'http://172.18.22.103/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.83'}, {name: 'Cam2', url: 'http://172.18.22.93'}] },
+            { id: 'cam4', name: 'SM04', url: 'http://172.18.22.104/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.84'}] },
+            { id: 'cam5', name: 'SM05', url: 'http://172.18.22.105/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.85'}, {name: 'Cam2', url: 'http://172.18.22.95'}] },
+            { id: 'cam6', name: 'SM06', url: 'http://172.18.22.106/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.86'}] },
+            { id: 'cam7', name: 'SM07', url: 'http://172.18.22.107/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.87'}] },
+            { id: 'cam8', name: 'SM08', url: 'http://172.18.22.108/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.88'}] },
+            { id: 'cam9', name: 'Common Area', url: 'http://172.18.22.109/snapshot/snapshot', disabled: false, ptz: [{name: 'Cam1', url: 'http://172.18.22.89'}] }
+        ];
+        
+        let REFRESH_RATE_MS = 100; 
+        let globalLoopId = 0; // Tracks active loop sessions when slider changes
+        let consecutiveErrors = 0;
+        
+        // Keep track of open windows to push updates to them
+        const activePopups = {};
+
+        // Open camera in a new maximized popup window
+        function maximizeCamera(camId, camName) {
+            const urlInput = document.getElementById(`${camId}-url`);
+            if (!urlInput) return;
+            const targetUrl = urlInput.value.trim();
+            if (!targetUrl) return;
+
+            // If the popup is already open, just bring it to the front
+            if (activePopups[camId] && !activePopups[camId].closed) {
+                activePopups[camId].focus();
+                return;
+            }
+
+            // Grab the current frame from the dashboard for instant zero-delay loading
+            const currentImg = document.getElementById(`${camId}-img`);
+            const initialSrc = (currentImg && currentImg.src && currentImg.src.includes('http')) 
+                ? currentImg.src 
+                : `${targetUrl}${targetUrl.includes('?') ? '&' : '?'}_t=${new Date().getTime()}`;
+
+            const win = window.open('', '_blank', 'width=1024,height=768');
+            if (win) {
+                // Generate a clean HTML structure without inline scripts
+                win.document.write(`
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <title>${camName} - Live Feed</title>
+                        <style>
+                            body { margin: 0; background-color: #020617; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; color: #fff; font-family: sans-serif; }
+                            img { max-width: 100%; max-height: 100%; object-fit: contain; }
+                            .status { position: absolute; top: 10px; left: 10px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(51, 65, 85, 0.5); padding: 6px 12px; border-radius: 6px; font-size: 13px; backdrop-filter: blur(4px); font-weight: bold; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="status">${camName}</div>
+                        <img id="feed" src="${initialSrc}" alt="${camName}">
+                    </body>
+                    </html>
+                `);
+                win.document.close();
+                // Save reference to this window
+                activePopups[camId] = win;
+            }
+        }
+
+        // Hidden feature to toggle URL input visibility
+        function toggleUrl(camId) {
+            const urlInput = document.getElementById(`${camId}-url`);
+            if (urlInput) {
+                urlInput.classList.toggle('hidden');
+            }
+        }
+
+        // Toggle disable/enable specific camera
+        function toggleDisable(camId) {
+            const cam = cameraList.find(c => c.id === camId);
+            if (!cam) return;
+            
+            cam.disabled = !cam.disabled;
+            const btn = document.getElementById(`${camId}-disable-btn`);
+            const overlayElement = document.getElementById(`${camId}-overlay`);
+            const imgElement = document.getElementById(`${camId}-img`);
+            
+            if (cam.disabled) {
+                // Change icon to 'Red Light' (Disabled/Stopped)
+                btn.innerHTML = `<svg class="w-4 h-4 text-red-500 drop-shadow-[0_0_4px_rgba(239,68,68,0.8)]" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle></svg>`;
+                btn.title = "Enable Camera";
+                
+                // Show 'Disabled' state overlay
+                imgElement.classList.add('opacity-0');
+                overlayElement.classList.remove('hidden');
+                overlayElement.innerHTML = `
+                    <svg class="h-8 w-8 text-slate-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
+                    <span class="text-sm text-slate-400 font-medium">Disabled</span>
+                `;
+            } else {
+                // Change icon back to 'Green Light' (Playing)
+                btn.innerHTML = `<svg class="w-4 h-4 text-green-500 drop-shadow-[0_0_4px_rgba(34,197,94,0.8)]" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle></svg>`;
+                btn.title = "Disable Camera";
+                
+                // Show connecting spinner immediately before fetch
+                overlayElement.innerHTML = `
+                    <svg class="animate-spin h-8 w-8 text-blue-500 mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span class="text-sm text-slate-400">Connecting...</span>
+                `;
+                
+                updateCamera(camId);
+            }
+        }
+
+        // Render the Grid dynamically
+        function renderGrid() {
+            const gridContainer = document.getElementById('camera-grid');
+            let gridHTML = '';
+
+            cameraList.forEach(cam => {
+                gridHTML += `
+                    <div class="bg-slate-900 rounded-xl border border-slate-800 shadow-xl overflow-hidden flex flex-col relative group min-h-[240px] lg:min-h-0">
+                        
+                        <!-- Block Header -->
+                        <div class="px-3 py-2 bg-slate-800 border-b border-slate-700/50 flex flex-col z-10 shrink-0 gap-2">
+                            <!-- Top Row: Info and Controls -->
+                            <div class="flex items-center justify-between w-full">
+                                <div class="flex flex-wrap items-center gap-1 sm:gap-2">
+                                    <div class="flex items-center gap-2 cursor-pointer group/title" onclick="toggleUrl('${cam.id}')" title="Click to toggle URL edit">
+                                        <svg class="w-4 h-4 text-slate-400 shrink-0 group-hover/title:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                        <h2 class="text-sm font-semibold text-slate-100 whitespace-nowrap select-none">${cam.name}</h2>
+                                    </div>
+                                    
+                                    ${cam.ptz ? `<div class="flex items-center gap-1 ml-0 sm:ml-1">` + cam.ptz.map(p => `
+                                        <a href="${p.url}" target="_blank" class="flex items-center gap-1 text-[10px] font-medium bg-slate-900 hover:bg-slate-700 border border-slate-700 hover:border-blue-500 text-slate-300 hover:text-blue-300 px-1.5 py-0.5 rounded transition-all" title="Open PTZ: ${p.name}">
+                                            <svg class="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                            <span>${p.name}</span>
+                                        </a>
+                                    `).join('') + `</div>` : ''}
+
+                                    <div class="flex items-center border-l border-slate-700/60 pl-1 sm:pl-2 ml-1 sm:ml-2">
+                                        <button onclick="maximizeCamera('${cam.id}', '${cam.name}')" class="p-1 mr-1 transition-colors rounded hover:bg-slate-700 focus:outline-none text-slate-400 hover:text-white" title="Open in New Window">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                                        </button>
+                                        <button onclick="toggleDisable('${cam.id}')" id="${cam.id}-disable-btn" class="p-1 transition-colors rounded hover:bg-slate-700 focus:outline-none" title="Disable Camera">
+                                            <svg class="w-4 h-4 text-green-500 drop-shadow-[0_0_4px_rgba(34,197,94,0.8)]" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <span class="text-[10px] sm:text-xs text-slate-500 font-mono whitespace-nowrap hidden lg:block ml-2" id="${cam.id}-time">--:--:--</span>
+                            </div>
+                            
+                            <!-- Second Line: Editable URL Input (Hidden by default) -->
+                            <input type="text" id="${cam.id}-url" value="${cam.url}" 
+                                class="hidden bg-slate-950 border border-slate-600 rounded px-2 py-1 text-xs text-slate-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none w-full"
+                                placeholder="Enter stream URL">
+                        </div>
+
+                        <!-- Main Feed Area -->
+                        <div class="relative flex-1 bg-black flex items-center justify-center overflow-hidden">
+                            <img id="${cam.id}-img" src="" class="cam-feed object-contain w-full h-full opacity-0" alt="${cam.name} Stream">
+                            
+                            <!-- Loading / Error Overlay -->
+                            <div id="${cam.id}-overlay" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900/80 backdrop-blur-sm z-20">
+                                <svg class="animate-spin h-8 w-8 text-blue-500 mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <span id="${cam.id}-status" class="text-sm text-slate-400">Connecting...</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            gridContainer.innerHTML = gridHTML;
+        }
+
+        // Function to fetch and update a single camera feed
+        function updateCamera(camId) {
+            const cam = cameraList.find(c => c.id === camId);
+            if (cam && cam.disabled) return; // Skip updating if the camera is disabled
+
+            // CRITICAL FIX: Prevent network queue pileups at high refresh rates (0.1s)
+            // Wait for the previous frame to finish loading before requesting the next one
+            if (cam.isFetching) {
+                // If a fetch hangs on a bad network for more than 3 seconds, forcefully release the lock
+                if (Date.now() - (cam.fetchStartTime || 0) > 3000) {
+                    cam.isFetching = false;
+                } else {
+                    return; // Skip this tick; still waiting for the last image to download
+                }
+            }
+
+            const urlInput = document.getElementById(`${camId}-url`);
+            const imgElement = document.getElementById(`${camId}-img`);
+            const overlayElement = document.getElementById(`${camId}-overlay`);
+            const timeElement = document.getElementById(`${camId}-time`);
+            
+            // Safety check in case DOM isn't ready
+            if (!urlInput || !imgElement) return;
+
+            const targetUrl = urlInput.value.trim();
+
+            // Format timestamp for UI
+            const now = new Date();
+            timeElement.textContent = now.toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            if (!targetUrl) {
+                showError(overlayElement, "URL Required");
+                return;
+            }
+
+            // Lock this camera so it doesn't fire another request until this one resolves
+            cam.isFetching = true;
+            cam.fetchStartTime = Date.now();
+
+            // Preload image via JS Image object to prevent visual flickering on the UI
+            const tempImg = new Image();
+            
+            tempImg.onload = function() {
+                cam.isFetching = false; // Release the network lock
+                
+                // Success: Apply image to UI and hide loading states
+                imgElement.src = this.src;
+                imgElement.classList.remove('opacity-0');
+                imgElement.classList.add('opacity-100');
+                overlayElement.classList.add('hidden');
+                
+                // Reset error counter and flag system active
+                consecutiveErrors = 0;
+                updateGlobalStatus(true);
+                
+                // Sync frame directly to the maximized window if it is open
+                if (activePopups[camId] && !activePopups[camId].closed) {
+                    const popupImg = activePopups[camId].document.getElementById('feed');
+                    if (popupImg) {
+                        popupImg.src = this.src;
+                    }
+                }
+                
+                // Cleanup memory to prevent browser crashes at high refresh rates
+                tempImg.onload = null;
+                tempImg.onerror = null;
+            };
+
+            tempImg.onerror = function() {
+                cam.isFetching = false; // Release the network lock
+                
+                // Auto-disable the camera to prevent endless failing requests
+                if (!cam.disabled) {
+                    cam.disabled = true;
+                    
+                    const btn = document.getElementById(`${camId}-disable-btn`);
+                    if (btn) {
+                        btn.innerHTML = `<svg class="w-4 h-4 text-red-500 drop-shadow-[0_0_4px_rgba(239,68,68,0.8)]" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle></svg>`;
+                        btn.title = "Enable Camera";
+                    }
+                    
+                    imgElement.classList.add('opacity-0');
+                    showError(overlayElement, "Auto-Disabled (Connection Lost)");
+                }
+                
+                consecutiveErrors++;
+                
+                // If a high volume of errors occurs across the board, mark system offline
+                if (consecutiveErrors > cameraList.length * 2) {
+                    updateGlobalStatus(false);
+                }
+                
+                // Cleanup memory
+                tempImg.onload = null;
+                tempImg.onerror = null;
+            };
+
+            // Cache-busting: Append unique timestamp to force browser to fetch new frame
+            const timestamp = new Date().getTime();
+            const separator = targetUrl.includes('?') ? '&' : '?';
+            tempImg.src = `${targetUrl}${separator}_t=${timestamp}`;
+        }
+
+        // Helper to format error states consistently
+        function showError(overlayEl, message) {
+            overlayEl.classList.remove('hidden');
+            overlayEl.innerHTML = `
+                <svg class="h-8 w-8 text-red-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 01-1.414-2.83m-1.414 5.658a9 9 0 01-2.167-9.238m7.824 2.167a1 1 0 111.414 1.414m-1.414-1.414L3 3m8.293 8.293l1.414 1.414"></path></svg>
+                <span class="text-sm text-red-400 font-medium">${message}</span>
+            `;
+        }
+
+        // Global system health indicator
+        function updateGlobalStatus(isOnline) {
+            const dot = document.getElementById('global-dot');
+            const pulse = document.getElementById('global-pulse');
+            const text = document.getElementById('global-text');
+
+            if (isOnline) {
+                dot.className = 'relative inline-flex rounded-full h-3 w-3 bg-green-500';
+                pulse.className = 'animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75';
+                pulse.style.display = 'block';
+                text.textContent = 'System Active';
+                text.className = 'text-xs font-medium text-green-400 uppercase tracking-wider';
+            } else {
+                dot.className = 'relative inline-flex rounded-full h-3 w-3 bg-red-500';
+                pulse.style.display = 'none';
+                text.textContent = 'System Offline';
+                text.className = 'text-xs font-medium text-red-400 uppercase tracking-wider';
+            }
+        }
+
+        // Main Loop Controller (Optimized Independent Timers)
+        function startLoop() {
+            globalLoopId++;
+            const currentLoopId = globalLoopId;
+            
+            // Perfect initial distribution to prevent startup bursts
+            const spacing = REFRESH_RATE_MS / cameraList.length;
+
+            cameraList.forEach((cam, index) => {
+                if (cam.timer) clearTimeout(cam.timer);
+                
+                // Stagger the 9 requests perfectly across the refresh window
+                const initialDelay = Math.floor(index * spacing);
+
+                const tick = () => {
+                    // Abort if the user dragged the slider and a new session started
+                    if (globalLoopId !== currentLoopId) return;
+
+                    updateCamera(cam.id);
+
+                    // Schedule this specific camera's next tick at the exact refresh rate (no jitter)
+                    const nextTick = Math.max(10, REFRESH_RATE_MS); // Ensure minimum 10ms
+                    
+                    cam.timer = setTimeout(tick, nextTick);
+                };
+
+                // Store reference for the sequential reloader
+                cam.tick = tick;
+
+                // Kick off this camera's independent lifecycle
+                cam.timer = setTimeout(tick, initialDelay);
+            });
+        }
+        
+        // Bind UI Controls (Slider)
+        const slider = document.getElementById('refresh-slider');
+        const sliderLabel = document.getElementById('refresh-value');
+        let dragTimeout;
+
+        slider.addEventListener('input', (e) => {
+            REFRESH_RATE_MS = parseInt(e.target.value, 10);
+            sliderLabel.textContent = (REFRESH_RATE_MS / 1000).toFixed(1) + 's';
+            
+            // Debounce the loop restart so it updates dynamically while dragging 
+            // without overwhelming the network with requests every millisecond.
+            clearTimeout(dragTimeout);
+            dragTimeout = setTimeout(() => {
+                startLoop();
+            }, 100);
+        });
+
+        // Warn users if they open this via HTTPS, which blocks HTTP local IPs.
+        if (window.location.protocol === 'https:') {
+            document.getElementById('https-warning').classList.remove('hidden');
+        }
+
+        // Initialization
+        window.onload = () => {
+            renderGrid();
+            startLoop();
+            
+            // Full page reload every 360 seconds
+            setInterval(() => {
+                window.location.reload();
+            }, 3600000);
+        };
+
+    </script>
+</body>
+</html>
