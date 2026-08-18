@@ -25,8 +25,27 @@
   }
   nav.tabs a:hover { color: var(--text); background: var(--panel2); }
   nav.tabs a.active { color: #11111b; background: var(--accent); }
-  iframe {
-    width: 100%; height: calc(100vh - 110px); min-height: 320px;
+  .block {
+    background: var(--panel); border-radius: 8px; padding: 8px 10px; margin-bottom: 12px;
+  }
+  .block .head { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+  .block .head b { color: var(--accent); }
+  .sm02 {
+    display: grid; grid-template-columns: 55% 45%; gap: 10px;
+    height: 420px;
+  }
+  @media (max-width: 1100px) { .sm02 { grid-template-columns: 1fr; height: auto; } }
+  .panel {
+    background: var(--panel2); border-radius: 6px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .panel img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  .panel iframe {
+    width: 100%; height: 100%; border: 0;
+  }
+  .panel .msg { color: var(--muted); font-size: 13px; }
+  iframe.live {
+    width: 100%; height: calc(100vh - 620px); min-height: 320px;
     border: 1px solid var(--panel2); border-radius: 8px; background: var(--panel);
   }
 </style>
@@ -39,6 +58,32 @@
   <a href="avoip.html">AVoIP</a>
   <a href="creds.html">Passwords</a>
 </nav>
-<iframe id="ptc" src="http://10.107.147.121/dashboard_shekmun.html" title="PTZ main page"></iframe>
+
+<div class="block">
+  <div class="head">SM02</div>
+  <div class="sm02">
+    <div class="panel">
+      <img id="sm02img" src="http://172.18.22.102/snapshot/snapshot" alt="SM02 live" onerror="this.style.display='none';this.nextElementSibling.style.display=''">
+      <span class="msg" style="display:none">SM02 - no signal</span>
+    </div>
+    <div class="panel">
+      <iframe src="http://172.18.2.52:8000/tablet?max_col=4&max_row=2&min_col=0&pages=1" title="SM02 control"></iframe>
+    </div>
+  </div>
+</div>
+
+<div class="head" style="color:var(--muted);font-size:12px;margin-bottom:6px;">Live main page:</div>
+<iframe class="live" src="http://10.107.147.121/dashboard_shekmun.html" title="PTZ main page"></iframe>
+
+<script>
+// refresh the SM02 mediabox snapshot every 0.1s with a cache-buster
+const REFRESH_MS = 100;
+const $img = document.getElementById('sm02img');
+setInterval(() => {
+  $img.style.display = '';
+  $img.nextElementSibling.style.display = 'none';
+  $img.src = 'http://172.18.22.102/snapshot/snapshot?_t=' + Date.now();
+}, REFRESH_MS);
+</script>
 </body>
 </html>
