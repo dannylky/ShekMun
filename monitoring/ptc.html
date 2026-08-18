@@ -25,9 +25,20 @@
   }
   nav.tabs a:hover { color: var(--text); background: var(--panel2); }
   nav.tabs a.active { color: #11111b; background: var(--accent); }
-  iframe {
-    width: 100%; height: calc(100vh - 110px); min-height: 320px;
-    border: 1px solid var(--panel2); border-radius: 8px; background: var(--panel);
+  .cols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    height: calc(100vh - 110px); min-height: 320px;
+  }
+  @media (max-width: 1100px) { .cols { grid-template-columns: 1fr; height: auto; } }
+  .block {
+    background: var(--panel); border-radius: 8px; padding: 8px 10px;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .block .head { color: var(--muted); font-size: 12px; margin-bottom: 6px; }
+  .block .head b { color: var(--accent); }
+  .block iframe {
+    flex: 1; width: 100%; min-height: 300px;
+    border: 1px solid var(--panel2); border-radius: 6px; background: var(--panel);
   }
 </style>
 </head>
@@ -39,6 +50,15 @@
   <a href="avoip.html">AVoIP</a>
   <a href="creds.html">Passwords</a>
 </nav>
-<iframe id="ptc" src="http://10.107.147.121/dashboard_shekmun.html" title="PTZ main page"></iframe>
+<div class="cols">
+  <div class="block">
+    <div class="head">PTZ live view</div>
+    <iframe id="live" src="http://10.107.147.121/dashboard_shekmun.html" title="PTZ live view"></iframe>
+  </div>
+  <div class="block" id="sm02">
+    <div class="head">SM02 tablet control</div>
+    <iframe src="http://172.18.2.52:8000/tablet?max_col=4&max_row=2&min_col=0&pages=1" title="SM02 tablet"></iframe>
+  </div>
+</div>
 </body>
 </html>
