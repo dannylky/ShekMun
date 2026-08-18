@@ -215,8 +215,9 @@ function deviceRow(d) {
     ? '<span class="temp ' + (d.tempC < 45 ? 't-ok' : 't-hot') + '" title="KDS unit temperature, updated ' + fmt(d.tempAt) + '">' + d.tempC + '&deg;C<span class="temp-time">' + fmt(d.tempAt) + '</span></span>'
     : '';
   const stale = !d.checkedAt || (Date.now() - new Date(d.checkedAt).getTime()) > 5 * 60 * 1000;
+  const linkUrl = /AVProc-Pi5/.test(d.name) ? 'http://' + d.ip + ':8000' : 'http://' + d.ip;
   tr.innerHTML =
-    '<td><span class="dot ' + d.status + '"></span><a class="dev-link" href="http://' + d.ip + '" target="_blank" title="' + d.ip + ' [' + groupOf(d) + '] - click to open http://' + d.ip + '">' + d.name + ' (IP:' + d.ip + ')</a>' + tempHtml + '</td>' +
+    '<td><span class="dot ' + d.status + '"></span><a class="dev-link" href="' + linkUrl + '" target="_blank" title="' + d.ip + ' [' + groupOf(d) + '] - click to open ' + linkUrl + '">' + d.name + ' (IP:' + d.ip + ')</a>' + tempHtml + '</td>' +
     '<td class="rtt">' + (d.rttMs >= 0 ? d.rttMs + ' ms' : '&ndash;') + '</td>' +
     '<td class="when' + (stale ? ' stale' : '') + '" title="' + d.name + '">' + fmt(d.checkedAt) + '</td>';
   return tr;
