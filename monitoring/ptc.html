@@ -25,23 +25,10 @@
   }
   nav.tabs a:hover { color: var(--text); background: var(--panel2); }
   nav.tabs a.active { color: #11111b; background: var(--accent); }
-  h1 { font-size: 18px; margin: 0 0 8px; }
-  #note { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
-  @media (max-width: 1400px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-  .room {
-    background: var(--panel); border-radius: 8px; padding: 12px 14px;
-    border-left: 4px solid var(--accent);
-    display: flex; align-items: center; justify-content: space-between;
-    min-height: 56px;
-  }
-  .room .name { font-size: 14px; font-weight: bold; }
   iframe {
-    width: 100%; height: calc(100vh - 340px); min-height: 320px;
+    width: 100%; height: calc(100vh - 110px); min-height: 320px;
     border: 1px solid var(--panel2); border-radius: 8px; background: var(--panel);
   }
-  .sec { color: var(--muted); font-size: 12px; margin: 0 0 8px; }
 </style>
 </head>
 <body>
@@ -52,30 +39,6 @@
   <a href="avoip.html">AVoIP</a>
   <a href="creds.html">Passwords</a>
 </nav>
-<h1>PTZ Grid Monitoring</h1>
-<div class="grid" id="rooms"></div>
-<div class="sec">Live main page:</div>
 <iframe id="ptc" src="http://10.107.147.121/dashboard_shekmun.html" title="PTZ main page"></iframe>
-
-<script>
-const ROOMS = [
-  { room: 'SM-11-01', ip: '172.18.2.51' },
-  { room: 'SM-11-02', ip: '172.18.2.52' },
-  { room: 'SM-11-03', ip: '172.18.2.53' },
-  { room: 'SM-11-04', ip: '172.18.2.54' },
-  { room: 'SM-11-05', ip: '172.18.2.55' },
-  { room: 'SM-11-06', ip: '172.18.2.56' },
-  { room: 'SM-11-07', ip: '172.18.2.57' },
-  { room: 'SM-11-08', ip: '172.18.2.58' },
-  { room: 'Common Rm', ip: '172.18.2.59' }
-];
-const $rooms = document.getElementById('rooms');
-ROOMS.forEach(r => {
-  const div = document.createElement('div');
-  div.className = 'room';
-  div.innerHTML = '<span class="name">' + r.room + '</span>';
-  $rooms.appendChild(div);
-});
-</script>
 </body>
 </html>
