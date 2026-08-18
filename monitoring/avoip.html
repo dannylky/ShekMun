@@ -91,6 +91,12 @@ const LAYOUTS = {
     { cap: '11-03-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560D3970' },
     { cap: '11-03-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCBB' },
     { cap: '11-03-Laptop-EN7', url: 'https://172.18.22.5/snap/001D560DFCE0' }
+  ],
+  'SM-11-04': [
+    { cap: '11-04-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3870' },
+    { cap: '11-04-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560D397A' },
+    { cap: '11-04-PC-EN7',     url: 'https://172.18.22.5/snap/001D560DFCBE' },
+    { cap: '11-04-Laptop-EN7', url: '' }
   ]
 };
 const positions = ['c-tl', 'c-tm', 'c-tr', 'c-bl', 'c-br'];
@@ -112,8 +118,12 @@ function buildRooms() {
       snaps.forEach((snap, i) => {
         const cell = document.createElement('div');
         cell.className = 'cell ' + positions[i];
-        cell.innerHTML = '<img data-src="' + snap.url + '" alt="' + snap.cap + '" onerror="this.parentElement.innerHTML=this.alt+(\' unavailable\')">' +
-          '<span class="cap">' + snap.cap + '</span>';
+        if (snap.url) {
+          cell.innerHTML = '<img data-src="' + snap.url + '" alt="' + snap.cap + '" onerror="this.parentElement.innerHTML=this.alt+(\' unavailable\')">' +
+            '<span class="cap">' + snap.cap + '</span>';
+        } else {
+          cell.innerHTML = '<span style="color:var(--muted);font-size:11px;text-align:center;padding:4px;">' + snap.cap + '<br>(URL missing)</span>';
+        }
         g.appendChild(cell);
       });
       div.appendChild(g);
