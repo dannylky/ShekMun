@@ -31,19 +31,19 @@
   @media (max-width: 1400px) { .grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
   .room {
-    background: var(--panel); border-radius: 8px; padding: 10px 14px;
+    background: var(--panel); border-radius: 8px; padding: 12px 14px;
     border-left: 4px solid var(--accent);
     display: flex; align-items: center; justify-content: space-between;
+    min-height: 56px;
   }
   .room .name { font-size: 14px; font-weight: bold; }
   .ctrl {
-    display: inline-flex; align-items: center; gap: 6px;
+    display: inline-flex; align-items: center; justify-content: center;
     background: var(--panel2); color: var(--accent); border: 1px solid var(--panel2);
-    border-radius: 6px; padding: 5px 10px; cursor: pointer; text-decoration: none;
-    font-size: 12px; font-weight: bold;
+    border-radius: 6px; width: 32px; height: 32px; cursor: pointer; text-decoration: none;
   }
   .ctrl:hover { filter: brightness(1.2); border-color: var(--accent); }
-  .ctrl svg { width: 16px; height: 16px; fill: var(--accent); }
+  .ctrl svg { width: 18px; height: 18px; fill: var(--accent); }
   iframe {
     width: 100%; height: calc(100vh - 340px); min-height: 320px;
     border: 1px solid var(--panel2); border-radius: 8px; background: var(--panel);
@@ -87,7 +87,7 @@ ROOMS.forEach(r => {
   const url = 'http://' + r.ip + ':8000' + TABLET_PATH;
   div.innerHTML =
     '<span class="name">' + r.room + '</span>' +
-    '<a class="ctrl" href="' + url + '" target="_blank" title="Open tablet control ' + url + '">' + GEAR + 'Control</a>';
+    '<a class="ctrl" href="' + url + '" target="_blank" title="Open tablet control ' + url + '">' + GEAR + '</a>';
   $rooms.appendChild(div);
 });
 </script>
