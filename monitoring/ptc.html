@@ -37,13 +37,6 @@
     min-height: 56px;
   }
   .room .name { font-size: 14px; font-weight: bold; }
-  .ctrl {
-    display: inline-flex; align-items: center; justify-content: center;
-    background: var(--panel2); color: var(--accent); border: 1px solid var(--panel2);
-    border-radius: 6px; width: 32px; height: 32px; cursor: pointer; text-decoration: none;
-  }
-  .ctrl:hover { filter: brightness(1.2); border-color: var(--accent); }
-  .ctrl svg { width: 18px; height: 18px; fill: var(--accent); }
   iframe {
     width: 100%; height: calc(100vh - 340px); min-height: 320px;
     border: 1px solid var(--panel2); border-radius: 8px; background: var(--panel);
@@ -60,7 +53,6 @@
   <a href="creds.html">Passwords</a>
 </nav>
 <h1>PTZ Grid Monitoring</h1>
-<div id="note">Control icon opens each room's AVProc tablet page.</div>
 <div class="grid" id="rooms"></div>
 <div class="sec">Live main page:</div>
 <iframe id="ptc" src="http://10.107.147.121/dashboard_shekmun.html" title="PTZ main page"></iframe>
@@ -77,17 +69,11 @@ const ROOMS = [
   { room: 'SM-11-08', ip: '172.18.2.58' },
   { room: 'Common Rm', ip: '172.18.2.59' }
 ];
-const TABLET_PATH = '/tablet/?max_col=4&max_row=2&min_col=0&pages=1';
-const GEAR = '<svg viewBox="0 0 24 24"><path d="M19.14 12.94a7.07 7.07 0 0 0 .05-.94 7.07 7.07 0 0 0-.05-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.05 7.05 0 0 0-1.62-.94l-.36-2.54a.5.5 0 0 0-.5-.42h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96a.5.5 0 0 0-.61.22L2.55 8.84a.5.5 0 0 0 .12.64l2.03 1.58a7.07 7.07 0 0 0 0 1.88l-2.03 1.58a.5.5 0 0 0-.12.64l1.92 3.32c.13.22.39.3.61.22l2.39-.96c.49.38 1.03.7 1.62.94l.36 2.54c.05.24.25.42.5.42h3.84c.25 0 .45-.18.5-.42l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.48 0 .61-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.03-1.58zM12 15.5A3.5 3.5 0 1 1 12 8.5a3.5 3.5 0 0 1 0 7z"/></svg>';
-
 const $rooms = document.getElementById('rooms');
 ROOMS.forEach(r => {
   const div = document.createElement('div');
   div.className = 'room';
-  const url = 'http://' + r.ip + ':8000' + TABLET_PATH;
-  div.innerHTML =
-    '<span class="name">' + r.room + '</span>' +
-    '<a class="ctrl" href="' + url + '" target="_blank" title="Open tablet control ' + url + '">' + GEAR + '</a>';
+  div.innerHTML = '<span class="name">' + r.room + '</span>';
   $rooms.appendChild(div);
 });
 </script>
