@@ -56,6 +56,9 @@
     padding: 2px 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     text-align: center;
   }
+  .cell .fb { display: none; color: var(--muted); font-size: 11px; text-align: center; padding: 4px; }
+  .cell.err img { display: none; }
+  .cell.err .fb { display: block; }
   .empty { color: var(--muted); font-size: 12px; padding: 8px 2px; text-align: center; }
 </style>
 </head>
@@ -181,6 +184,7 @@ const LAYOUTS = {
 
 const $rooms = document.getElementById('rooms');
 let tick = Date.now();
+let cells = [];   // {img, next} per cell - staggered refresh to avoid bursts
 
 function buildRooms() {
   $rooms.innerHTML = '';
@@ -201,8 +205,9 @@ function buildRooms() {
           const cell = document.createElement('div');
           cell.className = 'cell';
           if (snap.url) {
-            cell.innerHTML = '<img data-src="' + snap.url + '" alt="' + snap.cap + '" onerror="this.parentElement.innerHTML=this.alt+(\' unavailable\')">' +
-              '<span class="cap">' + snap.cap + '</span>';
+            cell.innerHTML = '<img data-src="' + snap.url + '" alt="' + snap.cap + '" onerror="this.parentElement.classList.add(\'err\')">' +
+              '<span class="cap">' + snap.cap + '</span>' +
+              '<span class="fb">' + snap.cap + ' unavailable</span>';
           } else {
             cell.innerHTML = '<span style="color:var(--muted);font-size:11px;text-align:center;padding:4px;">' + snap.cap + '<br>(URL missing)</span>';
           }
@@ -218,18 +223,26 @@ function buildRooms() {
     }
     $rooms.appendChild(div);
   });
+  cells = [];
+  document.querySelectorAll('.cell img').forEach((img, i) => {
+    cells.push({ img: img, next: Date.now() + i * 120 });
+  });
   refreshImages();
 }
 
 function refreshImages() {
-  tick = Date.now();
-  document.querySelectorAll('.cell img').forEach(img => {
-    img.src = img.dataset.src + '?t=' + tick;
+  const now = Date.now();
+  cells.forEach(c => {
+    if (now < c.next) return;
+    const isErr = c.img.classList.contains('err');
+    c.next = now + (isErr ? 1500 : REFRESH_MS) + Math.random() * 200;
+    c.img.parentElement.classList.remove('err');
+    c.img.src = c.img.dataset.src + '?t=' + now;
   });
 }
 
 buildRooms();
-setInterval(refreshImages, REFRESH_MS);
+setInterval(refreshImages, 250);
 </script>
 </body>
 </html>

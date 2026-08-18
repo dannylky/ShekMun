@@ -2,6 +2,16 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.7.7] - 2026-08-18
+- Bugfix: AVoIP thumbnails (e.g. 11-01-TV2-DEC7) showing persistent
+  "unavailable". Root cause: the Kramer manager intermittently 404s
+  snapshot requests (6/20 failed in testing), and the page (1) killed
+  the img element on error so it could never recover, and (2) fired
+  all ~42 refreshes in one burst every 5s, provoking the manager's
+  rate limit. Now: errors are non-destructive and self-heal on the
+  next retry (failed cells retry after 1.5s), and refreshes are
+  staggered per cell to avoid bursts.
+
 ## [1.7.6] - 2026-08-18
 - Removed the video route function (SM-11-06 dropdown, Route button
   and the /api/routing proxy) - the manager firmware (KDS-7-MNGR)
