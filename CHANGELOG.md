@@ -2,6 +2,22 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.8.1] - 2026-08-19
+- Audio-DEC (KDS-DEC7 audio decoders, 172.18.22.181-189) now included in
+  temperature monitoring (44 units total). Their temps appear on the
+  Dashboard rows and AVoIP page Audio-DEC thumbnails automatically
+  (merge is by IP). temp-monitor.exe rebuilt and restarted.
+
+## [1.8.0] - 2026-08-19
+- Version number ("v1.8.0") shown in footers/meta of all pages
+  (dashboard_shekmun, dashboard, ptc, avoip, creds).
+- Passwords page (creds.html): now requires password "rcteacher" on
+  ALL access (localhost included). Unlock remembered per tab
+  (sessionStorage).
+- Passwords tab hidden when accessed remotely: every tab-bar page
+  removes the creds.html link via JS unless hostname is
+  localhost/127.0.0.1.
+
 ## [1.7.9] - 2026-08-18
 - PTZ and AVoIP pages: remote-access password gate (password
   "rcteacher"). Prompt only appears when accessed via IP/DNS -

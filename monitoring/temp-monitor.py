@@ -9,6 +9,7 @@ the "~01@HW-TEMP 0,0,<temp>" response.
 Devices are auto-selected from devices.json by name pattern:
   - EN-*         -> KDS-SW3-EN7 encoders (e.g. EN-PC-AVoIP)
   - TV-DEC-*     -> KDS-DEC7 decoders    (e.g. TV-DEC-1)
+  - Audio-DEC    -> KDS-DEC7 audio decoders (one per room)
   - AVoIP-Manager -> KDS AVoIP manager   (172.18.22.5)
 Only units on the AVoIP subnet (172.18.22.x) are included, so Dante
 endpoints named EN-* are skipped. Adjust DEVICE_FILTER if needed.
@@ -56,7 +57,7 @@ def err_log(message):
         pass
 
 DEVICE_FILTER = {
-    "name_re": r"^(EN|TV-DEC)-|^AVoIP-Manager$",
+    "name_re": r"^(EN|TV-DEC)-|^Audio-DEC$|^AVoIP-Manager$",
     "subnet": "172.18.22.",  # AVoIP VLAN only
 }
 
