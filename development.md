@@ -70,5 +70,5 @@ System: monitors 287 AV devices across 9 rooms (SM-11-01..08 + Common Rm) over 2
 
 ## Pending / next
 
-- PASSWORD GATE (requested, NOT implemented): PTZ + AVoIP pages ask password "rcteacher" only when accessed via IP/DNS; free on localhost:8080. Plan: overlay login in ptc.html + avoip.html, gate on location.hostname != localhost/127.0.0.1, sessionStorage unlock.
 - Rebuild deployment package when needed: .\build-deploy.ps1 (stops running EXEs first; restart services after).
+- Done: password gate (v1.7.9) - PTZ + AVoIP ask "rcteacher" only via IP/DNS; localhost free; sessionStorage unlock.
