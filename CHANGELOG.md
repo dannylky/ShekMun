@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.8.3] - 2026-08-19
+- Password gate (PTZ, AVoIP, Passwords pages): added a "Back" button
+  next to Unlock - goes back in history, or to the Main page if there
+  is no history.
+- PTZ and AVoIP tabs show a lock symbol when accessed remotely
+  (matching the password-protected state); no lock on localhost.
+
 ## [1.8.2] - 2026-08-19
 - Main page (dashboard_shekmun.html) now excludes TV-Res devices too,
   matching the Dashboard page. Both pages show the same total (276 of

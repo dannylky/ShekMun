@@ -141,7 +141,7 @@
 
 <div id="rooms" class="grid"></div>
 <div id="unique"></div>
-<div class="footer">v1.8.1 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
+<div class="footer">v1.8.3 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
 
 <script>
 const REFRESH_MS = 10000;
@@ -360,13 +360,20 @@ setInterval(() => {
 <script>
 (function () {
   const host = location.hostname;
-  if (host === 'localhost' || host === '127.0.0.1') return;
+  const local = host === 'localhost' || host === '127.0.0.1';
+  const lock = '\uD83D\uDD12';
+  if (local) return;
   const l = document.querySelector('a[href="creds.html"]');
   if (l) l.remove();
+  ['ptc.html', 'avoip.html'].forEach(function (href) {
+    const a = document.querySelector('a[href="' + href + '"]');
+    if (a && a.textContent.indexOf(lock) === -1) a.textContent = lock + ' ' + a.textContent;
+  });
 })();
 </script>
 </body>
 </html>
+
 
 
 

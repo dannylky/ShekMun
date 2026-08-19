@@ -59,13 +59,13 @@
   <a href="creds.html">Passwords</a>
 </nav>
 <iframe id="ptc" src="dashboard_PTZ.html" title="PTZ main page"></iframe>
-<div class="footer" style="color:var(--muted);font-size:12px;margin-top:12px;">v1.8.1</div>
+<div class="footer" style="color:var(--muted);font-size:12px;margin-top:12px;">v1.8.3</div>
 
 <div class="gate" id="gate">
   <div class="card">
     <h2>Restricted - enter password</h2>
     <input type="password" id="gatePw" placeholder="Password" autocomplete="off">
-    <div><button id="gateBtn">Unlock</button></div>
+    <div><button id="gateBtn">Unlock</button> <button id="gateBack" style="background:var(--panel2);color:var(--text);">Back</button></div>
     <div class="err" id="gateErr"></div>
   </div>
 </div>
@@ -91,16 +91,27 @@
     }
   };
   document.getElementById('gateBtn').addEventListener('click', tryUnlock);
+  document.getElementById('gateBack').addEventListener('click', function () {
+    if (history.length > 1) history.back();
+    else window.location.href = 'dashboard_shekmun.html';
+  });
   pw.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryUnlock(); });
 })();
 
-// hide the Passwords tab when accessed remotely (localhost only)
+// remote mode: hide Passwords tab, add lock symbol to PTZ/AVoIP tabs
 (function () {
   const host = location.hostname;
-  if (host === 'localhost' || host === '127.0.0.1') return;
+  const local = host === 'localhost' || host === '127.0.0.1';
+  const lock = '\uD83D\uDD12';
+  if (local) return;
   const l = document.querySelector('a[href="creds.html"]');
   if (l) l.remove();
+  ['ptc.html', 'avoip.html'].forEach(function (href) {
+    const a = document.querySelector('a[href="' + href + '"]');
+    if (a && a.textContent.indexOf(lock) === -1) a.textContent = lock + ' ' + a.textContent;
+  });
 })();
 </script>
 </body>
 </html>
+
