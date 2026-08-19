@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.7.9] - 2026-08-18
+- PTZ and AVoIP pages: remote-access password gate (password
+  "rcteacher"). Prompt only appears when accessed via IP/DNS -
+  localhost and 127.0.0.1 are password-free. Unlock is remembered
+  per browser tab session (sessionStorage).
+
 ## [1.7.8] - 2026-08-18
 - AVoIP page: each thumbnail now shows the latest KDS temperature
   badge (top-right corner), matched from snapshot.json by parsing the

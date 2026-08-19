@@ -29,6 +29,25 @@
     width: 100%; height: calc(100vh - 110px); min-height: 320px;
     border: 1px solid var(--panel2); border-radius: 8px; background: var(--panel);
   }
+  .gate {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: var(--bg); align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+  }
+  .gate .card {
+    background: var(--panel); border-radius: 10px; padding: 24px 28px;
+    border-left: 4px solid var(--accent); text-align: center;
+  }
+  .gate h2 { margin: 0 0 14px; font-size: 16px; }
+  .gate input {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--panel2);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px; width: 200px; text-align: center;
+  }
+  .gate button {
+    background: var(--accent); color: #11111b; border: none; border-radius: 6px;
+    padding: 8px 20px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 12px;
+  }
+  .gate .err { color: var(--fail); font-size: 12px; margin-top: 8px; min-height: 16px; }
 </style>
 </head>
 <body>
@@ -40,5 +59,39 @@
   <a href="creds.html">Passwords</a>
 </nav>
 <iframe id="ptc" src="dashboard_PTZ.html" title="PTZ main page"></iframe>
+
+<div class="gate" id="gate">
+  <div class="card">
+    <h2>Restricted - enter password</h2>
+    <input type="password" id="gatePw" placeholder="Password" autocomplete="off">
+    <div><button id="gateBtn">Unlock</button></div>
+    <div class="err" id="gateErr"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const host = location.hostname;
+  const local = host === 'localhost' || host === '127.0.0.1';
+  if (local || sessionStorage.getItem('shekmunGate') === '1') return;
+  const gate = document.getElementById('gate');
+  const pw = document.getElementById('gatePw');
+  const err = document.getElementById('gateErr');
+  gate.style.display = 'flex';
+  pw.focus();
+  const tryUnlock = function () {
+    if (pw.value === 'rcteacher') {
+      sessionStorage.setItem('shekmunGate', '1');
+      gate.style.display = 'none';
+    } else {
+      err.textContent = 'Wrong password';
+      pw.value = '';
+      pw.focus();
+    }
+  };
+  document.getElementById('gateBtn').addEventListener('click', tryUnlock);
+  pw.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryUnlock(); });
+})();
+</script>
 </body>
 </html>
