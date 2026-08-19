@@ -25,7 +25,7 @@
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $MyInvocation.MyCommand.Path
 $mon = Join-Path $repo 'monitoring'
-$version = '1.7.1'
+$version = '1.8.3'
 $pkgName = "ShekMun-Monitor-v$version"
 $pkgRoot = Join-Path $repo 'deploy'
 $pkgDir = Join-Path $pkgRoot $pkgName
@@ -69,11 +69,13 @@ New-Item -ItemType Directory -Path (Join-Path $pkgDir 'monitoring\logs') -Force 
 $files = @(
     'monitor.exe', 'serve-dashboard.exe', 'monitor-control.exe', 'temp-monitor.exe',
     'dashboard_shekmun.html', 'dashboard.html', 'creds.html', 'ptc.html',
+    'avoip.html', 'dashboard_PTZ.html',
     'config.json', 'devices.json', 'creds.json.example'
 )
 foreach ($f in $files) { Copy-Item (Join-Path $mon $f) (Join-Path $pkgDir "monitoring\$f") }
 Copy-Item (Join-Path $repo 'Shek Mun SOP Original.docx') $pkgDir
 Copy-Item (Join-Path $repo 'Shek Mun SOP Short.docx') $pkgDir
+Copy-Item (Join-Path $repo 'INSTALLATION-GUIDE.md') $pkgDir
 
 # ---- 3. launcher + one-time setup + runbook ----
 @'
@@ -103,8 +105,10 @@ Shek Mun Monitor - v$version
 ============================
 
 WHAT THIS IS
-  Continuous monitoring of the Shek Mun AV network (287 devices) plus
-  Kramer KDS unit temperatures and a web dashboard.
+  Continuous monitoring of the Shek Mun AV network (287 devices, 9 rooms)
+  plus Kramer KDS unit temperatures (44 units incl. AVoIP manager and
+  Audio-DEC decoders) and a web dashboard with Main / Dashboard / PTZ /
+  AVoIP / Passwords tabs.
 
 SETUP (one time, 2 minutes)
   1. Copy this whole folder to the target PC (any location).
@@ -119,7 +123,7 @@ RUNNING
   Double-click "Start Monitor Control" (or the desktop shortcut).
   The controller auto-starts:
     - device monitor     (monitor.exe)
-    - temp monitor       (temp-monitor.exe)
+    - temp monitor       (temp-monitor.exe, incl. Audio-DEC temps)
     - dashboard server   (serve-dashboard.exe, port 8080)
   and opens the main page http://localhost:8080/dashboard_shekmun.html
   in the browser.
@@ -129,8 +133,16 @@ RUNNING
 URLS
   Main page:     http://localhost:8080/dashboard_shekmun.html
   Device list:   http://localhost:8080/dashboard.html
+  PTZ grid:      http://localhost:8080/ptc.html
+  AVoIP view:    http://localhost:8080/avoip.html
   Passwords:     http://localhost:8080/creds.html
   LAN access:    http://<this-pc-ip>:8080/... (after setup-once.bat)
+
+  On localhost the PTZ / AVoIP / Passwords pages need NO password.
+  Accessed remotely (IP/DNS), PTZ and AVoIP ask for password
+  "rcteacher" (remembered per browser tab); the Passwords tab is
+  hidden remotely and the creds page itself is always password
+  protected.
 
 DATA & LOGS
   monitoring\logs\    status CSVs, reports, temp CSVs, error logs
@@ -143,6 +155,10 @@ TROUBLESHOOTING
     the controller (Port box) - then rerun setup-once.bat for that
     port.
   - Dashboard unreachable: firewall/URL ACL - rerun setup-once.bat.
+  - TV-Res* display resolvers are shown as "excluded" on the pages
+    (they are monitored but not displayed).
+
+See INSTALLATION-GUIDE.md for the full walkthrough.
 "@ | Set-Content -Path (Join-Path $pkgDir 'README-RUN.txt') -Encoding UTF8
 
 # ---- 4. zip it ----

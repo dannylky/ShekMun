@@ -2,6 +2,17 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.8.3] - 2026-08-19 (deployment)
+- Deployment package rebuilt: deploy\ShekMun-Monitor-v1.8.3.zip (34.1 MB).
+  Package now also includes avoip.html and dashboard_PTZ.html (the
+  v1.7.0 package was missing them). All EXEs rebuilt from current
+  scripts (monitor, serve-dashboard, monitor-control, temp-monitor
+  incl. Audio-DEC temps).
+- New INSTALLATION-GUIDE.md (repo root + included in the package):
+  full install/upgrade/troubleshooting walkthrough.
+- README-RUN.txt in the package updated for current tabs, password
+  gates, TV-Res exclusion and temp monitoring.
+
 ## [1.8.3] - 2026-08-19
 - Password gate (PTZ, AVoIP, Passwords pages): added a "Back" button
   next to Unlock - goes back in history, or to the Main page if there
