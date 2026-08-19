@@ -2,9 +2,14 @@
 
 Compacted session history. Latest first. Repo: https://github.com/dannylky/ShekMun (private, branch `master`).
 
-## Current state (HEAD: 1.7.8, `a92c6e4`)
+## Current state (HEAD: 1.7.9, `2bfc01c`)
 
 System: monitors 287 AV devices across 9 rooms (SM-11-01..08 + Common Rm) over 2 VLANs, plus Kramer KDS unit temperatures, with web dashboards and a Windows desktop controller. Runs as 4 EXEs (deployment package) or scripts.
+
+- **Dashboard pages** show version in footer/meta: "v1.7.9" (dashboard_shekmun.html, dashboard.html, ptc.html, avoip.html, creds.html).
+- **Password gate** (password "rcteacher"): PTZ + AVoIP prompt only on remote IP/DNS access, free on localhost/127.0.0.1; creds.html (Passwords) gates on ALL access. Unlock remembered per tab (sessionStorage: `shekmunGate` for PTZ/AVoIP, `shekmunCreds` for creds.html).
+- **Passwords tab hidden when remote**: every tab-bar page removes the `creds.html` link via JS when hostname != localhost/127.0.0.1.
+- Uncommitted in working tree: version display + Passwords-tab hiding + creds gate (5 files modified, NOT committed as of last session).
 
 ## Architecture
 

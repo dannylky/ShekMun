@@ -59,6 +59,7 @@
   <a href="creds.html">Passwords</a>
 </nav>
 <iframe id="ptc" src="dashboard_PTZ.html" title="PTZ main page"></iframe>
+<div class="footer" style="color:var(--muted);font-size:12px;margin-top:12px;">v1.7.9</div>
 
 <div class="gate" id="gate">
   <div class="card">
@@ -91,6 +92,14 @@
   };
   document.getElementById('gateBtn').addEventListener('click', tryUnlock);
   pw.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryUnlock(); });
+})();
+
+// hide the Passwords tab when accessed remotely (localhost only)
+(function () {
+  const host = location.hostname;
+  if (host === 'localhost' || host === '127.0.0.1') return;
+  const l = document.querySelector('a[href="creds.html"]');
+  if (l) l.remove();
 })();
 </script>
 </body>

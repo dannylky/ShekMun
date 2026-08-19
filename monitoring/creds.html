@@ -51,8 +51,27 @@
     padding: 4px 10px; cursor: pointer; font-size: 12px; flex-shrink: 0;
   }
   button:hover { filter: brightness(1.15); }
-  .note { color: var(--muted); font-size: 12px; margin-top: 10px; }
+.note { color: var(--muted); font-size: 12px; margin-top: 10px; }
   .footer { margin-top: 14px; color: var(--muted); font-size: 12px; }
+  .gate {
+    display: none; position: fixed; inset: 0; z-index: 999;
+    background: var(--bg); align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+  }
+  .gate .card {
+    background: var(--panel); border-radius: 10px; padding: 24px 28px;
+    border-left: 4px solid var(--accent); text-align: center;
+  }
+  .gate h2 { margin: 0 0 14px; font-size: 16px; }
+  .gate input {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--panel2);
+    border-radius: 6px; padding: 8px 12px; font-size: 14px; width: 200px; text-align: center;
+  }
+  .gate .btn {
+    background: var(--accent); color: #11111b; border: none; border-radius: 6px;
+    padding: 8px 20px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 12px;
+  }
+  .gate .err { color: var(--fail); font-size: 12px; margin-top: 8px; min-height: 16px; }
 </style>
 </head>
 <body>
@@ -68,7 +87,16 @@
 </header>
 <div id="error">Cannot reach creds.json - file missing (expected at monitoring\creds.json).</div>
 <div id="cards" class="grid"></div>
-<div class="footer">Stored in monitoring\creds.json (not committed to git).</div>
+<div class="footer">v1.7.9 &middot; Stored in monitoring\creds.json (not committed to git).</div>
+
+<div class="gate" id="gate">
+  <div class="card">
+    <h2>Restricted - enter password</h2>
+    <input type="password" id="gatePw" placeholder="Password" autocomplete="off">
+    <div><button class="btn" id="gateBtn">Unlock</button></div>
+    <div class="err" id="gateErr"></div>
+  </div>
+</div>
 
 <script>
 const $cards = document.getElementById('cards');
@@ -122,8 +150,39 @@ async function load() {
 }
 
 load();
+
+// password gate - always required on this page
+(function () {
+  const gate = document.getElementById('gate');
+  const pw = document.getElementById('gatePw');
+  const err = document.getElementById('gateErr');
+  if (sessionStorage.getItem('shekmunCreds') === '1') return;
+  gate.style.display = 'flex';
+  pw.focus();
+  const tryUnlock = function () {
+    if (pw.value === 'rcteacher') {
+      sessionStorage.setItem('shekmunCreds', '1');
+      gate.style.display = 'none';
+    } else {
+      err.textContent = 'Wrong password';
+      pw.value = '';
+      pw.focus();
+    }
+  };
+  document.getElementById('gateBtn').addEventListener('click', tryUnlock);
+  pw.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryUnlock(); });
+})();
+</script>
+<script>
+(function () {
+  const host = location.hostname;
+  if (host === 'localhost' || host === '127.0.0.1') return;
+  const l = document.querySelector('a[href="creds.html"]');
+  if (l) l.remove();
+})();
 </script>
 </body>
 </html>
+
 
 

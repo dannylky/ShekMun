@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -98,7 +98,7 @@
   <a href="creds.html">Passwords</a>
 </nav>
 <h1>Shek Mun AVoIP - Room Views</h1>
-<div id="meta">AVoIP snapshots from the Kramer manager (172.18.22.5). Refresh every 5s.</div>
+<div id="meta">AVoIP snapshots from the Kramer manager (172.18.22.5). Refresh every 5s. v1.7.9</div>
 <div class="rooms" id="rooms"></div>
 
 <div class="gate" id="gate">
@@ -364,6 +364,14 @@ setInterval(loadTemps, 10000);
   };
   document.getElementById('gateBtn').addEventListener('click', tryUnlock);
   pw.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryUnlock(); });
+})();
+</script>
+<script>
+(function () {
+  const host = location.hostname;
+  if (host === 'localhost' || host === '127.0.0.1') return;
+  const l = document.querySelector('a[href="creds.html"]');
+  if (l) l.remove();
 })();
 </script>
 </body>
