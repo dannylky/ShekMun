@@ -86,7 +86,7 @@
   <div class="panel" id="hotPanel"><h2>Hot KDS units (&ge;45&deg;C)</h2><ul id="hotList"><li>Loading...</li></ul></div>
   <div class="panel" id="failPanel"><h2>Latest failures</h2><ul id="failList"><li>Loading...</li></ul></div>
 </div>
-<div class="footer">v1.8.1 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
+<div class="footer">v1.8.2 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
 
 <script>
 const REFRESH_MS = 10000;
@@ -113,14 +113,8 @@ function fmt(iso) {
   return today ? time : d.toLocaleDateString() + ' ' + time;
 }
 
-function allDevices(snap) {
-  const out = [];
-  for (const room of Object.keys(snap.rooms || {})) {
-    (snap.rooms[room] || []).forEach(d => out.push(d));
-  }
-  (snap.unique || []).forEach(d => out.push(d));
-  return out;
-}
+const EXCLUDED = /TV-Res/;
+function isExcluded(d) { return EXCLUDED.test(d.name); }
 
 function card(icon, title, value, sub, cls) {
   const div = document.createElement('div');
@@ -130,10 +124,17 @@ function card(icon, title, value, sub, cls) {
 }
 
 function render(snap) {
-  const devs = allDevices(snap);
+  const allRaw = (() => {
+    const out = [];
+    for (const room of Object.keys(snap.rooms || {})) (snap.rooms[room] || []).forEach(d => out.push(d));
+    (snap.unique || []).forEach(d => out.push(d));
+    return out;
+  })();
+  const devs = allRaw.filter(d => !isExcluded(d));
   const ok = devs.filter(d => d.status === 'ok').length;
   const fail = devs.filter(d => d.status === 'fail').length;
   const unk = devs.length - ok - fail;
+  const excluded = allRaw.length - devs.length;
   const temps = devs.filter(d => typeof d.tempC === 'number' && d.tempC !== null).map(d => d.tempC);
   const tempOk = temps.filter(t => t < 45).length;
   const tempHot = temps.length - tempOk;
@@ -151,15 +152,15 @@ function render(snap) {
       '<b style="color:var(--accent)">' + g + ' (' + (catCounts[g] || 0) + ')</b>'
     ).join(' &nbsp;·&nbsp; ');
 
-  $cards.innerHTML = '';
-  $cards.appendChild(card('devices', 'Devices', devs.length, ok + ' ok / ' + fail + ' fail' + (unk ? ' / ' + unk + ' unknown' : ''), fail ? 'bad' : 'good'));
+$cards.innerHTML = '';
+  $cards.appendChild(card('devices', 'Devices', devs.length, ok + ' ok / ' + fail + ' fail' + (unk ? ' / ' + unk + ' unknown' : '') + (excluded ? ' / ' + excluded + ' excluded (TV-Res)' : ''), fail ? 'bad' : 'good'));
   $cards.appendChild(card('kds', 'KDS units', temps.length, tempHot ? tempHot + ' hot (&ge;45&deg;C)' : 'all cool', tempHot ? 'bad' : 'good'));
   $cards.appendChild(card('temp', 'Avg KDS temp', avg !== null ? avg + '&deg;C' : 'n/a', temps.length ? 'min ' + Math.min(...temps) + '&deg;C / max ' + Math.max(...temps) + '&deg;C' : 'no readings', tempHot ? 'bad' : 'good'));
   $cards.appendChild(card('rate', 'OK rate', fail ? Math.round(100 * ok / devs.length) + '%' : '100%', 'of ' + devs.length + ' checked', fail ? 'bad' : 'good'));
 
   $rooms.innerHTML = '';
   for (const room of Object.keys(snap.rooms || {})) {
-    const rd = snap.rooms[room] || [];
+    const rd = (snap.rooms[room] || []).filter(d => !isExcluded(d));
     const rOk = rd.filter(d => d.status === 'ok').length;
     const rFail = rd.filter(d => d.status === 'fail').length;
     const rUnk = rd.length - rOk - rFail;
@@ -232,6 +233,7 @@ setInterval(load, REFRESH_MS);
 </script>
 </body>
 </html>
+
 
 
 

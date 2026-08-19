@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.8.2] - 2026-08-19
+- Main page (dashboard_shekmun.html) now excludes TV-Res devices too,
+  matching the Dashboard page. Both pages show the same total (276 of
+  287) and same per-room counts. Excluded count is shown in the Devices
+  card ("11 excluded (TV-Res)").
+
 ## [1.8.1] - 2026-08-19
 - Audio-DEC (KDS-DEC7 audio decoders, 172.18.22.181-189) now included in
   temperature monitoring (44 units total). Their temps appear on the
