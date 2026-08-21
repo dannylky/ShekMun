@@ -3,9 +3,10 @@
 All notable changes to the Shek Mun monitoring system. Newest first.
 
 ## [1.8.4] - 2026-08-21
-- PTZ page: SM01 block gets a new "Control System" button opening
-  https://172.18.2.31/web/vtlp/.../index.html#!/main (alongside the
-  existing Control 1 / Control 2 buttons), same popup style.
+- PTZ page: every room block (SM01-SM08 + Common Area) gets a
+  "Control System" button opening https://172.18.2.3X/web/vtlp/.../
+  index.html#!/main in a popup, alongside the existing Control
+  buttons.
 
 ## [1.8.3] - 2026-08-19 (deployment)
 - Deployment package rebuilt: deploy\ShekMun-Monitor-v1.8.3.zip (34.1 MB).
