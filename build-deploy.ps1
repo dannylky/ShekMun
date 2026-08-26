@@ -25,7 +25,7 @@
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $MyInvocation.MyCommand.Path
 $mon = Join-Path $repo 'monitoring'
-$version = '1.8.3'
+$version = '1.9.0'
 $pkgName = "ShekMun-Monitor-v$version"
 $pkgRoot = Join-Path $repo 'deploy'
 $pkgDir = Join-Path $pkgRoot $pkgName
