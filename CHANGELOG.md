@@ -8,6 +8,8 @@ All notable changes to the Shek Mun monitoring system. Newest first.
   normal AVoIP device temperature range 33-45C) and Documentations
   (5 SharePoint SOP/spec links, opened in new tabs). Tab added to all
   pages; page included in the deployment package.
+- Operation Guide doc links display as short "Open" links (full URL in
+  the href and shown on hover).
 
 ## [1.8.4] - 2026-08-21
 - PTZ page: every room block (SM01-SM08 + Common Area) gets a

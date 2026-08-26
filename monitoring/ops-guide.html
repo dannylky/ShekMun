@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -66,21 +66,24 @@
   <h2>Documentations</h2>
   <ul>
     <li><span class="doc-title">1. System Specification document</span><br>
-      <a href="https://hsuhk.sharepoint.com/:b:/t/itsc-intranet/IQA51V4OJPkWQ5u0xCKEKFDTAerntNS5RcJajMY1OiQIVzQ?e=Sw4v7n" target="_blank" rel="noopener">https://hsuhk.sharepoint.com/:b:/t/itsc-intranet/IQA51V4OJPkWQ5u0xCKEKFDTAerntNS5RcJajMY1OiQIVzQ?e=Sw4v7n</a></li>
+      <a href="https://hsuhk.sharepoint.com/:b:/t/itsc-intranet/IQA51V4OJPkWQ5u0xCKEKFDTAerntNS5RcJajMY1OiQIVzQ?e=Sw4v7n" target="_blank" rel="noopener">Open</a></li>
     <li><span class="doc-title">2. SOP - SM11_AV_Technician_SOP</span><br>
-      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQBl1gWa1Y9TS4ejCXu9xzVlAYWyeQ4PUjzEbv0LbvivSDo?e=8K1jti" target="_blank" rel="noopener">https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQBl1gWa1Y9TS4ejCXu9xzVlAYWyeQ4PUjzEbv0LbvivSDo?e=8K1jti</a></li>
+      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQBl1gWa1Y9TS4ejCXu9xzVlAYWyeQ4PUjzEbv0LbvivSDo?e=8K1jti" target="_blank" rel="noopener">Open</a></li>
     <li><span class="doc-title">3. SOP - SM11_Preventive_Maintenance_Checklist</span><br>
-      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQBdCIuA698bS6RUi9eBtfPMAdeZwbhdCowxnMTX4q_mafQ?e=8pbq8F" target="_blank" rel="noopener">https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQBdCIuA698bS6RUi9eBtfPMAdeZwbhdCowxnMTX4q_mafQ?e=8pbq8F</a></li>
+      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQBdCIuA698bS6RUi9eBtfPMAdeZwbhdCowxnMTX4q_mafQ?e=8pbq8F" target="_blank" rel="noopener">Open</a></li>
     <li><span class="doc-title">4. SOP - SM11_System_Administrator_Guide</span><br>
-      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQAiUvrOcqjRQZVFqdOA6_w_AU8pZLzoXezZgVk1hAcx_xA?e=DkJmH7" target="_blank" rel="noopener">https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQAiUvrOcqjRQZVFqdOA6_w_AU8pZLzoXezZgVk1hAcx_xA?e=DkJmH7</a></li>
+      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQAiUvrOcqjRQZVFqdOA6_w_AU8pZLzoXezZgVk1hAcx_xA?e=DkJmH7" target="_blank" rel="noopener">Open</a></li>
     <li><span class="doc-title">5. SOP - SM11_User_Operation_Manual</span><br>
-      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQAGb0neuaVjTZXNQXvzDwhGAQlbBDQx7KWnYayYJfBSBDI?e=8dcpVG" target="_blank" rel="noopener">https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQAGb0neuaVjTZXNQXvzDwhGAQlbBDQx7KWnYayYJfBSBDI?e=8dcpVG</a></li>
+      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQAGb0neuaVjTZXNQXvzDwhGAQlbBDQx7KWnYayYJfBSBDI?e=8dcpVG" target="_blank" rel="noopener">Open</a></li>
   </ul>
 </div>
 
 <div class="footer">v1.9.0</div>
 
 <script>
+// show the full URL as hover tooltip (display text is the short link)
+document.querySelectorAll('a[href^="https://hsuhk.sharepoint.com"]').forEach(function (a) { a.title = a.href; });
+
 // remote mode: hide Passwords tab, add lock symbol to PTZ/AVoIP tabs
 (function () {
   const host = location.hostname;
