@@ -10,6 +10,10 @@ All notable changes to the Shek Mun monitoring system. Newest first.
   pages; page included in the deployment package.
 - Operation Guide doc links display as short "Open" links (full URL in
   the href and shown on hover).
+- Operation Guide page: larger fonts across the whole page; parts
+  numbered (Part 1 Rules / Part 2 Documentations); new Part 3 FAQ
+  (mic pairing, room combine/separate, mic count per room, WiFi and
+  print queue issues - the latter two awaiting answers).
 
 ## [1.8.4] - 2026-08-21
 - PTZ page: every room block (SM01-SM08 + Common Area) gets a
