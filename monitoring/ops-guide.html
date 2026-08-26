@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shek Mun AV Monitoring - Operation Guide</title>
+<style>
+  :root {
+    --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
+    --text: #cdd6f4; --muted: #a6adc8;
+    --ok: #a6e3a1; --fail: #f38ba8; --accent: #89b4fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px;
+  }
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--panel);
+    border-radius: 8px 8px 0 0; padding: 8px 12px 0; margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; font-size: 14px; font-weight: bold;
+    padding: 7px 18px; border-radius: 8px 8px 0 0;
+  }
+  nav.tabs a:hover { color: var(--text); background: var(--panel2); }
+  nav.tabs a.active { color: #11111b; background: var(--accent); }
+  h1 { font-size: 18px; margin: 0 0 12px; }
+  .panel { background: var(--panel); border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; border-left: 4px solid var(--accent); }
+  .panel h2 { font-size: 13px; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+  ol { margin: 0; padding-left: 22px; font-size: 13px; }
+  ol li { padding: 4px 0; }
+  ul { margin: 0; padding-left: 4px; list-style: none; font-size: 13px; }
+  ul li { padding: 5px 0; }
+  ul li a {
+    color: var(--accent); text-decoration: none; word-break: break-all;
+  }
+  ul li a:hover { text-decoration: underline; }
+  .doc-title { color: var(--text); }
+  .footer { margin-top: 14px; color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+<nav class="tabs">
+  <a href="dashboard_shekmun.html">Main</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="ptc.html">PTZ</a>
+  <a href="avoip.html">AVoIP</a>
+  <a href="ops-guide.html" class="active">Operation Guide</a>
+  <a href="creds.html">Passwords</a>
+</nav>
+
+<h1>Operation Guide</h1>
+
+<div class="panel">
+  <h2>Operation Rules</h2>
+  <ol>
+    <li>Power schedule On: 0700 / Off: 12:01 (Managed by PoE Switch and PCU)</li>
+    <li>Normal operating temperature range of AVoIP Devices (33&deg;C - 45&deg;C)</li>
+  </ol>
+</div>
+
+<div class="panel">
+  <h2>Documentations</h2>
+  <ul>
+    <li><span class="doc-title">1. System Specification document</span><br>
+      <a href="https://hsuhk.sharepoint.com/:b:/t/itsc-intranet/IQA51V4OJPkWQ5u0xCKEKFDTAerntNS5RcJajMY1OiQIVzQ?e=Sw4v7n" target="_blank" rel="noopener">https://hsuhk.sharepoint.com/:b:/t/itsc-intranet/IQA51V4OJPkWQ5u0xCKEKFDTAerntNS5RcJajMY1OiQIVzQ?e=Sw4v7n</a></li>
+    <li><span class="doc-title">2. SOP - SM11_AV_Technician_SOP</span><br>
+      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQBl1gWa1Y9TS4ejCXu9xzVlAYWyeQ4PUjzEbv0LbvivSDo?e=8K1jti" target="_blank" rel="noopener">https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQBl1gWa1Y9TS4ejCXu9xzVlAYWyeQ4PUjzEbv0LbvivSDo?e=8K1jti</a></li>
+    <li><span class="doc-title">3. SOP - SM11_Preventive_Maintenance_Checklist</span><br>
+      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQBdCIuA698bS6RUi9eBtfPMAdeZwbhdCowxnMTX4q_mafQ?e=8pbq8F" target="_blank" rel="noopener">https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQBdCIuA698bS6RUi9eBtfPMAdeZwbhdCowxnMTX4q_mafQ?e=8pbq8F</a></li>
+    <li><span class="doc-title">4. SOP - SM11_System_Administrator_Guide</span><br>
+      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQAiUvrOcqjRQZVFqdOA6_w_AU8pZLzoXezZgVk1hAcx_xA?e=DkJmH7" target="_blank" rel="noopener">https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQAiUvrOcqjRQZVFqdOA6_w_AU8pZLzoXezZgVk1hAcx_xA?e=DkJmH7</a></li>
+    <li><span class="doc-title">5. SOP - SM11_User_Operation_Manual</span><br>
+      <a href="https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQAGb0neuaVjTZXNQXvzDwhGAQlbBDQx7KWnYayYJfBSBDI?e=8dcpVG" target="_blank" rel="noopener">https://hsuhk.sharepoint.com/:w:/t/itsc-intranet/IQAGb0neuaVjTZXNQXvzDwhGAQlbBDQx7KWnYayYJfBSBDI?e=8dcpVG</a></li>
+  </ul>
+</div>
+
+<div class="footer">v1.9.0</div>
+
+<script>
+// remote mode: hide Passwords tab, add lock symbol to PTZ/AVoIP tabs
+(function () {
+  const host = location.hostname;
+  const local = host === 'localhost' || host === '127.0.0.1';
+  const lock = '\uD83D\uDD12';
+  if (local) return;
+  const l = document.querySelector('a[href="creds.html"]');
+  if (l) l.remove();
+  ['ptc.html', 'avoip.html'].forEach(function (href) {
+    const a = document.querySelector('a[href="' + href + '"]');
+    if (a && a.textContent.indexOf(lock) === -1) a.textContent = lock + ' ' + a.textContent;
+  });
+})();
+</script>
+</body>
+</html>

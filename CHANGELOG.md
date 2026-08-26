@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.0] - 2026-08-26
+- New "Operation Guide" tab/page (ops-guide.html): Operation Rules
+  (power schedule On 0700 / Off 12:01 managed by PoE Switch and PCU;
+  normal AVoIP device temperature range 33-45C) and Documentations
+  (5 SharePoint SOP/spec links, opened in new tabs). Tab added to all
+  pages; page included in the deployment package.
+
 ## [1.8.4] - 2026-08-21
 - PTZ page: every room block (SM01-SM08 + Common Area) gets a
   "Control System" button opening https://172.18.2.3X/web/vtlp/.../
