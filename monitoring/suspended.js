@@ -15,5 +15,6 @@ window.SUSPENDED_IPS = new Set([
   '172.18.2.79',    // Dock-2ch
   '172.18.2.49',    // HardKey
   '172.18.2.29',    // PCU-Lectern
-  '172.18.22.29'    // SW-Lectern
+  '172.18.22.29',   // SW-Lectern
+  '172.18.2.109',   // USB-PC
 ]);
