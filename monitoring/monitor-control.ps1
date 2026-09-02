@@ -36,7 +36,7 @@ $serverScript = Join-Path $root 'serve-dashboard.ps1'
 $snapshotPath = Join-Path $root 'snapshot.json'
 $tempScript = Join-Path $root 'temp-monitor.py'
 $tempSnapshotPath = Join-Path $root 'temp-snapshot.json'
-$script:version = '1.7.0'
+$script:version = '1.8.0'
 
 # prefer compiled EXEs when present (deployment package), fall back to scripts
 function Get-LaunchTarget {
@@ -45,6 +45,21 @@ function Get-LaunchTarget {
     $ps1 = Join-Path $root "$BaseName.ps1"
     if (Test-Path $exe) { return $exe }
     return $ps1
+}
+
+# True when the process belongs to THIS application folder ($root).
+# Prevents two similar monitor apps (e.g. Shek Mun + MPlus) that share
+# generic process names (monitor.exe / serve-dashboard.exe /
+# temp-monitor.exe) from detecting and killing EACH OTHER's processes.
+# - our EXEs: ExecutablePath sits under $root
+# - script runs: CommandLine contains $root (powershell -File / python)
+function Test-IsOurs {
+    param($Proc)
+    if (-not $Proc) { return $false }
+    if ($Proc.ExecutablePath) {
+        return $Proc.ExecutablePath.StartsWith($root, [System.StringComparison]::OrdinalIgnoreCase)
+    }
+    return $Proc.CommandLine -like "*$root*"
 }
 
 $script:monitorPid = $null
@@ -68,13 +83,13 @@ function Add-Log {
 
 function Get-MonitorProcess {
     Get-CimInstance Win32_Process -Filter "Name = 'powershell.exe' OR Name = 'monitor.exe'" |
-        Where-Object { ($_.CommandLine -like '*monitor.ps1*' -or $_.Name -eq 'monitor.exe') -and $_.CommandLine -notlike '*monitor-control*' -and $_.CommandLine -notlike '*-OneShot*' } |
+        Where-Object { ($_.CommandLine -like '*monitor.ps1*' -or $_.Name -eq 'monitor.exe') -and $_.CommandLine -notlike '*monitor-control*' -and $_.CommandLine -notlike '*-OneShot*' -and (Test-IsOurs $_) } |
         Sort-Object CreationDate -Descending | Select-Object -First 1
 }
 
 function Get-ServerProcess {
     Get-CimInstance Win32_Process -Filter "Name = 'powershell.exe' OR Name = 'serve-dashboard.exe'" |
-        Where-Object { $_.CommandLine -like '*serve-dashboard.ps1*' -or $_.Name -eq 'serve-dashboard.exe' } |
+        Where-Object { ($_.CommandLine -like '*serve-dashboard.ps1*' -or $_.Name -eq 'serve-dashboard.exe') -and (Test-IsOurs $_) } |
         Sort-Object CreationDate -Descending | Select-Object -First 1
 }
 
@@ -110,6 +125,7 @@ function Start-Monitoring {
 function Stop-Monitoring {
     $mp = Get-MonitorProcess
     if (-not $mp) { return 'not running' }
+    if (-not (Test-IsOurs $mp)) { return 'refused: process does not belong to this app' }
     $script:monitorStopRequested = $true
     try {
         Stop-Process -Id $mp.ProcessId -Force -ErrorAction Stop
@@ -145,6 +161,7 @@ function Start-Dashboard {
 function Stop-Dashboard {
     $sp = Get-ServerProcess
     if (-not $sp) { return 'not running' }
+    if (-not (Test-IsOurs $sp)) { return 'refused: process does not belong to this app' }
     $script:dashStopRequested = $true
     try {
         Stop-Process -Id $sp.ProcessId -Force -ErrorAction Stop
@@ -167,7 +184,7 @@ function Open-Dashboard {
 
 function Get-TempProcess {
     Get-CimInstance Win32_Process -Filter "Name = 'python.exe' OR Name = 'temp-monitor.exe'" |
-        Where-Object { ($_.CommandLine -like '*temp-monitor.py*' -or $_.Name -eq 'temp-monitor.exe') -and $_.CommandLine -notlike '*--one-shot*' } |
+        Where-Object { ($_.CommandLine -like '*temp-monitor.py*' -or $_.Name -eq 'temp-monitor.exe') -and $_.CommandLine -notlike '*--one-shot*' -and (Test-IsOurs $_) } |
         Sort-Object CreationDate -Descending | Select-Object -First 1
 }
 
@@ -193,6 +210,7 @@ function Start-TempMonitor {
 function Stop-TempMonitor {
     $tp = Get-TempProcess
     if (-not $tp) { return 'not running' }
+    if (-not (Test-IsOurs $tp)) { return 'refused: process does not belong to this app' }
     $script:tempStopRequested = $true
     try {
         Stop-Process -Id $tp.ProcessId -Force -ErrorAction Stop

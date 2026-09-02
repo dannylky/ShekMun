@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.5] - 2026-09-02
+- Process isolation fix: monitor-control now detects/kills only its own
+  processes (path-scoped via Test-IsOurs). Two similar monitor apps
+  (Shek Mun + MPlus) can now run simultaneously without one killing the
+  other's monitor/temp/server processes. See PROCESS-ISOLATION-FIX.md.
+
 ## [1.9.4] - 2026-09-02
 - New "Case Follow Up" tab/page (case-followup.html): SharePoint case
   sheet link at the top plus the embedded Excel view below. Tab added

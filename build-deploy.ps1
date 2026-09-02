@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Builds the Shek Mun Monitor deployment package (EXEs + web pages +
     config + SOP docs) and zips it.
@@ -25,7 +25,7 @@
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $MyInvocation.MyCommand.Path
 $mon = Join-Path $repo 'monitoring'
-$version = '1.9.4'
+$version = '1.9.5'
 $pkgName = "ShekMun-Monitor-v$version"
 $pkgRoot = Join-Path $repo 'deploy'
 $pkgDir = Join-Path $pkgRoot $pkgName
@@ -169,3 +169,4 @@ Write-Host ""
 Write-Host "Package: $zipPath ($mb MB)"
 Write-Host "Contents:"
 Get-ChildItem $pkgDir -Recurse -File | ForEach-Object { Write-Host "  $($_.FullName.Replace($pkgDir, '.'))" }
+
