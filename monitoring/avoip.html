@@ -99,7 +99,7 @@
   <a href="creds.html">Passwords</a>
 </nav>
 <h1>Shek Mun AVoIP - Room Views</h1>
-<div id="meta">AVoIP snapshots from the Kramer manager (172.18.22.5). Refresh every 5s. v1.9.0</div>
+<div id="meta">AVoIP snapshots from the Kramer manager (172.18.22.5). Refresh every 5s. v1.9.1</div>
 <div class="rooms" id="rooms"></div>
 
 <div class="gate" id="gate">
@@ -137,7 +137,7 @@ const LAYOUTS = {
   'SM-11-02': [
     { legend: 'Output', items: [
       { cap: '11-02-TV1-DEC7',   url: 'https://172.18.22.5/snap/001D560D3861' },
-      { cap: '11-02-TV2-DEC7',   url: 'https://172.18.22.5/snap/001D560D3941' },
+      { cap: '11-02-TV2-DEC7',   url: 'https://172.18.22.5/snap/001D560D391A' },
       { cap: '11-02-Audio-DEC7', url: 'https://172.18.22.5/snap/001D560D3969' }
     ]},
     { legend: 'Input', items: [
@@ -354,7 +354,7 @@ setInterval(loadTemps, 10000);
   gate.style.display = 'flex';
   pw.focus();
   const tryUnlock = function () {
-    if (pw.value === 'rcteacher') {
+    if (pw.value === 'rcteacher1') {
       sessionStorage.setItem('shekmunGate', '1');
       gate.style.display = 'none';
     } else {
@@ -388,6 +388,7 @@ document.getElementById('gateBtn').addEventListener('click', tryUnlock);
 </script>
 </body>
 </html>
+
 
 
 

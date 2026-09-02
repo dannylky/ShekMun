@@ -140,7 +140,7 @@ URLS
 
   On localhost the PTZ / AVoIP / Passwords pages need NO password.
   Accessed remotely (IP/DNS), PTZ and AVoIP ask for password
-  "rcteacher" (remembered per browser tab); the Passwords tab is
+  "rcteacher1" (remembered per browser tab); the Passwords tab is
   hidden remotely and the creds page itself is always password
   protected.
 

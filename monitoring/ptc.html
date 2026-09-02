@@ -60,7 +60,7 @@
   <a href="creds.html">Passwords</a>
 </nav>
 <iframe id="ptc" src="dashboard_PTZ.html" title="PTZ main page"></iframe>
-<div class="footer" style="color:var(--muted);font-size:12px;margin-top:12px;">v1.9.0</div>
+<div class="footer" style="color:var(--muted);font-size:12px;margin-top:12px;">v1.9.1</div>
 
 <div class="gate" id="gate">
   <div class="card">
@@ -82,7 +82,7 @@
   gate.style.display = 'flex';
   pw.focus();
   const tryUnlock = function () {
-    if (pw.value === 'rcteacher') {
+    if (pw.value === 'rcteacher1') {
       sessionStorage.setItem('shekmunGate', '1');
       gate.style.display = 'none';
     } else {
@@ -115,6 +115,7 @@
 </script>
 </body>
 </html>
+
 
 
 

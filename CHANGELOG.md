@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.1] - 2026-09-02
+- PTZ and AVoIP remote-access gate password changed from "rcteacher"
+  to "rcteacher1". The Passwords page (creds.html) keeps "rcteacher".
+  Docs (README-RUN, INSTALLATION-GUIDE) updated to match.
+
 ## [1.9.0] - 2026-08-26
 - New "Operation Guide" tab/page (ops-guide.html): Operation Rules
   (power schedule On 0700 / Off 12:01 managed by PoE Switch and PCU;

@@ -99,7 +99,7 @@ ShekMun-Monitor-v1.8.3\
 - **Localhost** (`http://localhost:8080`): PTZ, AVoIP and Passwords
   pages are open with no password.
 - **Remote / LAN** (`http://<ip>:8080`): PTZ and AVoIP ask for the
-  password `rcteacher` (remembered per browser tab). The **Passwords
+  password `rcteacher1` (remembered per browser tab). The **Passwords
   tab is hidden** on remote access, and `creds.html` itself always
   requires `rcteacher`. Lock symbols appear on the PTZ/AVoIP tabs.
 
@@ -114,7 +114,7 @@ ShekMun-Monitor-v1.8.3\
    `10.107.147.64`.
 2. On any other PC on the same network open:
    `http://10.107.147.64:8080/`
-3. The PTZ / AVoIP pages will prompt for the password (`rcteacher`);
+3. The PTZ / AVoIP pages will prompt for the password (`rcteacher1`);
    the Passwords tab is not shown remotely.
 4. If unreachable, re-run `setup-once.bat` (firewall/URL ACL) and
    confirm the dashboard server is running in the controller window.
