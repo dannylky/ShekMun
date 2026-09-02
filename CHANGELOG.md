@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.4] - 2026-09-02
+- New "Case Follow Up" tab/page (case-followup.html): SharePoint case
+  sheet link at the top plus the embedded Excel view below. Tab added
+  to all pages; page included in the deployment package.
+
 ## [1.9.3] - 2026-09-02
 - FIX: remote browsers were showing stale cached pages (no cache
   headers) - the PTZ/AVoIP login gate and tab lock icons could

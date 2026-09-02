@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shek Mun AV Monitoring - Case Follow Up</title>
+<style>
+  :root {
+    --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
+    --text: #cdd6f4; --muted: #a6adc8;
+    --ok: #a6e3a1; --fail: #f38ba8; --accent: #89b4fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px;
+    font-size: 16px;
+  }
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--panel);
+    border-radius: 8px 8px 0 0; padding: 8px 12px 0; margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; font-size: 15px; font-weight: bold;
+    padding: 7px 18px; border-radius: 8px 8px 0 0;
+  }
+  nav.tabs a:hover { color: var(--text); background: var(--panel2); }
+  nav.tabs a.active { color: #11111b; background: var(--accent); }
+  h1 { font-size: 24px; margin: 0 0 12px; }
+  .panel { background: var(--panel); border-radius: 8px; padding: 18px 20px; margin-bottom: 16px; border-left: 4px solid var(--accent); }
+  .panel h2 { font-size: 16px; margin: 0 0 12px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+  .link-row a {
+    color: var(--accent); text-decoration: none; word-break: break-all; font-size: 15px;
+  }
+  .link-row a:hover { text-decoration: underline; }
+  .embed-wrap { text-align: center; }
+  .footer { margin-top: 14px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<nav class="tabs">
+  <a href="dashboard_shekmun.html">Main</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="ptc.html">PTZ</a>
+  <a href="avoip.html">AVoIP</a>
+  <a href="ops-guide.html">Operation Guide</a>
+  <a href="case-followup.html" class="active">Case Follow Up</a>
+  <a href="creds.html">Passwords</a>
+</nav>
+
+<h1>Case Follow Up</h1>
+
+<div class="panel">
+  <h2>Case Follow Up Sheet</h2>
+  <div class="link-row">
+    <a href="https://hsuhk.sharepoint.com/:x:/t/itsc-intranet/IQCECe37xNrxSo2QRLDMPK2hAYPaWW6-fayXhsHrNeJMUoo?e=wUazFv&amp;CID=B8FDEA42-9D8D-4040-804D-C127BCCCDFA2" target="_blank" rel="noopener">Open in SharePoint</a>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>Embedded View</h2>
+  <div class="embed-wrap">
+    <iframe width="402" height="346" frameborder="0" scrolling="no" src="https://hsuhk.sharepoint.com/teams/itsc-intranet/_layouts/15/Doc.aspx?sourcedoc={fbed0984-dac4-4af1-8d90-44b0cc3cada1}&amp;action=embedview&amp;wdAllowInteractivity=False&amp;wdHideGridlines=True&amp;wdHideHeaders=True&amp;wdDownloadButton=True&amp;wdInConfigurator=True&amp;wdInConfigurator=True"></iframe>
+  </div>
+</div>
+
+<div class="footer">v1.9.4</div>
+
+<script>
+// remote mode: hide Passwords tab, add lock symbol to PTZ/AVoIP tabs
+(function () {
+  const host = location.hostname;
+  const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+  const lock = '\uD83D\uDD12';
+  if (local) return;
+  const l = document.querySelector('a[href="creds.html"]');
+  if (l) l.remove();
+  ['ptc.html', 'avoip.html'].forEach(function (href) {
+    const a = document.querySelector('a[href="' + href + '"]');
+    if (a && a.textContent.indexOf(lock) === -1) a.textContent = lock + ' ' + a.textContent;
+  });
+})();
+</script>
+</body>
+</html>
