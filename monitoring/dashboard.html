@@ -85,9 +85,15 @@
   table { width: 100%; border-collapse: collapse; font-size: 12px; }
   td { padding: 2px 4px; white-space: nowrap; }
   .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
-  .dot.ok { background: var(--ok); }
-  .dot.fail { background: var(--fail); }
-  .dot.unknown { background: var(--unknown); }
+.dot.ok { background: var(--ok); }
+.dot.fail { background: var(--fail); }
+.dot.unknown { background: var(--unknown); }
+.dot.susp { background: var(--unknown); }
+.susp-tag {
+  display: inline-block; background: var(--panel2); color: var(--muted);
+  border: 1px solid var(--unknown); border-radius: 4px;
+  font-size: 11px; padding: 1px 6px; margin-left: 8px; vertical-align: middle;
+}
   .dev-name { max-width: 230px; overflow: hidden; text-overflow: ellipsis; }
   a.dev-link {
     color: var(--accent); text-decoration: none;
@@ -142,8 +148,9 @@
 
 <div id="rooms" class="grid"></div>
 <div id="unique"></div>
-<div class="footer">v1.9.1 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
+<div class="footer">v1.9.2 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
 
+<script src="suspended.js"></script>
 <script>
 const REFRESH_MS = 10000;
 
@@ -191,6 +198,9 @@ function groupOf(d) { return GROUPS[d.role] || 'Control'; }
 const EXCLUDED = /TV-Res/;
 function isExcluded(d) { return EXCLUDED.test(d.name); }
 
+const SUSPENDED_IPS = window.SUSPENDED_IPS || new Set();
+function isSuspended(d) { return SUSPENDED_IPS.has(d.ip) && d.status === 'fail'; }
+
 function sortDevices(list) {
   const mode = $sortSel.value;
   const arr = list.slice();
@@ -212,13 +222,14 @@ function visibleDevices(list) {
 
 function deviceRow(d) {
   const tr = document.createElement('tr');
+  const susp = isSuspended(d);
   const tempHtml = (typeof d.tempC === 'number')
     ? '<span class="temp ' + (d.tempC < 45 ? 't-ok' : 't-hot') + '" title="KDS unit temperature, updated ' + fmt(d.tempAt) + '">' + d.tempC + '&deg;C<span class="temp-time">' + fmt(d.tempAt) + '</span></span>'
     : '';
   const stale = !d.checkedAt || (Date.now() - new Date(d.checkedAt).getTime()) > 5 * 60 * 1000;
   const linkUrl = /AVProc-Pi5/.test(d.name) ? 'http://' + d.ip + ':8000' : 'http://' + d.ip;
   tr.innerHTML =
-    '<td><span class="dot ' + d.status + '"></span><a class="dev-link" href="' + linkUrl + '" target="_blank" title="' + d.ip + ' [' + groupOf(d) + '] - click to open ' + linkUrl + '">' + d.name + ' (IP:' + d.ip + ')</a>' + tempHtml + '</td>' +
+    '<td><span class="dot ' + (susp ? 'susp' : d.status) + '"></span><a class="dev-link" href="' + linkUrl + '" target="_blank" title="' + d.ip + ' [' + groupOf(d) + '] - click to open ' + linkUrl + '">' + d.name + ' (IP:' + d.ip + ')</a>' + (susp ? '<span class="susp-tag" title="Device suspended - not counted as failure">suspended</span>' : '') + tempHtml + '</td>' +
     '<td class="rtt">' + (d.rttMs >= 0 ? d.rttMs + ' ms' : '&ndash;') + '</td>' +
     '<td class="when' + (stale ? ' stale' : '') + '" title="' + d.name + '">' + fmt(d.checkedAt) + '</td>';
   return tr;
@@ -255,8 +266,9 @@ function roomBlock(title, allDevices) {
   div.className = 'room';
   const shown = allDevices.filter(d => !isExcluded(d));
   const ok = shown.filter(d => d.status === 'ok').length;
-  const fail = shown.filter(d => d.status === 'fail').length;
-  const unk = shown.length - ok - fail;
+  const fail = shown.filter(d => d.status === 'fail' && !isSuspended(d)).length;
+  const susp = shown.filter(isSuspended).length;
+  const unk = shown.length - ok - fail - susp;
   const mb = (!CAM_ENABLED || CAM_DISABLED_ROOMS.includes(title)) ? null : shown.find(d => /mediabox/i.test(d.name));
   const camHtml = mb
     ? '<a class="cam-wrap" href="http://' + mb.ip + '" target="_blank" title="MediaBox ' + mb.ip + '"><img class="cam" data-base="http://' + mb.ip + '/snapshot/snapshot" src="http://' + mb.ip + '/snapshot/snapshot?t=' + camTick + '" alt="MediaBox" onerror="this.style.display=\'none\'"></a>'
@@ -264,14 +276,14 @@ function roomBlock(title, allDevices) {
 div.className += (fail > 0) ? ' room-fail' : (unk > 0 ? '' : ' room-ok');
   div.innerHTML =
     '<h2><span>' + title + '<span class="room-total">(' + shown.length + ')</span></span><span class="counts">' +
-    ok + ' ok / ' + fail + ' fail' + (unk ? ' / ' + unk + ' unknown' : '') + '</span></h2>';
+    ok + ' ok / ' + fail + ' fail' + (susp ? ' / ' + susp + ' suspended' : '') + (unk ? ' / ' + unk + ' unknown' : '') + '</span></h2>';
   div.appendChild(deviceTable(devices));
   return div;
 }
 
 function render(snap) {
   $rooms.innerHTML = '';
-  let visible = 0, total = 0, ok = 0, fail = 0, excluded = 0;
+  let visible = 0, total = 0, ok = 0, fail = 0, excluded = 0, suspended = 0;
   for (const room of Object.keys(snap.rooms || {})) {
     const roomDevices = snap.rooms[room];
     total += roomDevices.filter(d => !isExcluded(d)).length;
@@ -279,7 +291,8 @@ function render(snap) {
     const shown = visibleDevices(roomDevices).length;
     visible += shown;
     ok += roomDevices.filter(d => d.status === 'ok' && !isExcluded(d)).length;
-    fail += roomDevices.filter(d => d.status === 'fail' && !isExcluded(d)).length;
+    fail += roomDevices.filter(d => d.status === 'fail' && !isExcluded(d) && !isSuspended(d)).length;
+    suspended += roomDevices.filter(d => !isExcluded(d) && isSuspended(d)).length;
     $rooms.appendChild(roomBlock(room, roomDevices));
   }
   if (snap.unique && snap.unique.length) {
@@ -287,13 +300,14 @@ function render(snap) {
     excluded += snap.unique.filter(isExcluded).length;
     visible += visibleDevices(snap.unique).length;
     ok += snap.unique.filter(d => d.status === 'ok' && !isExcluded(d)).length;
-    fail += snap.unique.filter(d => d.status === 'fail' && !isExcluded(d)).length;
+    fail += snap.unique.filter(d => d.status === 'fail' && !isExcluded(d) && !isSuspended(d)).length;
+    suspended += snap.unique.filter(d => !isExcluded(d) && isSuspended(d)).length;
     $unique.innerHTML = '';
     $unique.appendChild(roomBlock('Shared / Unique', snap.unique));
   } else {
     $unique.innerHTML = '';
   }
-  $summary.textContent = 'Showing ' + visible + ' / ' + total + ' devices 繚 ' + ok + ' ok 繚 ' + fail + ' fail' + (excluded ? ' 繚 ' + excluded + ' excluded (TV-Res)' : '');
+  $summary.textContent = 'Showing ' + visible + ' / ' + total + ' devices 繚 ' + ok + ' ok 繚 ' + fail + ' fail' + (suspended ? ' 繚 ' + suspended + ' suspended' : '') + (excluded ? ' 繚 ' + excluded + ' excluded (TV-Res)' : '');
   $titleCount.textContent = '(' + total + ' devices)';
 }
 
@@ -374,6 +388,7 @@ setInterval(() => {
 </script>
 </body>
 </html>
+
 
 
 

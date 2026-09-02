@@ -69,7 +69,7 @@ New-Item -ItemType Directory -Path (Join-Path $pkgDir 'monitoring\logs') -Force 
 $files = @(
     'monitor.exe', 'serve-dashboard.exe', 'monitor-control.exe', 'temp-monitor.exe',
     'dashboard_shekmun.html', 'dashboard.html', 'creds.html', 'ptc.html',
-    'avoip.html', 'dashboard_PTZ.html', 'ops-guide.html',
+    'avoip.html', 'dashboard_PTZ.html', 'ops-guide.html', 'suspended.js',
     'config.json', 'devices.json', 'creds.json.example'
 )
 foreach ($f in $files) { Copy-Item (Join-Path $mon $f) (Join-Path $pkgDir "monitoring\$f") }

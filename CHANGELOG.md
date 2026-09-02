@@ -2,6 +2,15 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.2] - 2026-09-02
+- Suspended-device support (suspended.js, shared by both dashboard
+  pages): 12 devices (Speaker-9-USBMac in SM-11-02; 11 in Common Rm)
+  are kept in the dashboard but marked "suspended" while offline -
+  they are NOT counted as failures and do not trigger red room/card
+  status. When a suspended device comes back online it resumes normal
+  status display automatically. Counts now show "N suspended" where
+  applicable.
+
 ## [1.9.1] - 2026-09-02
 - PTZ and AVoIP remote-access gate password changed from "rcteacher"
   to "rcteacher1". The Passwords page (creds.html) keeps "rcteacher".

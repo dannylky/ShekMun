@@ -87,8 +87,9 @@
   <div class="panel" id="hotPanel"><h2>Hot KDS units (&ge;45&deg;C)</h2><ul id="hotList"><li>Loading...</li></ul></div>
   <div class="panel" id="failPanel"><h2>Latest failures</h2><ul id="failList"><li>Loading...</li></ul></div>
 </div>
-<div class="footer">v1.9.1 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
+<div class="footer">v1.9.2 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
 
+<script src="suspended.js"></script>
 <script>
 const REFRESH_MS = 10000;
 const GROUPS = {
@@ -116,6 +117,9 @@ function fmt(iso) {
 
 const EXCLUDED = /TV-Res/;
 function isExcluded(d) { return EXCLUDED.test(d.name); }
+function isSuspended(d) {
+  return (window.SUSPENDED_IPS ? window.SUSPENDED_IPS.has(d.ip) : false) && d.status === 'fail';
+}
 
 function card(icon, title, value, sub, cls) {
   const div = document.createElement('div');
@@ -133,8 +137,9 @@ function render(snap) {
   })();
   const devs = allRaw.filter(d => !isExcluded(d));
   const ok = devs.filter(d => d.status === 'ok').length;
-  const fail = devs.filter(d => d.status === 'fail').length;
-  const unk = devs.length - ok - fail;
+  const fail = devs.filter(d => d.status === 'fail' && !isSuspended(d)).length;
+  const suspended = devs.filter(isSuspended).length;
+  const unk = devs.length - ok - fail - suspended;
   const excluded = allRaw.length - devs.length;
   const temps = devs.filter(d => typeof d.tempC === 'number' && d.tempC !== null).map(d => d.tempC);
   const tempOk = temps.filter(t => t < 45).length;
@@ -154,24 +159,25 @@ function render(snap) {
     ).join(' &nbsp;·&nbsp; ');
 
 $cards.innerHTML = '';
-  $cards.appendChild(card('devices', 'Devices', devs.length, ok + ' ok / ' + fail + ' fail' + (unk ? ' / ' + unk + ' unknown' : '') + (excluded ? ' / ' + excluded + ' excluded (TV-Res)' : ''), fail ? 'bad' : 'good'));
+  $cards.appendChild(card('devices', 'Devices', devs.length, ok + ' ok / ' + fail + ' fail' + (suspended ? ' / ' + suspended + ' suspended' : '') + (unk ? ' / ' + unk + ' unknown' : '') + (excluded ? ' / ' + excluded + ' excluded (TV-Res)' : ''), fail ? 'bad' : 'good'));
   $cards.appendChild(card('kds', 'KDS units', temps.length, tempHot ? tempHot + ' hot (&ge;45&deg;C)' : 'all cool', tempHot ? 'bad' : 'good'));
   $cards.appendChild(card('temp', 'Avg KDS temp', avg !== null ? avg + '&deg;C' : 'n/a', temps.length ? 'min ' + Math.min(...temps) + '&deg;C / max ' + Math.max(...temps) + '&deg;C' : 'no readings', tempHot ? 'bad' : 'good'));
-  $cards.appendChild(card('rate', 'OK rate', fail ? Math.round(100 * ok / devs.length) + '%' : '100%', 'of ' + devs.length + ' checked', fail ? 'bad' : 'good'));
+  $cards.appendChild(card('rate', 'OK rate', (fail || suspended) ? Math.round(100 * ok / (devs.length - suspended)) + '%' : '100%', 'of ' + (devs.length - suspended) + ' active', fail ? 'bad' : 'good'));
 
   $rooms.innerHTML = '';
   for (const room of Object.keys(snap.rooms || {})) {
-    const rd = (snap.rooms[room] || []).filter(d => !isExcluded(d));
+const rd = (snap.rooms[room] || []).filter(d => !isExcluded(d));
     const rOk = rd.filter(d => d.status === 'ok').length;
-    const rFail = rd.filter(d => d.status === 'fail').length;
-    const rUnk = rd.length - rOk - rFail;
+    const rFail = rd.filter(d => d.status === 'fail' && !isSuspended(d)).length;
+    const rSusp = rd.filter(isSuspended).length;
+    const rUnk = rd.length - rOk - rFail - rSusp;
     const rTemps = rd.filter(d => typeof d.tempC === 'number').map(d => d.tempC);
     const rHot = rTemps.filter(t => t >= 45);
     const rMax = rTemps.length ? Math.max(...rTemps) : null;
     const div = document.createElement('div');
 div.className = 'room' + (rFail ? ' room-fail' : (rUnk ? '' : ' room-ok'));
     div.innerHTML =
-      '<h2><span>' + room + '<span class="room-total">(' + rd.length + ')</span></span><span class="counts">' + rOk + ' ok / ' + rFail + ' fail' + (rUnk ? ' / ' + rUnk + ' unknown' : '') + '</span></h2>' +
+      '<h2><span>' + room + '<span class="room-total">(' + rd.length + ')</span></span><span class="counts">' + rOk + ' ok / ' + rFail + ' fail' + (rSusp ? ' / ' + rSusp + ' suspended' : '') + (rUnk ? ' / ' + rUnk + ' unknown' : '') + '</span></h2>' +
       (rMax !== null
         ? '<div class="row"><span class="k">Max KDS temp</span><span class="' + (rHot.length ? 'row-hot' : 'row-ok') + '">' + rMax + '&deg;C' + (rHot.length ? ' (' + rHot.length + ' hot)' : '') + '</span></div>'
         : '');
@@ -191,7 +197,7 @@ div.className = 'room' + (rFail ? ' room-fail' : (rUnk ? '' : ' room-ok'));
   }
 
   $failList.innerHTML = '';
-  const fails = devs.filter(d => d.status === 'fail').sort((a, b) => new Date(b.checkedAt) - new Date(a.checkedAt)).slice(0, 10);
+  const fails = devs.filter(d => d.status === 'fail' && !isSuspended(d)).sort((a, b) => new Date(b.checkedAt) - new Date(a.checkedAt)).slice(0, 10);
   if (!fails.length) {
     $failList.innerHTML = '<li>No failures</li>';
   } else {
@@ -240,6 +246,7 @@ setInterval(load, REFRESH_MS);
 </script>
 </body>
 </html>
+
 
 
 
