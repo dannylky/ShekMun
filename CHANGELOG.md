@@ -2,6 +2,14 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.3] - 2026-09-02
+- FIX: remote browsers were showing stale cached pages (no cache
+  headers) - the PTZ/AVoIP login gate and tab lock icons could
+  silently disappear. serve-dashboard now sends
+  Cache-Control: no-cache, no-store, must-revalidate + Pragma: no-cache
+  on every response, so remote clients always get the current pages.
+- Localhost detection now also covers IPv6 loopback (::1 / [::1]).
+
 ## [1.9.2] - 2026-09-02
 - Suspended-device support (suspended.js, shared by both dashboard
   pages): 12 devices (Speaker-9-USBMac in SM-11-02; 11 in Common Rm)

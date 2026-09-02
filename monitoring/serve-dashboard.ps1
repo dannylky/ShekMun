@@ -120,6 +120,8 @@ function Send-Response {
             $bytes = [System.IO.File]::ReadAllBytes($full)
             $ext = [System.IO.Path]::GetExtension($full).ToLowerInvariant()
             $res.ContentType = if ($mime.ContainsKey($ext)) { $mime[$ext] } else { 'application/octet-stream' }
+            $res.Headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+            $res.Headers['Pragma'] = 'no-cache'
             $res.ContentLength64 = $bytes.Length
             $res.OutputStream.Write($bytes, 0, $bytes.Length)
         } else {
