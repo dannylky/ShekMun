@@ -1,6 +1,6 @@
-# Shek Mun Monitor - Installation Guide (v1.8.3)
+# Shek Mun Monitor - Installation Guide (v1.9.3)
 
-Deployment package: `deploy\ShekMun-Monitor-v1.8.3.zip`
+Deployment package: `deploy\ShekMun-Monitor-v1.9.3.zip`
 
 This guide installs the Shek Mun AV monitoring system on a Windows PC
 running as the monitoring station.
