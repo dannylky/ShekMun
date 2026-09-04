@@ -114,6 +114,19 @@ function Send-Response {
         if ($path -eq '') { $path = 'dashboard_shekmun.html' }
         $full = [System.IO.Path]::GetFullPath((Join-Path $root $path))
 
+        # Enhancement page autosave: POST body is written to enhancements.txt
+        if ($Ctx.Request.HttpMethod -eq 'POST' -and $path -eq 'enhancements.txt') {
+            $sr = New-Object System.IO.StreamReader($Ctx.Request.InputStream)
+            $text = $sr.ReadToEnd()
+            $sr.Dispose()
+            [System.IO.File]::WriteAllText((Join-Path $root 'enhancements.txt'), $text, [System.Text.UTF8Encoding]::new($false))
+            $res.StatusCode = 200
+            $data = [System.Text.Encoding]::UTF8.GetBytes('saved')
+            $res.ContentLength64 = $data.Length
+            $res.OutputStream.Write($data, 0, $data.Length)
+            return
+        }
+
         if (-not $full.StartsWith($root, [System.StringComparison]::OrdinalIgnoreCase)) {
             $res.StatusCode = 403
         } elseif (Test-Path -LiteralPath $full -PathType Leaf) {

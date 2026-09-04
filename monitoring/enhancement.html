@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shek Mun AV Monitoring - Enhancement</title>
+<style>
+  :root {
+    --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
+    --text: #cdd6f4; --muted: #a6adc8;
+    --ok: #a6e3a1; --fail: #f38ba8; --accent: #89b4fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px;
+    font-size: 16px;
+  }
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--panel);
+    border-radius: 8px 8px 0 0; padding: 8px 12px 0; margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; font-size: 15px; font-weight: bold;
+    padding: 7px 18px; border-radius: 8px 8px 0 0;
+  }
+  nav.tabs a:hover { color: var(--text); background: var(--panel2); }
+  nav.tabs a.active { color: #11111b; background: var(--accent); }
+  h1 { font-size: 24px; margin: 0 0 12px; }
+  .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .toolbar button {
+    background: var(--accent); color: #11111b; border: none; border-radius: 6px;
+    padding: 8px 22px; font-size: 14px; font-weight: bold; cursor: pointer;
+  }
+  .toolbar button:hover { filter: brightness(1.15); }
+  #status { color: var(--muted); font-size: 13px; }
+  #status.ok { color: var(--ok); }
+  #status.err { color: var(--fail); }
+  textarea {
+    width: 100%; min-height: 62vh; resize: vertical;
+    background: var(--panel); color: var(--text);
+    border: 1px solid var(--panel2); border-radius: 8px;
+    padding: 14px; font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 15px; line-height: 1.5;
+  }
+  textarea:focus { outline: none; border-color: var(--accent); }
+  .footer { margin-top: 14px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<nav class="tabs">
+  <a href="dashboard_shekmun.html">Main</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="ptc.html">PTZ</a>
+  <a href="avoip.html">AVoIP</a>
+  <a href="ops-guide.html">Operation Guide</a>
+  <a href="case-followup.html">Case Follow Up</a>
+  <a href="enhancement.html" class="active">Enhancement</a>
+  <a href="creds.html">Passwords</a>
+</nav>
+
+<h1>Enhancement</h1>
+
+<div class="toolbar">
+  <button id="saveBtn">Save</button>
+  <span id="status">Loading...</span>
+</div>
+<textarea id="notes" placeholder="Type enhancement notes here..."></textarea>
+
+<div class="footer">v1.9.6 &middot; Autosaves a few seconds after you stop typing</div>
+
+<script>
+const $notes = document.getElementById('notes');
+const $status = document.getElementById('status');
+const $saveBtn = document.getElementById('saveBtn');
+const FILE = 'enhancements.txt';
+let dirty = false;
+let saveTimer = null;
+
+function setStatus(text, cls) {
+  $status.textContent = text;
+  $status.className = cls || '';
+}
+
+async function save() {
+  try {
+    const r = await fetch(FILE, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+      body: $notes.value
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    dirty = false;
+    setStatus('Saved ' + new Date().toLocaleTimeString(), 'ok');
+  } catch (e) {
+    setStatus('Save failed - ' + e.message, 'err');
+  }
+}
+
+async function load() {
+  try {
+    const r = await fetch(FILE + '?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    $notes.value = await r.text();
+    setStatus('Loaded ' + new Date().toLocaleTimeString(), 'ok');
+  } catch (e) {
+    if (e.message.indexOf('404') !== -1) {
+      $notes.value = '';
+      setStatus('No saved notes yet', '');
+    } else {
+      setStatus('Load failed - ' + e.message, 'err');
+    }
+  }
+}
+
+$notes.addEventListener('input', function () {
+  dirty = true;
+  setStatus('Unsaved changes...', '');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(save, 3000);
+});
+$notes.addEventListener('blur', function () { if (dirty) save(); });
+$saveBtn.addEventListener('click', save);
+window.addEventListener('beforeunload', function () { if (dirty) save(); });
+
+load();
+</script>
+<script>
+// remote mode: hide Passwords tab, add lock symbol to PTZ/AVoIP tabs
+(function () {
+  const host = location.hostname;
+  const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+  const lock = '\uD83D\uDD12';
+  if (local) return;
+  const l = document.querySelector('a[href="creds.html"]');
+  if (l) l.remove();
+  ['ptc.html', 'avoip.html'].forEach(function (href) {
+    const a = document.querySelector('a[href="' + href + '"]');
+    if (a && a.textContent.indexOf(lock) === -1) a.textContent = lock + ' ' + a.textContent;
+  });
+})();
+</script>
+</body>
+</html>

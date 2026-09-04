@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.6] - 2026-09-04
+- New "Enhancement" tab/page (enhancement.html): inline text area with
+  Save button and autosave (3s after typing stops, plus on blur and
+  before unload). Notes persist server-side to monitoring\enhancements.txt
+  via a new POST endpoint in serve-dashboard. Tab added to all pages;
+  page + empty notes file included in the deployment package.
+
 ## [1.9.5] - 2026-09-02
 - Process isolation fix: monitor-control now detects/kills only its own
   processes (path-scoped via Test-IsOurs). Two similar monitor apps
