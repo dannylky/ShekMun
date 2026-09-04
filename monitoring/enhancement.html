@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shek Mun AV Monitoring - Enhancement</title>
+<title>Shek Mun AV Monitoring - Enhancements/Known Issues</title>
 <style>
   :root {
     --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
@@ -29,23 +29,34 @@
   nav.tabs a:hover { color: var(--text); background: var(--panel2); }
   nav.tabs a.active { color: #11111b; background: var(--accent); }
   h1 { font-size: 24px; margin: 0 0 12px; }
-  .toolbar { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-  .toolbar button {
-    background: var(--accent); color: #11111b; border: none; border-radius: 6px;
-    padding: 8px 22px; font-size: 14px; font-weight: bold; cursor: pointer;
+  .sub-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+  .sub-tabs button {
+    background: var(--panel); color: var(--muted); border: 1px solid var(--panel2);
+    border-radius: 8px; padding: 8px 22px; font-size: 14px; font-weight: bold; cursor: pointer;
   }
-  .toolbar button:hover { filter: brightness(1.15); }
+  .sub-tabs button:hover { color: var(--text); background: var(--panel2); }
+  .sub-tabs button.active { color: #11111b; background: var(--accent); border-color: var(--accent); }
+  .toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+  .toolbar button {
+    background: var(--panel); color: var(--text); border: 1px solid var(--panel2);
+    border-radius: 6px; padding: 6px 14px; font-size: 13px; cursor: pointer;
+  }
+  .toolbar button:hover { background: var(--panel2); }
+  .toolbar .save-btn { background: var(--accent); color: #11111b; border: none; font-weight: bold; }
+  .toolbar .save-btn:hover { filter: brightness(1.15); }
   #status { color: var(--muted); font-size: 13px; }
   #status.ok { color: var(--ok); }
   #status.err { color: var(--fail); }
-  textarea {
-    width: 100%; min-height: 62vh; resize: vertical;
+  .editor {
+    width: 100%; min-height: 58vh; overflow-y: auto;
     background: var(--panel); color: var(--text);
     border: 1px solid var(--panel2); border-radius: 8px;
-    padding: 14px; font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 15px; line-height: 1.5;
+    padding: 14px; font-size: 15px; line-height: 1.6;
   }
-  textarea:focus { outline: none; border-color: var(--accent); }
+  .editor:focus { outline: none; border-color: var(--accent); }
+  .editor ul { padding-left: 26px; }
+  .editor ol { padding-left: 26px; }
+  .editor a { color: var(--accent); }
   .footer { margin-top: 14px; color: var(--muted); font-size: 13px; }
 </style>
 </head>
@@ -57,25 +68,40 @@
   <a href="avoip.html">AVoIP</a>
   <a href="ops-guide.html">Operation Guide</a>
   <a href="case-followup.html">Case Follow Up</a>
-  <a href="enhancement.html" class="active">Enhancement</a>
+  <a href="enhancement.html" class="active">Enhancements/Known issues</a>
   <a href="creds.html">Passwords</a>
 </nav>
 
-<h1>Enhancement</h1>
+<h1>Enhancements / Known Issues</h1>
+
+<div class="sub-tabs">
+  <button id="tabEnh" class="active">Enhancements</button>
+  <button id="tabKnown">Known issues</button>
+</div>
 
 <div class="toolbar">
   <button id="saveBtn">Save</button>
+  <button data-cmd="bold" title="Bold"><b>B</b></button>
+  <button data-cmd="italic" title="Italic"><i>I</i></button>
+  <button data-cmd="underline" title="Underline"><u>U</u></button>
+  <button data-cmd="insertUnorderedList" title="Bullet list">&bull; List</button>
+  <button data-cmd="insertOrderedList" title="Numbered list">1. List</button>
+  <button data-cmd="removeFormat" title="Clear formatting">Clear</button>
   <span id="status">Loading...</span>
 </div>
-<textarea id="notes" placeholder="Type enhancement notes here..."></textarea>
 
-<div class="footer">v1.9.6 &middot; Autosaves a few seconds after you stop typing</div>
+<div class="editor" id="editor" contenteditable="true" placeholder="Type your notes here..."></div>
+
+<div class="footer">v1.9.7 &middot; Autosaves a few seconds after you stop typing &middot; Supports rich text (bold, italic, lists)</div>
 
 <script>
-const $notes = document.getElementById('notes');
+const $editor = document.getElementById('editor');
 const $status = document.getElementById('status');
 const $saveBtn = document.getElementById('saveBtn');
-const FILE = 'enhancements.txt';
+const $tabEnh = document.getElementById('tabEnh');
+const $tabKnown = document.getElementById('tabKnown');
+const FILES = { enh: 'enhancements.txt', known: 'known-issues.txt' };
+let current = 'enh';
 let dirty = false;
 let saveTimer = null;
 
@@ -86,10 +112,10 @@ function setStatus(text, cls) {
 
 async function save() {
   try {
-    const r = await fetch(FILE, {
+    const r = await fetch(FILES[current], {
       method: 'POST',
-      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
-      body: $notes.value
+      headers: { 'Content-Type': 'text/html; charset=utf-8' },
+      body: $editor.innerHTML
     });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     dirty = false;
@@ -99,15 +125,16 @@ async function save() {
   }
 }
 
-async function load() {
+async function load(key) {
+  const file = FILES[key];
   try {
-    const r = await fetch(FILE + '?t=' + Date.now(), { cache: 'no-store' });
+    const r = await fetch(file + '?t=' + Date.now(), { cache: 'no-store' });
     if (!r.ok) throw new Error('HTTP ' + r.status);
-    $notes.value = await r.text();
+    $editor.innerHTML = await r.text();
     setStatus('Loaded ' + new Date().toLocaleTimeString(), 'ok');
   } catch (e) {
     if (e.message.indexOf('404') !== -1) {
-      $notes.value = '';
+      $editor.innerHTML = '';
       setStatus('No saved notes yet', '');
     } else {
       setStatus('Load failed - ' + e.message, 'err');
@@ -115,17 +142,36 @@ async function load() {
   }
 }
 
-$notes.addEventListener('input', function () {
+function switchTo(key) {
+  if (key === current) return;
+  if (dirty) save();
+  current = key;
+  $tabEnh.classList.toggle('active', key === 'enh');
+  $tabKnown.classList.toggle('active', key === 'known');
+  setStatus('Loading...', '');
+  load(key);
+}
+
+$editor.addEventListener('input', function () {
   dirty = true;
   setStatus('Unsaved changes...', '');
   clearTimeout(saveTimer);
   saveTimer = setTimeout(save, 3000);
 });
-$notes.addEventListener('blur', function () { if (dirty) save(); });
+$editor.addEventListener('blur', function () { if (dirty) save(); });
 $saveBtn.addEventListener('click', save);
+$tabEnh.addEventListener('click', function () { switchTo('enh'); });
+$tabKnown.addEventListener('click', function () { switchTo('known'); });
+document.querySelectorAll('button[data-cmd]').forEach(function (b) {
+  b.addEventListener('mousedown', function (e) {
+    e.preventDefault();
+    $editor.focus();
+    document.execCommand(b.dataset.cmd, false, null);
+  });
+});
 window.addEventListener('beforeunload', function () { if (dirty) save(); });
 
-load();
+load('enh');
 </script>
 <script>
 // remote mode: hide Passwords tab, add lock symbol to PTZ/AVoIP tabs

@@ -114,12 +114,13 @@ function Send-Response {
         if ($path -eq '') { $path = 'dashboard_shekmun.html' }
         $full = [System.IO.Path]::GetFullPath((Join-Path $root $path))
 
-        # Enhancement page autosave: POST body is written to enhancements.txt
-        if ($Ctx.Request.HttpMethod -eq 'POST' -and $path -eq 'enhancements.txt') {
+        # Enhancement / Known-issues pages: POST body is saved to the
+        # matching notes file (HTML content)
+        if ($Ctx.Request.HttpMethod -eq 'POST' -and ($path -eq 'enhancements.txt' -or $path -eq 'known-issues.txt')) {
             $sr = New-Object System.IO.StreamReader($Ctx.Request.InputStream)
             $text = $sr.ReadToEnd()
             $sr.Dispose()
-            [System.IO.File]::WriteAllText((Join-Path $root 'enhancements.txt'), $text, [System.Text.UTF8Encoding]::new($false))
+            [System.IO.File]::WriteAllText((Join-Path $root $path), $text, [System.Text.UTF8Encoding]::new($false))
             $res.StatusCode = 200
             $data = [System.Text.Encoding]::UTF8.GetBytes('saved')
             $res.ContentLength64 = $data.Length

@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.7] - 2026-09-04
+- Enhancement tab renamed to "Enhancements/Known issues" with two
+  sub-tabs: Enhancements and Known issues. Each sub-tab has its own
+  rich-text editor (bold/italic/underline/lists via contenteditable)
+  with Save + autosave; content persists server-side to
+  enhancements.txt / known-issues.txt (POST endpoint accepts both).
+
 ## [1.9.6] - 2026-09-04
 - New "Enhancement" tab/page (enhancement.html): inline text area with
   Save button and autosave (3s after typing stops, plus on blur and
