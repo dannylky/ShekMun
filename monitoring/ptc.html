@@ -48,6 +48,7 @@
     padding: 8px 20px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 12px;
   }
   .gate .err { color: var(--fail); font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .gate .hint { color: var(--muted); font-size: 11px; margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -70,6 +71,7 @@
     <input type="password" id="gatePw" placeholder="Password" autocomplete="off">
     <div><button id="gateBtn">Unlock</button> <button id="gateBack" style="background:var(--panel2);color:var(--text);">Back</button></div>
     <div class="err" id="gateErr"></div>
+    <div class="hint" id="gateHint">rcteacher1: full access &middot; rcteacher: 05:00-09:00 only</div>
   </div>
 </div>
 
@@ -77,16 +79,54 @@
 (function () {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
-  if (local || sessionStorage.getItem('shekmunGate') === '1') return;
+  if (local) return;
   const gate = document.getElementById('gate');
   const pw = document.getElementById('gatePw');
   const err = document.getElementById('gateErr');
+  const STORE_KEY = 'shekmunGatePtz';
+
+  function allowedNow() {
+    const h = new Date().getHours();
+    return h >= 5 && h < 9;   // 05:00-08:59:59
+  }
+
+  function checkWindow() {
+    if (sessionStorage.getItem(STORE_KEY) === 'limited' && !allowedNow()) {
+      sessionStorage.removeItem(STORE_KEY);
+      location.reload();
+    }
+  }
+
+  function startWindowCheck() {
+    checkWindow();
+    setInterval(checkWindow, 300000);   // every 5 minutes
+  }
+  window.__shekMunWindowCheck = checkWindow;   // exposed for testing
+
+  const stored = sessionStorage.getItem(STORE_KEY);
+  if (stored === 'full') return;                 // full access - no checks
+  if (stored === 'limited') {
+    if (allowedNow()) { startWindowCheck(); return; }
+    sessionStorage.removeItem(STORE_KEY);        // window passed - back to login
+  }
+
   gate.style.display = 'flex';
   pw.focus();
   const tryUnlock = function () {
-    if (pw.value === 'rcteacher1') {
-      sessionStorage.setItem('shekmunGate', '1');
+    const v = pw.value;
+    if (v === 'rcteacher1') {
+      sessionStorage.setItem(STORE_KEY, 'full');
       gate.style.display = 'none';
+    } else if (v === 'rcteacher') {
+      if (allowedNow()) {
+        sessionStorage.setItem(STORE_KEY, 'limited');
+        gate.style.display = 'none';
+        startWindowCheck();
+      } else {
+        err.textContent = "Password 'rcteacher' is only valid 05:00-09:00";
+        pw.value = '';
+        pw.focus();
+      }
     } else {
       err.textContent = 'Wrong password';
       pw.value = '';
@@ -117,6 +157,7 @@
 </script>
 </body>
 </html>
+
 
 
 

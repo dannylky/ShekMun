@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.8] - 2026-09-10
+- PTZ page: time-window access control. "rcteacher1" keeps full access
+  at all times (no checks). New password "rcteacher" unlocks the PTZ
+  page only between 05:00 and 09:00 daily. The page re-checks every
+  5 minutes; when a limited session's window has passed it is kicked
+  back to the login screen automatically. AVoIP page unchanged.
+
 ## [1.9.7] - 2026-09-04
 - Enhancement tab renamed to "Enhancements/Known issues" with two
   sub-tabs: Enhancements and Known issues. Each sub-tab has its own
