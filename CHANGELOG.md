@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.9] - 2026-09-15
+- New password "Tier1support": PTZ page applies the same 05:00-09:00
+  time-window rule as "rcteacher"; AVoIP page accepts it for all-day
+  access (same as "rcteacher1").
+
 ## [1.9.8] - 2026-09-10
 - PTZ page: time-window access control. "rcteacher1" keeps full access
   at all times (no checks). New password "rcteacher" unlocks the PTZ

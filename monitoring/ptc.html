@@ -117,7 +117,7 @@
     if (v === 'rcteacher1') {
       sessionStorage.setItem(STORE_KEY, 'full');
       gate.style.display = 'none';
-    } else if (v === 'rcteacher') {
+    } else if (v === 'rcteacher' || v === 'Tier1support') {
       if (allowedNow()) {
         sessionStorage.setItem(STORE_KEY, 'limited');
         gate.style.display = 'none';
