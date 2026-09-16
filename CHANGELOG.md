@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.10] - 2026-09-16
+- PTZ page, SM01 block: new "Cam default" button which fires a POST to
+  http://172.18.2.51:8000/api/location/1/2/4/press (resets the camera
+  to its default position).
+
 ## [1.9.9] - 2026-09-15
 - New password "Tier1support": PTZ page applies the same 05:00-09:00
   time-window rule as "rcteacher"; AVoIP page accepts it for all-day
