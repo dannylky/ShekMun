@@ -485,7 +485,7 @@ function New-Form {
     $script:btnCamDefault.Width = 100
     $script:btnCamDefault.Add_Click({ Invoke-CamDefault 'manual' })
     $script:lblCamDefault = New-Object System.Windows.Forms.Label
-    $script:lblCamDefault.Text = 'run 07:00 everyday'
+    $script:lblCamDefault.Text = 'run 07:02 everyday'
     $script:lblCamDefault.AutoSize = $true
     $script:lblCamDefault.Font = New-Object System.Drawing.Font('Segoe UI', 8)
     $script:lblCamDefault.ForeColor = [System.Drawing.Color]::DimGray
