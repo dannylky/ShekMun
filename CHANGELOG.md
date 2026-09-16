@@ -3,11 +3,12 @@
 All notable changes to the Shek Mun monitoring system. Newest first.
 
 ## [1.9.10] - 2026-09-16
-- PTZ page, SM01 block: refresh-icon buttons for each camera - right of
-  Cam1 (POST .../location/1/2/4/press) and right of Cam2 (POST
-  .../location/2/0/4/press) to reset the camera to its default
-  position. Buttons renamed: "Control 1" -> "Crtl-1",
-  "Control 2" -> "Crtl-2".
+- PTZ page: refresh-icon buttons right of each camera button. SM01:
+  Cam1 (.../location/1/2/4/press) and Cam2 (.../location/2/0/4/press).
+  SM02-SM08: Cam1 (.../location/1/0/4/press on 172.18.2.52-58).
+  Buttons renamed: "Control 1" -> "Crtl-1", "Control 2" -> "Crtl-2"
+  (SM01); "Control System" -> "Extron" (all rooms). SM01 camera icon
+  left of the room name removed.
 
 ## [1.9.9] - 2026-09-15
 - New password "Tier1support": PTZ page applies the same 05:00-09:00
