@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.11] - 2026-09-16
+- Desktop controller (monitor-control): new "Cam default" button in the
+  Dashboard group. It silently runs cam-default.ps1 which POSTs the
+  camera-default preset to all rooms SM01-SM08 (172.18.2.51-58,
+  /api/location/*/press). cam-default.ps1 included in the deployment
+  package.
+
 ## [1.9.10] - 2026-09-16
 - PTZ page: refresh-icon buttons right of each camera button. SM01:
   Cam1 (.../location/1/2/4/press) and Cam2 (.../location/2/0/4/press).

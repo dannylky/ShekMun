@@ -68,6 +68,7 @@ New-Item -ItemType Directory -Path (Join-Path $pkgDir 'monitoring\logs') -Force 
 
 $files = @(
     'monitor.exe', 'serve-dashboard.exe', 'monitor-control.exe', 'temp-monitor.exe',
+    'cam-default.ps1',
     'dashboard_shekmun.html', 'dashboard.html', 'creds.html', 'ptc.html',
     'avoip.html', 'dashboard_PTZ.html', 'ops-guide.html', 'case-followup.html', 'enhancement.html', 'enhancements.txt', 'known-issues.txt', 'suspended.js',
     'config.json', 'devices.json', 'creds.json.example'

@@ -36,7 +36,7 @@ $serverScript = Join-Path $root 'serve-dashboard.ps1'
 $snapshotPath = Join-Path $root 'snapshot.json'
 $tempScript = Join-Path $root 'temp-monitor.py'
 $tempSnapshotPath = Join-Path $root 'temp-snapshot.json'
-$script:version = '1.8.0'
+$script:version = '1.8.1'
 
 # prefer compiled EXEs when present (deployment package), fall back to scripts
 function Get-LaunchTarget {
@@ -456,10 +456,22 @@ function New-Form {
     $script:btnStopDash.Width = 90
     $script:btnStopDash.Enabled = $false
     $script:btnStopDash.Add_Click({ Add-Log ("Dashboard: " + (Stop-Dashboard)) })
+    $script:btnCamDefault = New-Object System.Windows.Forms.Button
+    $script:btnCamDefault.Text = 'Cam default'
+    $script:btnCamDefault.Width = 100
+    $script:btnCamDefault.Add_Click({
+        $camScript = Join-Path $root 'cam-default.ps1'
+        if (-not (Test-Path $camScript)) { Add-Log "Cam default: script not found at $camScript"; return }
+        try {
+            Start-Process powershell -ArgumentList @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-WindowStyle', 'Hidden', '-File', "`"$camScript`"") -WindowStyle Hidden
+            Add-Log 'Cam default: reset sent to all rooms (SM01-SM08)'
+        } catch { Add-Log "Cam default failed: $($_.Exception.Message)" }
+    })
     $portRow.Controls.Add($portLabel)
     $portRow.Controls.Add($script:numPort)
     $portRow.Controls.Add($script:btnOpen)
     $portRow.Controls.Add($script:btnStopDash)
+    $portRow.Controls.Add($script:btnCamDefault)
 
     $script:lblDashLast = New-Object System.Windows.Forms.Label
     $script:lblDashLast.Text = ' '
