@@ -36,7 +36,7 @@ $serverScript = Join-Path $root 'serve-dashboard.ps1'
 $snapshotPath = Join-Path $root 'snapshot.json'
 $tempScript = Join-Path $root 'temp-monitor.py'
 $tempSnapshotPath = Join-Path $root 'temp-snapshot.json'
-$script:version = '1.8.1'
+$script:version = '1.8.2'
 
 # prefer compiled EXEs when present (deployment package), fall back to scripts
 function Get-LaunchTarget {
@@ -72,6 +72,7 @@ $script:tempStopRequested = $false
 $script:lastKnownTempPid = $null
 $script:tempError = $null
 $script:port = 8080
+$script:lastCamDefaultRun = $null
 $script:logBuffer = [System.Text.StringBuilder]::new()
 
 # ------------------------------------------------------------- helpers --
@@ -180,6 +181,29 @@ function Open-Dashboard {
         return $result
     }
     return $result
+}
+
+# ------------------------------------------------------- cam default ----
+# Runs cam-default.ps1 silently (resets all room cameras). The script
+# records every run (manual / scheduled) in logs\cam-default.log.
+function Invoke-CamDefault {
+    param([string]$Reason = 'manual')
+    $camScript = Join-Path $root 'cam-default.ps1'
+    if (-not (Test-Path $camScript)) { Add-Log "Cam default: script not found at $camScript"; return }
+    try {
+        Start-Process powershell -ArgumentList @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-WindowStyle', 'Hidden', '-File', "`"$camScript`"", '-Reason', $Reason) -WindowStyle Hidden
+        Add-Log "Cam default: reset sent to all rooms (SM01-SM08) [$Reason]"
+    } catch { Add-Log "Cam default failed: $($_.Exception.Message)" }
+}
+
+# Daily schedule: fire once at 07:02 (checked by the status timer).
+function Check-CamDefaultSchedule {
+    $now = Get-Date
+    if ($now.Hour -eq 7 -and $now.Minute -eq 2 -and $script:lastCamDefaultRun -ne $now.ToString('yyyy-MM-dd')) {
+        $script:lastCamDefaultRun = $now.ToString('yyyy-MM-dd')
+        Add-Log 'Cam default: daily schedule triggered (07:02)'
+        Invoke-CamDefault 'scheduled'
+    }
 }
 
 function Get-TempProcess {
@@ -459,19 +483,18 @@ function New-Form {
     $script:btnCamDefault = New-Object System.Windows.Forms.Button
     $script:btnCamDefault.Text = 'Cam default'
     $script:btnCamDefault.Width = 100
-    $script:btnCamDefault.Add_Click({
-        $camScript = Join-Path $root 'cam-default.ps1'
-        if (-not (Test-Path $camScript)) { Add-Log "Cam default: script not found at $camScript"; return }
-        try {
-            Start-Process powershell -ArgumentList @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-WindowStyle', 'Hidden', '-File', "`"$camScript`"") -WindowStyle Hidden
-            Add-Log 'Cam default: reset sent to all rooms (SM01-SM08)'
-        } catch { Add-Log "Cam default failed: $($_.Exception.Message)" }
-    })
+    $script:btnCamDefault.Add_Click({ Invoke-CamDefault 'manual' })
+    $script:lblCamDefault = New-Object System.Windows.Forms.Label
+    $script:lblCamDefault.Text = 'run 07:00 everyday'
+    $script:lblCamDefault.AutoSize = $true
+    $script:lblCamDefault.Font = New-Object System.Drawing.Font('Segoe UI', 8)
+    $script:lblCamDefault.ForeColor = [System.Drawing.Color]::DimGray
     $portRow.Controls.Add($portLabel)
     $portRow.Controls.Add($script:numPort)
     $portRow.Controls.Add($script:btnOpen)
     $portRow.Controls.Add($script:btnStopDash)
     $portRow.Controls.Add($script:btnCamDefault)
+    $portRow.Controls.Add($script:lblCamDefault)
 
     $script:lblDashLast = New-Object System.Windows.Forms.Label
     $script:lblDashLast.Text = ' '
@@ -625,6 +648,8 @@ function Update-Status {
         $script:lblDashLast.Text = ' '
     }
     $script:btnStopDash.Enabled = $dashRunning
+
+    Check-CamDefaultSchedule
 }
 
 # ------------------------------------------------------------ self-test --

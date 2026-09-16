@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.12] - 2026-09-16
+- Desktop controller: "Cam default" button now has a small remark
+  ("run 07:00 everyday") and a built-in daily schedule that fires once
+  at 07:02 every morning (checked by the status timer, deduplicated per
+  day). Every run (manual/scheduled) is recorded with per-room
+  OK/FAIL results in monitoring\logs\cam-default.log.
+
 ## [1.9.11] - 2026-09-16
 - Desktop controller (monitor-control): new "Cam default" button in the
   Dashboard group. It silently runs cam-default.ps1 which POSTs the
