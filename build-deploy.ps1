@@ -70,7 +70,7 @@ $files = @(
     'monitor.exe', 'serve-dashboard.exe', 'monitor-control.exe', 'temp-monitor.exe',
     'cam-default.ps1',
     'dashboard_shekmun.html', 'dashboard.html', 'creds.html', 'ptc.html',
-    'avoip.html', 'dashboard_PTZ.html', 'ops-guide.html', 'case-followup.html', 'enhancement.html', 'enhancements.txt', 'known-issues.txt', 'suspended.js',
+    'avoip.html', 'dashboard_PTZ.html', 'ops-guide.html', 'case-followup.html', 'enhancement.html', 'spare-equipment.html', 'enhancements.txt', 'known-issues.txt', 'spare-equipment.json', 'suspended.js',
     'config.json', 'devices.json', 'creds.json.example'
 )
 foreach ($f in $files) { Copy-Item (Join-Path $mon $f) (Join-Path $pkgDir "monitoring\$f") }

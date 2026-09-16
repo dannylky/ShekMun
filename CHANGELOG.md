@@ -2,6 +2,14 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.13] - 2026-09-16
+- New "Spare equipment" tab/page (spare-equipment.html): editable
+  inventory table (Items / Quantity / Location / Remarks) seeded from
+  Spare_Equipment_List.xlsx (16 items). Add/delete rows, Save +
+  autosave, persisted server-side to spare-equipment.json (POST
+  endpoint extended). Tab added to all pages; page + data file included
+  in the deployment package.
+
 ## [1.9.12] - 2026-09-16
 - Desktop controller: "Cam default" button now has a small remark
   ("run 07:00 everyday") and a built-in daily schedule that fires once

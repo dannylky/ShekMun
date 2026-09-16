@@ -114,9 +114,9 @@ function Send-Response {
         if ($path -eq '') { $path = 'dashboard_shekmun.html' }
         $full = [System.IO.Path]::GetFullPath((Join-Path $root $path))
 
-        # Enhancement / Known-issues pages: POST body is saved to the
-        # matching notes file (HTML content)
-        if ($Ctx.Request.HttpMethod -eq 'POST' -and ($path -eq 'enhancements.txt' -or $path -eq 'known-issues.txt')) {
+        # Enhancement / Known-issues / Spare-equipment pages: POST body is
+        # saved to the matching notes/data file
+        if ($Ctx.Request.HttpMethod -eq 'POST' -and ($path -eq 'enhancements.txt' -or $path -eq 'known-issues.txt' -or $path -eq 'spare-equipment.json')) {
             $sr = New-Object System.IO.StreamReader($Ctx.Request.InputStream)
             $text = $sr.ReadToEnd()
             $sr.Dispose()

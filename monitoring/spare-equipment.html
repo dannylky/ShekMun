@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shek Mun AV Monitoring - Spare Equipment</title>
+<style>
+  :root {
+    --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
+    --text: #cdd6f4; --muted: #a6adc8;
+    --ok: #a6e3a1; --fail: #f38ba8; --accent: #89b4fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px;
+    font-size: 16px;
+  }
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--panel);
+    border-radius: 8px 8px 0 0; padding: 8px 12px 0; margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; font-size: 15px; font-weight: bold;
+    padding: 7px 18px; border-radius: 8px 8px 0 0;
+  }
+  nav.tabs a:hover { color: var(--text); background: var(--panel2); }
+  nav.tabs a.active { color: #11111b; background: var(--accent); }
+  h1 { font-size: 24px; margin: 0 0 12px; }
+  .toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .toolbar button {
+    border: none; border-radius: 6px; padding: 8px 18px;
+    font-size: 14px; font-weight: bold; cursor: pointer;
+  }
+  .toolbar .primary { background: var(--accent); color: #11111b; }
+  .toolbar .primary:hover { filter: brightness(1.15); }
+  .toolbar .secondary { background: var(--panel); color: var(--text); border: 1px solid var(--panel2); }
+  .toolbar .secondary:hover { background: var(--panel2); }
+  #status { color: var(--muted); font-size: 13px; }
+  #status.ok { color: var(--ok); }
+  #status.err { color: var(--fail); }
+  .wrap { background: var(--panel); border-radius: 8px; padding: 6px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    text-align: left; color: var(--muted); font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 8px 10px; border-bottom: 1px solid var(--panel2);
+    white-space: nowrap;
+  }
+  td {
+    padding: 8px 10px; border-bottom: 1px solid var(--panel2); vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  td[contenteditable]:focus { outline: 2px solid var(--accent); border-radius: 4px; background: #26263a; }
+  td.col-qty { width: 90px; white-space: nowrap; }
+  td.col-loc { width: 120px; white-space: nowrap; }
+  td.col-rem { min-width: 280px; }
+  .del-btn {
+    background: transparent; color: var(--fail); border: none; cursor: pointer;
+    font-size: 16px; font-weight: bold; padding: 2px 6px; border-radius: 4px;
+  }
+  .del-btn:hover { background: #3a1d24; }
+  td.col-act { width: 40px; text-align: center; }
+  .note { color: var(--muted); font-size: 13px; margin-top: 12px; }
+  .footer { margin-top: 14px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<nav class="tabs">
+  <a href="dashboard_shekmun.html">Main</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="ptc.html">PTZ</a>
+  <a href="avoip.html">AVoIP</a>
+  <a href="ops-guide.html">Operation Guide</a>
+  <a href="case-followup.html">Case Follow Up</a>
+  <a href="spare-equipment.html" class="active">Spare equipment</a>
+  <a href="enhancement.html">Enhancements/Known issues</a>
+  <a href="creds.html">Passwords</a>
+</nav>
+
+<h1>Spare Equipment List</h1>
+
+<div class="toolbar">
+  <button id="saveBtn" class="primary">Save</button>
+  <button id="addBtn" class="secondary">+ Add row</button>
+  <span id="status">Loading...</span>
+</div>
+
+<div class="wrap">
+  <table id="tbl">
+    <thead>
+      <tr>
+        <th>Items</th>
+        <th>Quantity</th>
+        <th>Location</th>
+        <th>Remarks</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+</div>
+
+<div class="note">Notes: Items marked as provisional or one lot should be physically verified before the inventory is finalized.</div>
+<div class="footer">v1.9.13 &middot; Editable list &middot; Autosaves a few seconds after you stop typing</div>
+
+<script>
+const $rows = document.getElementById('rows');
+const $status = document.getElementById('status');
+const $saveBtn = document.getElementById('saveBtn');
+const $addBtn = document.getElementById('addBtn');
+const FILE = 'spare-equipment.json';
+let dirty = false;
+let saveTimer = null;
+
+// Initial data taken from Spare_Equipment_List.xlsx (used when no saved file exists yet)
+const SEED = [
+  { item: 'AVoIP Decoder, Kramer KDS-DEC7', qty: '2', location: 'Room 4', remarks: 'Spare. S/N: 12250010000438, 12250010000453' },
+  { item: 'Dante USB Adapter, ADP-USB-AU-2X2', qty: '1', location: 'Room 4', remarks: 'Spare. S/N: DIOUSB-AU-326989' },
+  { item: 'HDMI Extender, ED-150-TRA', qty: '2', location: 'Room 4', remarks: 'Spare. S/N: ED26050015, ED26050175' },
+  { item: 'HDMI Wireless Dongle, WMF-HDMI-D', qty: '2', location: 'Room 4', remarks: 'Spare. S/N: A03A24360032, A03A24360034' },
+  { item: 'Network Switch, GSM4230PX', qty: '1', location: 'Room 5', remarks: 'Spare. S/N: 7KK8565PA091D' },
+  { item: 'Portable PA Speaker, B1X', qty: '3', location: 'Room 6', remarks: 'Spare. S/N: 240C013601, 240C013651, 240C013662' },
+  { item: 'Power Supply, PS-2405', qty: '2', location: 'Room 4', remarks: 'Spare. S/N: 01260000300046, 02260005500058' },
+  { item: 'SFP+ Module, AGM734-10000S', qty: '2', location: 'Room 4', remarks: 'Spare. S/N: 7UW157500026F, 3V81575J00C14' },
+  { item: 'TV, 55UT8010CB', qty: '4', location: 'GS Office', remarks: 'Spare. S/N: 510INKH8C165, 510INNG8C167, 510INUB8C166, 602INUB1G286' },
+  { item: 'USB-C Wireless Dongle, WMF-USBC-D', qty: '2', location: 'Room 4', remarks: 'Spare. S/N: A02A26110023, A02A26110024' },
+  { item: 'Wireless Microphone (PA), CK-220/UM-220', qty: '4', location: 'Room 6', remarks: 'Spare. IDs: ALVOXCONMIC1, ALVOXCONMIC2, ALVOXCONMIC3, ALVOXCONMIC4' },
+  { item: 'Wireless Presentation Switch, WMF72-V2', qty: '7', location: 'Room 4', remarks: 'Spare. S/N: A05A26110037, A05A26110039, A05A26110040, A05A26110041, A05A26110042, A05A26110043, A05A26110044' },
+  { item: 'Shure P300 Audio Conferencing Processor', qty: '2', location: 'Room 6', remarks: '' },
+  { item: 'USB Extender', qty: '2', location: 'Room 4', remarks: '' },
+  { item: 'LED Wall (Spare module)', qty: '1 lot', location: 'Room 5', remarks: '' },
+  { item: 'Accessories / Power Bar', qty: '1 lot', location: 'Room 4', remarks: '' }
+];
+
+function setStatus(text, cls) {
+  $status.textContent = text;
+  $status.className = cls || '';
+}
+
+function addRow(data) {
+  const tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td contenteditable="true" class="col-item"></td>' +
+    '<td contenteditable="true" class="col-qty"></td>' +
+    '<td contenteditable="true" class="col-loc"></td>' +
+    '<td contenteditable="true" class="col-rem"></td>' +
+    '<td class="col-act"><button class="del-btn" title="Delete row">&times;</button></td>';
+  const cells = tr.querySelectorAll('td[contenteditable]');
+  cells[0].textContent = data.item || '';
+  cells[1].textContent = data.qty || '';
+  cells[2].textContent = data.location || '';
+  cells[3].textContent = data.remarks || '';
+  tr.querySelector('.del-btn').addEventListener('click', function () {
+    tr.remove();
+    markDirty();
+  });
+  cells.forEach(c => c.addEventListener('input', markDirty));
+  $rows.appendChild(tr);
+}
+
+function collect() {
+  return Array.from($rows.querySelectorAll('tr')).map(tr => {
+    const c = tr.querySelectorAll('td[contenteditable]');
+    return {
+      item: c[0].textContent.trim(),
+      qty: c[1].textContent.trim(),
+      location: c[2].textContent.trim(),
+      remarks: c[3].textContent.trim()
+    };
+  }).filter(r => r.item || r.qty || r.location || r.remarks);
+}
+
+function markDirty() {
+  dirty = true;
+  setStatus('Unsaved changes...', '');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(save, 3000);
+}
+
+async function save() {
+  try {
+    const r = await fetch(FILE, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify(collect(), null, 2)
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    dirty = false;
+    setStatus('Saved ' + new Date().toLocaleTimeString(), 'ok');
+  } catch (e) {
+    setStatus('Save failed - ' + e.message, 'err');
+  }
+}
+
+function render(list) {
+  $rows.innerHTML = '';
+  list.forEach(addRow);
+}
+
+async function load() {
+  try {
+    const r = await fetch(FILE + '?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const list = await r.json();
+    if (Array.isArray(list) && list.length) {
+      render(list);
+      setStatus('Loaded ' + new Date().toLocaleTimeString(), 'ok');
+      return;
+    }
+    render(SEED);
+    setStatus('Loaded default list from Excel', '');
+  } catch (e) {
+    render(SEED);
+    setStatus('Loaded default list from Excel', '');
+  }
+}
+
+$saveBtn.addEventListener('click', save);
+$addBtn.addEventListener('click', function () {
+  addRow({});
+  markDirty();
+});
+window.addEventListener('beforeunload', function () { if (dirty) save(); });
+
+load();
+</script>
+<script>
+// remote mode: hide Passwords tab, add lock symbol to PTZ/AVoIP tabs
+(function () {
+  const host = location.hostname;
+  const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+  const lock = '\uD83D\uDD12';
+  if (local) return;
+  const l = document.querySelector('a[href="creds.html"]');
+  if (l) l.remove();
+  ['ptc.html', 'avoip.html'].forEach(function (href) {
+    const a = document.querySelector('a[href="' + href + '"]');
+    if (a && a.textContent.indexOf(lock) === -1) a.textContent = lock + ' ' + a.textContent;
+  });
+})();
+</script>
+</body>
+</html>
