@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kramer AVoIP Control</title>
+    <style>
+        body { font-family: system-ui, sans-serif; padding: 20px; }
+        button { padding: 10px 20px; background: #d9534f; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #c9302c; }
+        #status { margin-top: 15px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h2>Kramer Decoder Control</h2>
+    
+    <!-- Input for the decoder IP -->
+    <input type="text" id="decoderIp" placeholder="e.g., 192.168.1.100" value="192.168.1.100">
+    
+    <!-- Button triggers the JavaScript function -->
+    <button onclick="sendRestartCommand()">Restart Decoder</button>
+
+    <div id="status"></div>
+
+    <script>
+        async function sendRestartCommand() {
+            const ipAddress = document.getElementById('decoderIp').value;
+            const statusDiv = document.getElementById('status');
+            
+            statusDiv.innerText = "Sending command...";
+            statusDiv.style.color = "black";
+
+            try {
+                // Call your Node.js backend proxy
+                const response = await fetch('http://localhost:3000/api/restart-decoder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ipAddress: ipAddress })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    statusDiv.innerText = `Success: ${result.response}`;
+                    statusDiv.style.color = "green";
+                } else {
+                    statusDiv.innerText = `Error: ${result.error}`;
+                    statusDiv.style.color = "red";
+                }
+            } catch (error) {
+                statusDiv.innerText = `Network Error: Could not reach the proxy server.`;
+                statusDiv.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.14] - 2026-09-17
+- Operation Guide page is now editable with rich-text formatting
+  (bold/italic/underline/lists/links/clear via contenteditable + toolbar).
+  Edits persist server-side to ops-guide-content.html (POST endpoint
+  extended); default content shown when no edits exist yet. Autosaves
+  3s after typing stops. Tab pages version bumped.
+
 ## [1.9.13] - 2026-09-16
 - New "Spare equipment" tab/page (spare-equipment.html): editable
   inventory table (Items / Quantity / Location / Remarks) seeded from
