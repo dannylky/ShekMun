@@ -7,6 +7,12 @@ All notable changes to the Shek Mun monitoring system. Newest first.
   (blocked remotely, tab hidden remotely). Functions: Add User, Rename,
   Delete, Reset Password, User Group (Admin/Support). Users persisted
   server-side to monitoring\users.json.
+- New users default to password "P@ssw0rd" (pre-filled in the Add User
+  form; admin can change it there).
+- Change-password function at the login box (PTZ / AVoIP / Passwords):
+  "Change password" link on the sign-in card verifies the current
+  credentials, then updates the user's password in users.json. Minimum
+  6 characters; confirm field; returns to sign-in mode afterwards.
 - User groups: "Tier1support" profile = Support group member (PTZ
   access limited to 05:00-09:00, re-checked every 5 min); "rcteacher1"
   profile = Admin group member (no time limit). AVoIP: both groups all

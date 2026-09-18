@@ -114,7 +114,7 @@
       <button class="btn primary" id="addBtn">Add User</button>
       <span id="status"></span>
     </div>
-    <div class="hint">Support group members can access the PTZ page only between 05:00 and 09:00. Admin group members have full access at all times. AVoIP: both groups, all day.</div>
+    <div class="hint">New users get the default password P@ssw0rd (pre-filled - change it or leave as is). Support group members can access the PTZ page only between 05:00 and 09:00. Admin group members have full access at all times. AVoIP: both groups, all day.</div>
   </div>
 
   <div class="card">
@@ -147,6 +147,7 @@ const $newName = document.getElementById('newName');
 const $newPass = document.getElementById('newPass');
 const $newGroup = document.getElementById('newGroup');
 const $addBtn = document.getElementById('addBtn');
+$newPass.value = 'P@ssw0rd';
 const FILE = 'users.json';
 let users = [];
 
@@ -218,7 +219,7 @@ $addBtn.addEventListener('click', async function () {
   }
   users.push({ name: name, password: pass, group: $newGroup.value, created: new Date().toISOString().slice(0, 10) });
   $newName.value = '';
-  $newPass.value = '';
+  $newPass.value = 'P@ssw0rd';
   render();
   await saveUsers();
   setStatus('User "' + name + '" added (' + ($newGroup.value === 'admin' ? 'Admin' : 'Support') + ')', 'ok');

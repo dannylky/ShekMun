@@ -73,6 +73,9 @@
     padding: 8px 20px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 12px;
   }
   .gate .err { color: var(--fail); font-size: 12px; margin-top: 8px; min-height: 16px; }
+  .gate .chglink { margin-top: 8px; font-size: 12px; }
+  .gate .chglink a { color: var(--accent); text-decoration: none; }
+  .gate .chglink a:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
@@ -97,11 +100,14 @@
 
 <div class="gate" id="gate">
   <div class="card">
-    <h2>Restricted - please sign in</h2>
+    <h2 id="gateTitle">Restricted - please sign in</h2>
     <input type="text" id="gateUser" placeholder="Login name" autocomplete="username">
     <input type="password" id="gatePw" placeholder="Password" autocomplete="current-password">
+    <input type="password" id="gateNewPw" placeholder="New password" autocomplete="new-password" style="display:none">
+    <input type="password" id="gateNewPw2" placeholder="Confirm new password" autocomplete="new-password" style="display:none">
     <div><button class="btn" id="gateBtn">Sign in</button> <button class="btn" id="gateBack" style="background:var(--panel2);color:var(--text);">Back</button></div>
     <div class="err" id="gateErr"></div>
+    <div class="chglink"><a href="#" id="gateChgLink">Change password</a></div>
   </div>
 </div>
 
@@ -164,6 +170,12 @@ load();
   const userEl = document.getElementById('gateUser');
   const pw = document.getElementById('gatePw');
   const err = document.getElementById('gateErr');
+  const gateBtn = document.getElementById('gateBtn');
+  const gateTitle = document.getElementById('gateTitle');
+  const newPw1 = document.getElementById('gateNewPw');
+  const newPw2 = document.getElementById('gateNewPw2');
+  const chgLink = document.getElementById('gateChgLink');
+  let chgMode = false;
   const SESSION_KEY = 'shekmunSession';
   const REMEMBER_KEY = 'shekmunRememberUser';
 
@@ -192,13 +204,63 @@ load();
     gate.style.display = 'none';
   }
 
-  document.getElementById('gateBtn').addEventListener('click', tryLogin);
+  function setMode(change) {
+    chgMode = change;
+    newPw1.style.display = change ? '' : 'none';
+    newPw2.style.display = change ? '' : 'none';
+    gateBtn.textContent = change ? 'Update password' : 'Sign in';
+    chgLink.textContent = change ? 'Back to sign in' : 'Change password';
+    gateTitle.textContent = change ? 'Change your password' : 'Restricted - please sign in';
+    err.textContent = '';
+    if (change) { newPw1.focus(); } else { userEl.focus(); }
+  }
+
+  async function changePassword() {
+    const name = userEl.value.trim();
+    const cur = pw.value;
+    const n1 = newPw1.value;
+    const n2 = newPw2.value;
+    if (!name || !cur) { err.textContent = 'Enter login name and current password'; return; }
+    if (n1.length < 6) { err.textContent = 'New password must be at least 6 characters'; return; }
+    if (n1 !== n2) { err.textContent = 'New passwords do not match'; return; }
+    let users;
+    try {
+      const r = await fetch('users.json?t=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      users = await r.json();
+    } catch (e) { err.textContent = 'Cannot reach user database'; return; }
+    const user = users.find(u => u.name === name && u.password === cur);
+    if (!user) { err.textContent = 'Wrong login name or password'; pw.value = ''; pw.focus(); return; }
+    user.password = n1;
+    try {
+      const r = await fetch('users.json', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: JSON.stringify(users)
+      });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+    } catch (e) { err.textContent = 'Save failed - ' + e.message; return; }
+    err.textContent = 'Password updated - please sign in with your new password';
+    pw.value = '';
+    newPw1.value = '';
+    newPw2.value = '';
+    setMode(false);
+  }
+
+  document.getElementById('gateBtn').addEventListener('click', function () {
+    if (chgMode) { changePassword(); } else { tryLogin(); }
+  });
+  chgLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    setMode(!chgMode);
+  });
   document.getElementById('gateBack').addEventListener('click', function () {
     if (history.length > 1) history.back();
     else window.location.href = 'dashboard_shekmun.html';
   });
-  userEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryLogin(); });
-  pw.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryLogin(); });
+  userEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') { if (chgMode) { changePassword(); } else { tryLogin(); } } });
+  pw.addEventListener('keydown', function (e) { if (e.key === 'Enter') { if (chgMode) { changePassword(); } else { tryLogin(); } } });
+  newPw2.addEventListener('keydown', function (e) { if (e.key === 'Enter') changePassword(); });
 })();
 </script>
 <script>
