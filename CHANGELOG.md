@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.20] - 2026-09-18
+- Access log page: localhost access is now direct - the Super Admin
+  login wall was removed. Remote access remains blocked. The tab shows
+  on localhost for everyone. (Super Admin group still exists with full
+  Admin rights.)
+
 ## [1.9.19] - 2026-09-18
 - FIX: Access log tab not visible for localhost + Super Admin users
   (localhost is password-free, so no session existed to prove the

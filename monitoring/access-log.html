@@ -68,27 +68,6 @@
   #status.err { color: var(--fail); }
   .empty { color: var(--muted); font-size: 13px; padding: 24px 10px; text-align: center; }
   .blocked { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 16px; }
-  .gate {
-    display: flex; position: fixed; inset: 0; z-index: 999;
-    background: var(--bg); align-items: center; justify-content: center;
-    flex-direction: column; gap: 12px;
-  }
-  .gate .card {
-    background: var(--panel); border-radius: 10px; padding: 24px 28px;
-    border-left: 4px solid var(--accent); text-align: center;
-  }
-  .gate h2 { margin: 0 0 14px; font-size: 16px; }
-  .gate input {
-    background: var(--panel2); color: var(--text); border: 1px solid var(--panel2);
-    border-radius: 6px; padding: 8px 12px; font-size: 14px; width: 200px; text-align: center;
-    margin-bottom: 8px;
-  }
-  .gate button {
-    background: var(--accent); color: #11111b; border: none; border-radius: 6px;
-    padding: 8px 20px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 12px;
-  }
-  .gate .err { color: var(--fail); font-size: 12px; margin-top: 8px; min-height: 16px; }
-  .gate .hint { color: var(--muted); font-size: 11px; margin-top: 10px; }
   .footer { margin-top: 14px; color: var(--muted); font-size: 13px; }
 </style>
 </head>
@@ -107,20 +86,9 @@
   <a href="user-admin.html" style="display:none">User admin</a>
 </nav>
 
-<div class="gate" id="gate" style="display:none;">
-  <div class="card">
-    <h2>Super Admin login required</h2>
-    <input type="text" id="gateUser" placeholder="Login name" autocomplete="username">
-    <input type="password" id="gatePw" placeholder="Password" autocomplete="current-password">
-    <div><button id="gateBtn">Sign in</button></div>
-    <div class="err" id="gateErr"></div>
-    <div class="hint">Only Super Admin group members can view the access log.</div>
-  </div>
-</div>
-
 <div id="page">
   <h1>Access Log</h1>
-  <div class="sub">Click activity by user (tab clicks and PTZ button clicks). Localhost + Super Admin only.</div>
+  <div class="sub">Click activity by user (tab clicks and PTZ button clicks). Localhost only - direct access.</div>
 
   <div class="sub-tabs" id="userTabs"></div>
   <div class="wrap">
@@ -133,7 +101,7 @@
   <div id="status" style="margin-top:10px;">Loading...</div>
 </div>
 
-<div class="footer">v1.9.19 &middot; Log file: monitoring\logs\clicks.log</div>
+<div class="footer">v1.9.20 &middot; Log file: monitoring\logs\clicks.log</div>
 
 <script>
 const $userTabs = document.getElementById('userTabs');
@@ -213,64 +181,16 @@ function selectUser(name, btn) {
 loadLog();
 </script>
 <script>
-// localhost + Super Admin login required
+// localhost only - direct access (no login required)
 (function () {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+  if (local) return;
   const page = document.getElementById('page');
-  const gate = document.getElementById('gate');
-  const userEl = document.getElementById('gateUser');
-  const pw = document.getElementById('gatePw');
-  const err = document.getElementById('gateErr');
-  const SESSION_KEY = 'shekmunSession';
-  const REMEMBER_KEY = 'shekmunRememberUser';
-
-  if (!local) {
-    const blocked = document.createElement('div');
-    blocked.className = 'blocked';
-    blocked.textContent = 'Access log is available on localhost only.';
-    page.parentNode.replaceChild(blocked, page);
-    return;
-  }
-
-  let session = null;
-  try { session = JSON.parse(sessionStorage.getItem(SESSION_KEY) || 'null'); } catch (e) {}
-  if (session && session.group === 'super') return;   // already a Super Admin - page stays visible
-
-  // localhost has no login gate on other pages, so verify Super Admin here
-  gate.style.display = 'flex';
-  page.style.display = 'none';
-  userEl.value = localStorage.getItem(REMEMBER_KEY) || '';
-  userEl.focus();
-
-  async function tryLogin() {
-    const name = userEl.value.trim();
-    const pass = pw.value;
-    if (!name || !pass) { err.textContent = 'Enter login name and password'; return; }
-    let users;
-    try {
-      const r = await fetch('users.json?t=' + Date.now(), { cache: 'no-store' });
-      if (!r.ok) throw new Error('HTTP ' + r.status);
-      users = await r.json();
-    } catch (e) { err.textContent = 'Cannot reach user database'; return; }
-    const user = users.find(u => u.name === name && u.password === pass);
-    if (!user) { err.textContent = 'Wrong login name or password'; pw.value = ''; pw.focus(); return; }
-    if (user.group !== 'super') {
-      err.textContent = 'Access log is restricted to the Super Admin group';
-      pw.value = '';
-      pw.focus();
-      return;
-    }
-    localStorage.setItem(REMEMBER_KEY, name);
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify({ name: user.name, group: user.group, at: Date.now() }));
-    gate.style.display = 'none';
-    page.style.display = '';
-    loadLog();
-  }
-
-  document.getElementById('gateBtn').addEventListener('click', tryLogin);
-  userEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryLogin(); });
-  pw.addEventListener('keydown', function (e) { if (e.key === 'Enter') tryLogin(); });
+  const blocked = document.createElement('div');
+  blocked.className = 'blocked';
+  blocked.textContent = 'Access log is available on localhost only.';
+  page.parentNode.replaceChild(blocked, page);
 })();
 </script>
 <script>
