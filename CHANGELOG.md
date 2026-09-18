@@ -3,12 +3,17 @@
 All notable changes to the Shek Mun monitoring system. Newest first.
 
 ## [1.9.19] - 2026-09-18
+- FIX: Access log tab not visible for localhost + Super Admin users
+  (localhost is password-free, so no session existed to prove the
+  group). The tab now always shows on localhost; the Access log page
+  itself verifies the Super Admin group with an inline login (name +
+  password against users.json) - wrong credentials and non-super
+  groups are rejected. Remote access is still blocked entirely.
 - New "Super Admin" user group: full access like Admin, plus the
   Access log page (localhost only). Selectable in the User admin page
   (purple badge, group dropdown).
 - New "Access log" page (access-log.html): localhost + Super Admin
-  only (tab hidden otherwise; page blocked remotely or for non-super
-  users). Displays the click log (monitoring\logs\clicks.log) with one
+  only. Displays the click log (monitoring\logs\clicks.log) with one
   sub-tab per user; clicking a user shows that user's click entries
   (time, page, action).
 

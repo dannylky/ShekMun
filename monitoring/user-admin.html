@@ -297,7 +297,7 @@ loadUsers();
 </script>
 <script>
 // remote mode: Passwords + User admin tabs are localhost-only;
-// Access log tab additionally requires the Super Admin group
+// Access log tab is also localhost-only (page enforces Super Admin login)
 (function () {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
@@ -305,10 +305,8 @@ loadUsers();
   if (local) {
     const ua = document.querySelector('a[href="user-admin.html"]');
     if (ua) ua.style.display = '';
-    let isSuper = false;
-    try { const s = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); isSuper = !!(s && s.group === 'super'); } catch (e) {}
     const al = document.querySelector('a[href="access-log.html"]');
-    if (al) al.style.display = isSuper ? '' : 'none';
+    if (al) al.style.display = '';
     return;
   }
   const l = document.querySelector('a[href="creds.html"]');
