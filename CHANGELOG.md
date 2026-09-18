@@ -2,6 +2,20 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.15] - 2026-09-18
+- User administration page (user-admin.html): shown on localhost only
+  (blocked remotely, tab hidden remotely). Functions: Add User, Rename,
+  Delete, Reset Password, User Group (Admin/Support). Users persisted
+  server-side to monitoring\users.json.
+- User groups: "Tier1support" profile = Support group member (PTZ
+  access limited to 05:00-09:00, re-checked every 5 min); "rcteacher1"
+  profile = Admin group member (no time limit). AVoIP: both groups all
+  day.
+- Login boxes (PTZ / AVoIP / Passwords) changed from password-only to
+  login name + password; the login name is remembered (localStorage)
+  but never the password. Fixed "Add user" button not functioning
+  ($addBtn was undefined).
+
 ## [1.9.14] - 2026-09-17
 - Operation Guide page is now editable with rich-text formatting
   (bold/italic/underline/lists/links/clear via contenteditable + toolbar).

@@ -27,4 +27,7 @@ monitoring/known-issues.txt
 monitoring/ops-guide-content.html
 monitoring/spare-equipment.json
 
+# user accounts (managed by the User admin page)
+monitoring/users.json
+
 

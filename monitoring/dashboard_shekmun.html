@@ -77,6 +77,7 @@
   <a href="spare-equipment.html">Spare equipment</a>
   <a href="enhancement.html">Enhancements/Known issues</a>
   <a href="creds.html">Passwords</a>
+  <a href="user-admin.html">User admin</a>
 </nav>
 
 <h1>Shek Mun AV Monitoring - Main <span id="titleCount" style="color:var(--muted);font-size:13px;font-weight:normal;"></span></h1>
@@ -90,7 +91,7 @@
   <div class="panel" id="hotPanel"><h2>Hot KDS units (&ge;45&deg;C)</h2><ul id="hotList"><li>Loading...</li></ul></div>
   <div class="panel" id="failPanel"><h2>Latest failures</h2><ul id="failList"><li>Loading...</li></ul></div>
 </div>
-<div class="footer">v1.9.14 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
+<div class="footer">v1.9.15 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
 
 <script src="suspended.js"></script>
 <script>
@@ -241,6 +242,8 @@ setInterval(load, REFRESH_MS);
   if (local) return;
   const l = document.querySelector('a[href="creds.html"]');
   if (l) l.remove();
+  const ua = document.querySelector('a[href="user-admin.html"]');
+  if (ua) ua.remove();
   ['ptc.html', 'avoip.html'].forEach(function (href) {
     const a = document.querySelector('a[href="' + href + '"]');
     if (a && a.textContent.indexOf(lock) === -1) a.textContent = lock + ' ' + a.textContent;

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shek Mun AV Monitoring - User Administration</title>
+<style>
+  :root {
+    --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
+    --text: #cdd6f4; --muted: #a6adc8;
+    --ok: #a6e3a1; --fail: #f38ba8; --accent: #89b4fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px;
+    font-size: 16px;
+  }
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--panel);
+    border-radius: 8px 8px 0 0; padding: 8px 12px 0; margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; font-size: 15px; font-weight: bold;
+    padding: 7px 18px; border-radius: 8px 8px 0 0;
+  }
+  nav.tabs a:hover { color: var(--text); background: var(--panel2); }
+  nav.tabs a.active { color: #11111b; background: var(--accent); }
+  h1 { font-size: 24px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
+  .card {
+    background: var(--panel); border-radius: 8px; padding: 16px 18px;
+    margin-bottom: 16px; border-left: 4px solid var(--accent);
+  }
+  .card h2 {
+    font-size: 13px; margin: 0 0 12px; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--muted);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    text-align: left; color: var(--muted); font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 8px 10px; border-bottom: 1px solid var(--panel2);
+  }
+  td { padding: 9px 10px; border-bottom: 1px solid var(--panel2); }
+  tr:last-child td { border-bottom: none; }
+  .badge {
+    display: inline-block; border-radius: 4px; padding: 2px 10px;
+    font-size: 12px; font-weight: bold;
+  }
+  .badge.admin { background: #22304a; color: var(--accent); border: 1px solid var(--accent); }
+  .badge.support { background: #2f2b21; color: #f9e2af; border: 1px solid #f9e2af; }
+  .badge.note { background: var(--panel2); color: var(--muted); }
+  .actions { white-space: nowrap; }
+  .btn {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--panel2);
+    border-radius: 6px; padding: 5px 12px; font-size: 12px; cursor: pointer; margin-right: 6px;
+  }
+  .btn:hover { background: #53566e; }
+  .btn.primary { background: var(--accent); color: #11111b; border: none; font-weight: bold; }
+  .btn.primary:hover { filter: brightness(1.15); }
+  .btn.danger { color: var(--fail); border-color: var(--fail); }
+  .btn.danger:hover { background: #3a1d24; }
+  .form-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .form-row label { color: var(--muted); font-size: 13px; }
+  input[type="text"], input[type="password"], select {
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--panel2); border-radius: 6px;
+    padding: 7px 10px; font-size: 14px;
+  }
+  input:focus, select:focus { outline: none; border-color: var(--accent); }
+  select.group-sel { font-size: 12px; padding: 4px 6px; }
+  #status { color: var(--muted); font-size: 13px; }
+  #status.ok { color: var(--ok); }
+  #status.err { color: var(--fail); }
+  .hint { color: var(--muted); font-size: 12px; margin-top: 8px; }
+  .access-note { display: flex; gap: 16px; flex-wrap: wrap; }
+  .access-note .item { font-size: 13px; color: var(--muted); }
+  .footer { margin-top: 14px; color: var(--muted); font-size: 13px; }
+  .blocked { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 16px; }
+</style>
+</head>
+<body>
+<nav class="tabs">
+  <a href="dashboard_shekmun.html">Main</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="ptc.html">PTZ</a>
+  <a href="avoip.html">AVoIP</a>
+  <a href="ops-guide.html">Operation Guide</a>
+  <a href="case-followup.html">Case Follow Up</a>
+  <a href="spare-equipment.html">Spare equipment</a>
+  <a href="enhancement.html">Enhancements/Known issues</a>
+  <a href="creds.html">Passwords</a>
+  <a href="user-admin.html" class="active">User admin</a>
+</nav>
+
+<div id="page">
+  <h1>User Administration</h1>
+  <div class="sub">Manage login accounts for the PTZ / AVoIP / Passwords pages. Available on localhost only.</div>
+
+  <div class="card">
+    <h2>Add User</h2>
+    <div class="form-row">
+      <label>Login name</label>
+      <input type="text" id="newName" placeholder="e.g. technician1" maxlength="32">
+      <label>Password</label>
+      <input type="password" id="newPass" placeholder="Password" maxlength="64">
+      <label>User group</label>
+      <select id="newGroup">
+        <option value="support">Support (05:00-09:00)</option>
+        <option value="admin">Admin (no limit)</option>
+      </select>
+      <button class="btn primary" id="addBtn">Add User</button>
+      <span id="status"></span>
+    </div>
+    <div class="hint">Support group members can access the PTZ page only between 05:00 and 09:00. Admin group members have full access at all times. AVoIP: both groups, all day.</div>
+  </div>
+
+  <div class="card">
+    <h2>Users</h2>
+    <table>
+      <thead>
+        <tr><th>Login name</th><th>User group</th><th>Created</th><th></th></tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="hint" id="emptyHint">No users yet - add one above.</div>
+  </div>
+
+  <div class="card">
+    <h2>User Groups &amp; Access Rules</h2>
+    <div class="access-note">
+      <div class="item"><span class="badge admin">Admin group member</span> &nbsp;full access at all times (e.g. rcteacher1 profile)</div>
+      <div class="item"><span class="badge support">Support group member</span> &nbsp;access time limitation 05:00-09:00 (e.g. Tier1support profile)</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">v1.9.15 &middot; Users are stored in monitoring\users.json</div>
+
+<script>
+const $rows = document.getElementById('rows');
+const $emptyHint = document.getElementById('emptyHint');
+const $status = document.getElementById('status');
+const $newName = document.getElementById('newName');
+const $newPass = document.getElementById('newPass');
+const $newGroup = document.getElementById('newGroup');
+const $addBtn = document.getElementById('addBtn');
+const FILE = 'users.json';
+let users = [];
+
+function setStatus(text, cls) {
+  $status.textContent = text;
+  $status.className = cls || '';
+}
+
+function badge(group) {
+  return group === 'admin'
+    ? '<span class="badge admin">Admin</span>'
+    : '<span class="badge support">Support</span>';
+}
+
+function render() {
+  $rows.innerHTML = '';
+  users.forEach(function (u) {
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td>' + u.name + '</td>' +
+      '<td><select class="group-sel" data-name="' + u.name + '">' +
+        '<option value="support"' + (u.group === 'support' ? ' selected' : '') + '>Support</option>' +
+        '<option value="admin"' + (u.group === 'admin' ? ' selected' : '') + '>Admin</option>' +
+      '</select></td>' +
+      '<td class="muted" style="color:var(--muted);font-size:12px;">' + (u.created || '-') + '</td>' +
+      '<td class="actions">' +
+        '<button class="btn" data-act="rename" data-name="' + u.name + '">Rename</button>' +
+        '<button class="btn" data-act="pass" data-name="' + u.name + '">Reset Password</button>' +
+        '<button class="btn danger" data-act="del" data-name="' + u.name + '">Delete</button>' +
+      '</td>';
+    $rows.appendChild(tr);
+  });
+  $emptyHint.style.display = users.length ? 'none' : 'block';
+}
+
+async function saveUsers() {
+  try {
+    const r = await fetch(FILE, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body: JSON.stringify(users, null, 2)
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    setStatus('Saved ' + new Date().toLocaleTimeString(), 'ok');
+  } catch (e) {
+    setStatus('Save failed - ' + e.message, 'err');
+  }
+}
+
+async function loadUsers() {
+  try {
+    const r = await fetch(FILE + '?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    users = await r.json();
+    if (!Array.isArray(users)) users = [];
+  } catch (e) {
+    users = [];
+  }
+  render();
+}
+
+$addBtn.addEventListener('click', async function () {
+  const name = $newName.value.trim();
+  const pass = $newPass.value.trim();
+  if (!name || !pass) { setStatus('Login name and password are required', 'err'); return; }
+  if (users.some(u => u.name.toLowerCase() === name.toLowerCase())) {
+    setStatus('User "' + name + '" already exists', 'err');
+    return;
+  }
+  users.push({ name: name, password: pass, group: $newGroup.value, created: new Date().toISOString().slice(0, 10) });
+  $newName.value = '';
+  $newPass.value = '';
+  render();
+  await saveUsers();
+  setStatus('User "' + name + '" added (' + ($newGroup.value === 'admin' ? 'Admin' : 'Support') + ')', 'ok');
+});
+
+$rows.addEventListener('click', async function (e) {
+  const btn = e.target.closest('button[data-act]');
+  if (!btn) return;
+  const act = btn.dataset.act;
+  const name = btn.dataset.name;
+  const user = users.find(u => u.name === name);
+  if (!user) return;
+  if (act === 'rename') {
+    const newName = prompt('New login name for "' + name + '":', name);
+    if (!newName || newName.trim() === name) return;
+    const trimmed = newName.trim();
+    if (users.some(u => u.name.toLowerCase() === trimmed.toLowerCase())) {
+      setStatus('User "' + trimmed + '" already exists', 'err');
+      return;
+    }
+    user.name = trimmed;
+    render();
+    await saveUsers();
+    setStatus('User renamed to "' + trimmed + '"', 'ok');
+  } else if (act === 'pass') {
+    const newPass = prompt('New password for "' + name + '":');
+    if (!newPass) return;
+    user.password = newPass.trim();
+    await saveUsers();
+    setStatus('Password reset for "' + name + '"', 'ok');
+  } else if (act === 'del') {
+    if (!confirm('Delete user "' + name + '"? This cannot be undone.')) return;
+    users = users.filter(u => u.name !== name);
+    render();
+    await saveUsers();
+    setStatus('User "' + name + '" deleted', 'ok');
+  }
+});
+
+$rows.addEventListener('change', async function (e) {
+  const sel = e.target.closest('select.group-sel');
+  if (!sel) return;
+  const user = users.find(u => u.name === sel.dataset.name);
+  if (!user) return;
+  user.group = sel.value;
+  await saveUsers();
+  setStatus('"' + user.name + '" is now ' + (user.group === 'admin' ? 'Admin' : 'Support') + ' group', 'ok');
+});
+
+loadUsers();
+</script>
+<script>
+// localhost-only page: block rendering when accessed remotely
+(function () {
+  const host = location.hostname;
+  const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+  if (local) return;
+  const page = document.getElementById('page');
+  const blocked = document.createElement('div');
+  blocked.className = 'blocked';
+  blocked.textContent = 'User administration is available on localhost only.';
+  page.parentNode.replaceChild(blocked, page);
+})();
+</script>
+<script>
+// remote mode: hide Passwords tab, add lock symbol to PTZ/AVoIP tabs
+(function () {
+  const host = location.hostname;
+  const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+  const lock = '\uD83D\uDD12';
+  if (local) return;
+  const l = document.querySelector('a[href="creds.html"]');
+  if (l) l.remove();
+  const ua = document.querySelector('a[href="user-admin.html"]');
+  if (ua) ua.remove();
+  ['ptc.html', 'avoip.html'].forEach(function (href) {
+    const a = document.querySelector('a[href="' + href + '"]');
+    if (a && a.textContent.indexOf(lock) === -1) a.textContent = lock + ' ' + a.textContent;
+  });
+})();
+</script>
+</body>
+</html>

@@ -74,6 +74,7 @@
   <a href="spare-equipment.html">Spare equipment</a>
   <a href="enhancement.html">Enhancements/Known issues</a>
   <a href="creds.html">Passwords</a>
+  <a href="user-admin.html">User admin</a>
 </nav>
 
 <h1>Operation Guide</h1>
@@ -149,7 +150,7 @@
 
 </div>
 
-<div class="footer">v1.9.14 &middot; Editable page - supports rich text (bold, italic, lists, links) &middot; Autosaves a few seconds after you stop typing</div>
+<div class="footer">v1.9.15 &middot; Editable page - supports rich text (bold, italic, lists, links) &middot; Autosaves a few seconds after you stop typing</div>
 
 <script>
 const $editor = document.getElementById('editor');
@@ -230,6 +231,7 @@ load();
   const lock = '\uD83D\uDD12';
   if (local) return;
   const l = document.querySelector('a[href="creds.html"]');
+  const ua = document.querySelector('a[href="user-admin.html"]');
   if (l) l.remove();
   ['ptc.html', 'avoip.html'].forEach(function (href) {
     const a = document.querySelector('a[href="' + href + '"]');

@@ -71,6 +71,7 @@
   <a href="spare-equipment.html">Spare equipment</a>
   <a href="enhancement.html" class="active">Enhancements/Known issues</a>
   <a href="creds.html">Passwords</a>
+  <a href="user-admin.html">User admin</a>
 </nav>
 
 <h1>Enhancements / Known Issues</h1>
@@ -93,7 +94,7 @@
 
 <div class="editor" id="editor" contenteditable="true" placeholder="Type your notes here..."></div>
 
-<div class="footer">v1.9.14 &middot; Autosaves a few seconds after you stop typing &middot; Supports rich text (bold, italic, lists)</div>
+<div class="footer">v1.9.15 &middot; Autosaves a few seconds after you stop typing &middot; Supports rich text (bold, italic, lists)</div>
 
 <script>
 const $editor = document.getElementById('editor');
@@ -182,6 +183,7 @@ load('enh');
   const lock = '\uD83D\uDD12';
   if (local) return;
   const l = document.querySelector('a[href="creds.html"]');
+  const ua = document.querySelector('a[href="user-admin.html"]');
   if (l) l.remove();
   ['ptc.html', 'avoip.html'].forEach(function (href) {
     const a = document.querySelector('a[href="' + href + '"]');
