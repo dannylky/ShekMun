@@ -77,7 +77,7 @@
   <a href="spare-equipment.html">Spare equipment</a>
   <a href="enhancement.html">Enhancements/Known issues</a>
   <a href="creds.html">Passwords</a>
-  <a href="user-admin.html">User admin</a>
+  <a href="user-admin.html" style="display:none">User admin</a>
 </nav>
 
 <h1>Shek Mun AV Monitoring - Main <span id="titleCount" style="color:var(--muted);font-size:13px;font-weight:normal;"></span></h1>
@@ -235,15 +235,18 @@ load();
 setInterval(load, REFRESH_MS);
 </script>
 <script>
+// remote mode: Passwords + User admin tabs are localhost-only
 (function () {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
   const lock = '\uD83D\uDD12';
-  if (local) return;
+  if (local) {
+    const ua = document.querySelector('a[href="user-admin.html"]');
+    if (ua) ua.style.display = '';
+    return;
+  }
   const l = document.querySelector('a[href="creds.html"]');
   if (l) l.remove();
-  const ua = document.querySelector('a[href="user-admin.html"]');
-  if (ua) ua.remove();
   ['ptc.html', 'avoip.html'].forEach(function (href) {
     const a = document.querySelector('a[href="' + href + '"]');
     if (a && a.textContent.indexOf(lock) === -1) a.textContent = lock + ' ' + a.textContent;

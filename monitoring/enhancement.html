@@ -71,7 +71,7 @@
   <a href="spare-equipment.html">Spare equipment</a>
   <a href="enhancement.html" class="active">Enhancements/Known issues</a>
   <a href="creds.html">Passwords</a>
-  <a href="user-admin.html">User admin</a>
+  <a href="user-admin.html" style="display:none">User admin</a>
 </nav>
 
 <h1>Enhancements / Known Issues</h1>
@@ -176,14 +176,17 @@ window.addEventListener('beforeunload', function () { if (dirty) save(); });
 load('enh');
 </script>
 <script>
-// remote mode: hide Passwords tab, add lock symbol to PTZ/AVoIP tabs
+// remote mode: Passwords + User admin tabs are localhost-only
 (function () {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
   const lock = '\uD83D\uDD12';
-  if (local) return;
+  if (local) {
+    const ua = document.querySelector('a[href="user-admin.html"]');
+    if (ua) ua.style.display = '';
+    return;
+  }
   const l = document.querySelector('a[href="creds.html"]');
-  const ua = document.querySelector('a[href="user-admin.html"]');
   if (l) l.remove();
   ['ptc.html', 'avoip.html'].forEach(function (href) {
     const a = document.querySelector('a[href="' + href + '"]');

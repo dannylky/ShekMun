@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.16] - 2026-09-18
+- FIX: "User admin" tab could appear on remote access (the hide logic
+  declared the link but never removed it on most pages, and it flashed
+  during page load). The tab is now hidden by default in the HTML
+  (display:none) and only shown on localhost via JS - no flash, no leak
+  on remote pages.
+
 ## [1.9.15] - 2026-09-18
 - User administration page (user-admin.html): shown on localhost only
   (blocked remotely, tab hidden remotely). Functions: Add User, Rename,
