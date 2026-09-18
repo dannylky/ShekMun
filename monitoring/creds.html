@@ -89,14 +89,15 @@
   <a href="spare-equipment.html">Spare equipment</a>
   <a href="enhancement.html">Enhancements/Known issues</a>
   <a href="creds.html" class="active">Passwords</a>
-  <a href="user-admin.html" style="display:none">User admin</a>
+    <a href="access-log.html" style="display:none">Access log</a>
+<a href="user-admin.html" style="display:none">User admin</a>
 </nav>
 <header>
   <h1>Device Passwords</h1>
 </header>
 <div id="error">Cannot reach creds.json - file missing (expected at monitoring\creds.json).</div>
 <div id="cards" class="grid"></div>
-<div class="footer">v1.9.18 &middot; Stored in monitoring\creds.json (not committed to git).</div>
+<div class="footer">v1.9.19 &middot; Stored in monitoring\creds.json (not committed to git).</div>
 
 <div class="gate" id="gate">
   <div class="card">
@@ -281,7 +282,8 @@ load();
 })();
 </script>
 <script>
-// remote mode: Passwords + User admin tabs are localhost-only
+// remote mode: Passwords + User admin tabs are localhost-only;
+// Access log tab additionally requires the Super Admin group
 (function () {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
@@ -289,6 +291,10 @@ load();
   if (local) {
     const ua = document.querySelector('a[href="user-admin.html"]');
     if (ua) ua.style.display = '';
+    let isSuper = false;
+    try { const s = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); isSuper = !!(s && s.group === 'super'); } catch (e) {}
+    const al = document.querySelector('a[href="access-log.html"]');
+    if (al) al.style.display = isSuper ? '' : 'none';
     return;
   }
   const l = document.querySelector('a[href="creds.html"]');

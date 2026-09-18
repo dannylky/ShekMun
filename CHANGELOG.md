@@ -2,6 +2,16 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.19] - 2026-09-18
+- New "Super Admin" user group: full access like Admin, plus the
+  Access log page (localhost only). Selectable in the User admin page
+  (purple badge, group dropdown).
+- New "Access log" page (access-log.html): localhost + Super Admin
+  only (tab hidden otherwise; page blocked remotely or for non-super
+  users). Displays the click log (monitoring\logs\clicks.log) with one
+  sub-tab per user; clicking a user shows that user's click entries
+  (time, page, action).
+
 ## [1.9.18] - 2026-09-18
 - Click activity logging: every tab-bar click on all pages and every
   button/link click on the PTZ grid page is recorded with user name and

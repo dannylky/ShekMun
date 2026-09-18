@@ -66,10 +66,11 @@
   <a href="spare-equipment.html">Spare equipment</a>
   <a href="enhancement.html">Enhancements/Known issues</a>
   <a href="creds.html">Passwords</a>
-  <a href="user-admin.html" style="display:none">User admin</a>
+    <a href="access-log.html" style="display:none">Access log</a>
+<a href="user-admin.html" style="display:none">User admin</a>
 </nav>
 <iframe id="ptc" src="dashboard_PTZ.html" title="PTZ main page"></iframe>
-<div class="footer" style="color:var(--muted);font-size:12px;margin-top:12px;">v1.9.18</div>
+<div class="footer" style="color:var(--muted);font-size:12px;margin-top:12px;">v1.9.19</div>
 
 <div class="gate" id="gate">
   <div class="card">
@@ -126,7 +127,7 @@
 
   const session = getSession();
   if (session) {
-    if (session.group === 'admin') return;             // full access - no checks
+    if (session.group === 'admin' || session.group === 'super') return;   // full access - no checks
     if (allowedNow()) { startWindowCheck(); return; }  // support in window
     clearSession();                                    // window passed - back to login
   }
@@ -234,7 +235,8 @@
   newPw2.addEventListener('keydown', function (e) { if (e.key === 'Enter') changePassword(); });
 })();
 
-// remote mode: Passwords + User admin tabs are localhost-only
+// remote mode: Passwords + User admin tabs are localhost-only;
+// Access log tab additionally requires the Super Admin group
 (function () {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
@@ -242,6 +244,10 @@
   if (local) {
     const ua = document.querySelector('a[href="user-admin.html"]');
     if (ua) ua.style.display = '';
+    let isSuper = false;
+    try { const s = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); isSuper = !!(s && s.group === 'super'); } catch (e) {}
+    const al = document.querySelector('a[href="access-log.html"]');
+    if (al) al.style.display = isSuper ? '' : 'none';
     return;
   }
   const l = document.querySelector('a[href="creds.html"]');

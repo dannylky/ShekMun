@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shek Mun AV Monitoring - Access Log</title>
+<style>
+  :root {
+    --bg: #1e1e2e; --panel: #313244; --panel2: #45475a;
+    --text: #cdd6f4; --muted: #a6adc8;
+    --ok: #a6e3a1; --fail: #f38ba8; --accent: #89b4fa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; padding: 16px;
+    font-size: 16px;
+  }
+  nav.tabs {
+    display: flex; gap: 6px; background: var(--panel);
+    border-radius: 8px 8px 0 0; padding: 8px 12px 0; margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  nav.tabs a {
+    color: var(--muted); text-decoration: none; font-size: 15px; font-weight: bold;
+    padding: 7px 18px; border-radius: 8px 8px 0 0;
+  }
+  nav.tabs a:hover { color: var(--text); background: var(--panel2); }
+  nav.tabs a.active { color: #11111b; background: var(--accent); }
+  h1 { font-size: 24px; margin: 0 0 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
+  .sub-tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .sub-tabs button {
+    background: var(--panel); color: var(--muted); border: 1px solid var(--panel2);
+    border-radius: 8px; padding: 7px 16px; font-size: 13px; font-weight: bold; cursor: pointer;
+  }
+  .sub-tabs button:hover { color: var(--text); background: var(--panel2); }
+  .sub-tabs button.active { color: #11111b; background: var(--accent); border-color: var(--accent); }
+  .sub-tabs button .cnt { opacity: 0.75; font-weight: normal; }
+  .wrap { background: var(--panel); border-radius: 8px; padding: 6px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left; color: var(--muted); font-size: 12px; text-transform: uppercase;
+    letter-spacing: 0.5px; padding: 8px 10px; border-bottom: 1px solid var(--panel2);
+    white-space: nowrap;
+  }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--panel2); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.time { white-space: nowrap; color: var(--muted); }
+  td.page { white-space: nowrap; }
+  td.action { word-break: break-all; }
+  #status { color: var(--muted); font-size: 13px; }
+  #status.err { color: var(--fail); }
+  .empty { color: var(--muted); font-size: 13px; padding: 24px 10px; text-align: center; }
+  .blocked { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 16px; }
+  .footer { margin-top: 14px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+<nav class="tabs">
+  <a href="dashboard_shekmun.html">Main</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="ptc.html">PTZ</a>
+  <a href="avoip.html">AVoIP</a>
+  <a href="ops-guide.html">Operation Guide</a>
+  <a href="case-followup.html">Case Follow Up</a>
+  <a href="spare-equipment.html">Spare equipment</a>
+  <a href="enhancement.html">Enhancements/Known issues</a>
+  <a href="creds.html">Passwords</a>
+  <a href="user-admin.html">User admin</a>
+  <a href="access-log.html" class="active" style="display:none">Access log</a>
+</nav>
+
+<div id="page">
+  <h1>Access Log</h1>
+  <div class="sub">Click activity by user (tab clicks and PTZ button clicks). Localhost + Super Admin only.</div>
+
+  <div class="sub-tabs" id="userTabs"></div>
+  <div class="wrap">
+    <table>
+      <thead><tr><th>Time</th><th>Page</th><th>Action</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <div class="empty" id="empty" style="display:none;">No log entries for this user.</div>
+  <div id="status" style="margin-top:10px;">Loading...</div>
+</div>
+
+<div class="footer">v1.9.19 &middot; Log file: monitoring\logs\clicks.log</div>
+
+<script>
+const $userTabs = document.getElementById('userTabs');
+const $rows = document.getElementById('rows');
+const $empty = document.getElementById('empty');
+const $status = document.getElementById('status');
+const FILE = 'logs/clicks.log';
+let entries = [];
+let currentUser = null;
+
+function setStatus(text, cls) {
+  $status.textContent = text;
+  $status.className = cls || '';
+}
+
+function fmtTime(iso) {
+  try { return new Date(iso).toLocaleString(); } catch (e) { return iso; }
+}
+
+async function loadLog() {
+  try {
+    const r = await fetch(FILE + '?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const text = await r.text();
+    entries = [];
+    text.split('\n').forEach(line => {
+      line = line.trim();
+      if (!line) return;
+      try {
+        const o = JSON.parse(line);
+        if (o && o.user && o.action) entries.push(o);
+      } catch (e) {}
+    });
+    setStatus(entries.length + ' entries loaded - ' + new Date().toLocaleTimeString());
+    renderUsers();
+  } catch (e) {
+    setStatus('Cannot load click log - ' + e.message, 'err');
+  }
+}
+
+function renderUsers() {
+  const byUser = {};
+  entries.forEach(e => { byUser[e.user] = (byUser[e.user] || 0) + 1; });
+  const names = Object.keys(byUser).sort();
+  $userTabs.innerHTML = '';
+  names.forEach(name => {
+    const b = document.createElement('button');
+    b.textContent = name + ' ';
+    const c = document.createElement('span');
+    c.className = 'cnt';
+    c.textContent = '(' + byUser[name] + ')';
+    b.appendChild(c);
+    b.addEventListener('click', function () { selectUser(name, b); });
+    $userTabs.appendChild(b);
+  });
+  if (names.length) selectUser(names[0], $userTabs.firstChild);
+  else { $rows.innerHTML = ''; $empty.style.display = 'block'; }
+}
+
+function selectUser(name, btn) {
+  currentUser = name;
+  Array.from($userTabs.children).forEach(b => b.classList.toggle('active', b === btn));
+  const list = entries.filter(e => e.user === name);
+  $rows.innerHTML = '';
+  $empty.style.display = list.length ? 'none' : 'block';
+  list.slice().reverse().forEach(e => {
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="time">' + fmtTime(e.ts) + '</td>' +
+      '<td class="page">' + (e.page || '') + '</td>' +
+      '<td class="action">' + (e.action || '') + '</td>';
+    $rows.appendChild(tr);
+  });
+  setStatus(name + ': ' + list.length + ' entries');
+}
+
+loadLog();
+</script>
+<script>
+// localhost + Super Admin only
+(function () {
+  const host = location.hostname;
+  const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+  const page = document.getElementById('page');
+  let msg = null;
+  if (!local) {
+    msg = 'Access log is available on localhost only.';
+  } else {
+    let session = null;
+    try { session = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); } catch (e) {}
+    if (!session || session.group !== 'super') {
+      msg = 'Access log is restricted to the Super Admin group.';
+    }
+  }
+  if (msg) {
+    const blocked = document.createElement('div');
+    blocked.className = 'blocked';
+    blocked.textContent = msg;
+    page.parentNode.replaceChild(blocked, page);
+  }
+})();
+</script>
+<script>
+// remote mode: Passwords + User admin tabs are localhost-only
+(function () {
+  const host = location.hostname;
+  const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+  const lock = '\uD83D\uDD12';
+  if (local) {
+    const ua = document.querySelector('a[href="user-admin.html"]');
+    if (ua) ua.style.display = '';
+    let isSuper = false;
+    try { const s = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); isSuper = !!(s && s.group === 'super'); } catch (e) {}
+    const al = document.querySelector('a[href="access-log.html"]');
+    if (al) al.style.display = isSuper ? '' : 'none';
+    return;
+  }
+  const l = document.querySelector('a[href="creds.html"]');
+  if (l) l.remove();
+  ['ptc.html', 'avoip.html'].forEach(function (href) {
+    const a = document.querySelector('a[href="' + href + '"]');
+    if (a && a.textContent.indexOf(lock) === -1) a.textContent = lock + ' ' + a.textContent;
+  });
+})();
+</script>
+</body>
+</html>

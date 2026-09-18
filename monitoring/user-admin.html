@@ -51,6 +51,7 @@
   }
   .badge.admin { background: #22304a; color: var(--accent); border: 1px solid var(--accent); }
   .badge.support { background: #2f2b21; color: #f9e2af; border: 1px solid #f9e2af; }
+  .badge.super { background: #2a2340; color: #cba6f7; border: 1px solid #cba6f7; }
   .badge.note { background: var(--panel2); color: var(--muted); }
   .actions { white-space: nowrap; }
   .btn {
@@ -92,7 +93,8 @@
   <a href="spare-equipment.html">Spare equipment</a>
   <a href="enhancement.html">Enhancements/Known issues</a>
   <a href="creds.html">Passwords</a>
-  <a href="user-admin.html" class="active" style="display:none">User admin</a>
+    <a href="access-log.html" style="display:none">Access log</a>
+<a href="user-admin.html" class="active" style="display:none">User admin</a>
 </nav>
 
 <div id="page">
@@ -107,9 +109,10 @@
       <label>Password</label>
       <input type="password" id="newPass" placeholder="Password" maxlength="64">
       <label>User group</label>
-      <select id="newGroup">
+<select id="newGroup">
         <option value="support">Support (05:00-09:00)</option>
         <option value="admin">Admin (no limit)</option>
+        <option value="super">Super Admin (full access + Access log)</option>
       </select>
       <button class="btn primary" id="addBtn">Add User</button>
       <span id="status"></span>
@@ -130,14 +133,15 @@
 
   <div class="card">
     <h2>User Groups &amp; Access Rules</h2>
-    <div class="access-note">
+<div class="access-note">
       <div class="item"><span class="badge admin">Admin group member</span> &nbsp;full access at all times (e.g. rcteacher1 profile)</div>
       <div class="item"><span class="badge support">Support group member</span> &nbsp;access time limitation 05:00-09:00 (e.g. Tier1support profile)</div>
+      <div class="item"><span class="badge super">Super Admin group member</span> &nbsp;full access like Admin, plus the Access log page (localhost only)</div>
     </div>
   </div>
 </div>
 
-<div class="footer">v1.9.18 &middot; Users are stored in monitoring\users.json</div>
+<div class="footer">v1.9.19 &middot; Users are stored in monitoring\users.json</div>
 
 <script src="click-log.js"></script>
 <script>
@@ -160,7 +164,9 @@ function setStatus(text, cls) {
 function badge(group) {
   return group === 'admin'
     ? '<span class="badge admin">Admin</span>'
-    : '<span class="badge support">Support</span>';
+    : group === 'super'
+      ? '<span class="badge super">Super Admin</span>'
+      : '<span class="badge support">Support</span>';
 }
 
 function render() {
@@ -169,9 +175,10 @@ function render() {
     const tr = document.createElement('tr');
     tr.innerHTML =
       '<td>' + u.name + (u.mustChangePw ? ' <span class="badge note" title="Must change the default password at next login">must change</span>' : '') + '</td>' +
-      '<td><select class="group-sel" data-name="' + u.name + '">' +
+'<td><select class="group-sel" data-name="' + u.name + '">' +
         '<option value="support"' + (u.group === 'support' ? ' selected' : '') + '>Support</option>' +
         '<option value="admin"' + (u.group === 'admin' ? ' selected' : '') + '>Admin</option>' +
+        '<option value="super"' + (u.group === 'super' ? ' selected' : '') + '>Super Admin</option>' +
       '</select></td>' +
       '<td class="muted" style="color:var(--muted);font-size:12px;">' + (u.created || '-') + '</td>' +
       '<td class="actions">' +
@@ -222,8 +229,9 @@ $addBtn.addEventListener('click', async function () {
   $newName.value = '';
   $newPass.value = 'P@ssw0rd';
   render();
-  await saveUsers();
-  setStatus('User "' + name + '" added (' + ($newGroup.value === 'admin' ? 'Admin' : 'Support') + ')', 'ok');
+await saveUsers();
+  const gName = $newGroup.value === 'admin' ? 'Admin' : $newGroup.value === 'super' ? 'Super Admin' : 'Support';
+  setStatus('User "' + name + '" added (' + gName + ')', 'ok');
 });
 
 $rows.addEventListener('click', async function (e) {
@@ -267,8 +275,9 @@ $rows.addEventListener('change', async function (e) {
   const user = users.find(u => u.name === sel.dataset.name);
   if (!user) return;
   user.group = sel.value;
-  await saveUsers();
-  setStatus('"' + user.name + '" is now ' + (user.group === 'admin' ? 'Admin' : 'Support') + ' group', 'ok');
+await saveUsers();
+  const gName = user.group === 'admin' ? 'Admin' : user.group === 'super' ? 'Super Admin' : 'Support';
+  setStatus('"' + user.name + '" is now ' + gName + ' group', 'ok');
 });
 
 loadUsers();
@@ -287,7 +296,8 @@ loadUsers();
 })();
 </script>
 <script>
-// remote mode: Passwords + User admin tabs are localhost-only
+// remote mode: Passwords + User admin tabs are localhost-only;
+// Access log tab additionally requires the Super Admin group
 (function () {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
@@ -295,6 +305,10 @@ loadUsers();
   if (local) {
     const ua = document.querySelector('a[href="user-admin.html"]');
     if (ua) ua.style.display = '';
+    let isSuper = false;
+    try { const s = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); isSuper = !!(s && s.group === 'super'); } catch (e) {}
+    const al = document.querySelector('a[href="access-log.html"]');
+    if (al) al.style.display = isSuper ? '' : 'none';
     return;
   }
   const l = document.querySelector('a[href="creds.html"]');
