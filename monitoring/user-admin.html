@@ -114,7 +114,7 @@
       <button class="btn primary" id="addBtn">Add User</button>
       <span id="status"></span>
     </div>
-    <div class="hint">New users get the default password P@ssw0rd (pre-filled - change it or leave as is). Support group members can access the PTZ page only between 05:00 and 09:00. Admin group members have full access at all times. AVoIP: both groups, all day.</div>
+    <div class="hint">New users get the default password P@ssw0rd (pre-filled) and are forced to change it at their first login. Support group members can access the PTZ page only between 05:00 and 09:00. Admin group members have full access at all times. AVoIP: both groups, all day.</div>
   </div>
 
   <div class="card">
@@ -137,7 +137,7 @@
   </div>
 </div>
 
-<div class="footer">v1.9.15 &middot; Users are stored in monitoring\users.json</div>
+<div class="footer">v1.9.17 &middot; Users are stored in monitoring\users.json</div>
 
 <script>
 const $rows = document.getElementById('rows');
@@ -167,7 +167,7 @@ function render() {
   users.forEach(function (u) {
     const tr = document.createElement('tr');
     tr.innerHTML =
-      '<td>' + u.name + '</td>' +
+      '<td>' + u.name + (u.mustChangePw ? ' <span class="badge note" title="Must change the default password at next login">must change</span>' : '') + '</td>' +
       '<td><select class="group-sel" data-name="' + u.name + '">' +
         '<option value="support"' + (u.group === 'support' ? ' selected' : '') + '>Support</option>' +
         '<option value="admin"' + (u.group === 'admin' ? ' selected' : '') + '>Admin</option>' +
@@ -217,7 +217,7 @@ $addBtn.addEventListener('click', async function () {
     setStatus('User "' + name + '" already exists', 'err');
     return;
   }
-  users.push({ name: name, password: pass, group: $newGroup.value, created: new Date().toISOString().slice(0, 10) });
+  users.push({ name: name, password: pass, group: $newGroup.value, created: new Date().toISOString().slice(0, 10), mustChangePw: pass === 'P@ssw0rd' });
   $newName.value = '';
   $newPass.value = 'P@ssw0rd';
   render();
@@ -248,6 +248,7 @@ $rows.addEventListener('click', async function (e) {
     const newPass = prompt('New password for "' + name + '":');
     if (!newPass) return;
     user.password = newPass.trim();
+    user.mustChangePw = (newPass.trim() === 'P@ssw0rd');
     await saveUsers();
     setStatus('Password reset for "' + name + '"', 'ok');
   } else if (act === 'del') {

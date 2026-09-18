@@ -2,6 +2,15 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.17] - 2026-09-18
+- Forced password change at first login: users created with the
+  default password P@ssw0rd (mustChangePw flag in users.json) are
+  routed to the change-password screen on login and cannot continue
+  until they pick a different password (P@ssw0rd itself is rejected).
+  After the forced change they are signed in automatically. The admin
+  "Reset Password" to P@ssw0rd also re-arms the flag; the User admin
+  page shows a "must change" badge for such users.
+
 ## [1.9.16] - 2026-09-18
 - FIX: "User admin" tab could appear on remote access (the hide logic
   declared the link but never removed it on most pages, and it flashed

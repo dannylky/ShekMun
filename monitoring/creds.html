@@ -96,7 +96,7 @@
 </header>
 <div id="error">Cannot reach creds.json - file missing (expected at monitoring\creds.json).</div>
 <div id="cards" class="grid"></div>
-<div class="footer">v1.9.15 &middot; Stored in monitoring\creds.json (not committed to git).</div>
+<div class="footer">v1.9.17 &middot; Stored in monitoring\creds.json (not committed to git).</div>
 
 <div class="gate" id="gate">
   <div class="card">
@@ -176,6 +176,7 @@ load();
   const newPw2 = document.getElementById('gateNewPw2');
   const chgLink = document.getElementById('gateChgLink');
   let chgMode = false;
+  let forcedChange = false;
   const SESSION_KEY = 'shekmunSession';
   const REMEMBER_KEY = 'shekmunRememberUser';
 
@@ -200,6 +201,13 @@ load();
     const user = users.find(u => u.name === name && u.password === pass);
     if (!user) { err.textContent = 'Wrong login name or password'; pw.value = ''; pw.focus(); return; }
     localStorage.setItem(REMEMBER_KEY, name);          // remember name only - never the password
+    if (user.mustChangePw) {                          // force default-password change
+      forcedChange = true;
+      setMode(true);
+      err.textContent = 'You must change your default password before continuing';
+      newPw1.focus();
+      return;
+    }
     setSession(user);
     gate.style.display = 'none';
   }
@@ -222,6 +230,7 @@ load();
     const n2 = newPw2.value;
     if (!name || !cur) { err.textContent = 'Enter login name and current password'; return; }
     if (n1.length < 6) { err.textContent = 'New password must be at least 6 characters'; return; }
+    if (n1 === 'P@ssw0rd') { err.textContent = 'Please choose a password different from the default'; return; }
     if (n1 !== n2) { err.textContent = 'New passwords do not match'; return; }
     let users;
     try {
@@ -232,6 +241,7 @@ load();
     const user = users.find(u => u.name === name && u.password === cur);
     if (!user) { err.textContent = 'Wrong login name or password'; pw.value = ''; pw.focus(); return; }
     user.password = n1;
+    user.mustChangePw = (n1 === 'P@ssw0rd');
     try {
       const r = await fetch('users.json', {
         method: 'POST',
@@ -240,6 +250,12 @@ load();
       });
       if (!r.ok) throw new Error('HTTP ' + r.status);
     } catch (e) { err.textContent = 'Save failed - ' + e.message; return; }
+    if (forcedChange) {
+      forcedChange = false;
+      setSession(user);
+      gate.style.display = 'none';
+      return;
+    }
     err.textContent = 'Password updated - please sign in with your new password';
     pw.value = '';
     newPw1.value = '';
