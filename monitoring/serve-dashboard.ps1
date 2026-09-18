@@ -114,6 +114,23 @@ function Send-Response {
         if ($path -eq '') { $path = 'dashboard_shekmun.html' }
         $full = [System.IO.Path]::GetFullPath((Join-Path $root $path))
 
+        # Click-activity log: one JSON line per click (tab / button clicks)
+        if ($Ctx.Request.HttpMethod -eq 'POST' -and $path -eq 'click-log') {
+            $sr = New-Object System.IO.StreamReader($Ctx.Request.InputStream)
+            $line = $sr.ReadToEnd()
+            $sr.Dispose()
+            if ($line) {
+                $logDir = Join-Path $root 'logs'
+                if (-not (Test-Path $logDir)) { New-Item -ItemType Directory -Path $logDir -Force | Out-Null }
+                Add-Content -Path (Join-Path $logDir 'clicks.log') -Value $line -Encoding UTF8
+            }
+            $res.StatusCode = 200
+            $data = [System.Text.Encoding]::UTF8.GetBytes('ok')
+            $res.ContentLength64 = $data.Length
+            $res.OutputStream.Write($data, 0, $data.Length)
+            return
+        }
+
         # Editable-page POSTs: body is saved to the matching notes/data file
         if ($Ctx.Request.HttpMethod -eq 'POST' -and ($path -eq 'enhancements.txt' -or $path -eq 'known-issues.txt' -or $path -eq 'ops-guide-content.html' -or $path -eq 'spare-equipment.json' -or $path -eq 'users.json')) {
             $sr = New-Object System.IO.StreamReader($Ctx.Request.InputStream)

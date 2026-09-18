@@ -2,6 +2,13 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.18] - 2026-09-18
+- Click activity logging: every tab-bar click on all pages and every
+  button/link click on the PTZ grid page is recorded with user name and
+  timestamp (click-log.js, sent via beacon to the server, appended to
+  monitoring\logs\clicks.log as one JSON line per click). User name
+  comes from the active login session (or "localhost").
+
 ## [1.9.17] - 2026-09-18
 - Forced password change at first login: users created with the
   default password P@ssw0rd (mustChangePw flag in users.json) are
