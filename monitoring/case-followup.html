@@ -62,8 +62,10 @@
 
 <div class="panel">
   <h2>Case Follow Up Sheet</h2>
-  <div class="link-row">
+<div class="link-row">
     <a href="https://hsuhk.sharepoint.com/:x:/t/itsc-intranet/IQCECe37xNrxSo2QRLDMPK2hAYPaWW6-fayXhsHrNeJMUoo?e=wUazFv&amp;CID=B8FDEA42-9D8D-4040-804D-C127BCCCDFA2" target="_blank" rel="noopener">Open in SharePoint</a>
+    &nbsp;|&nbsp;
+    <a href="#" onclick="openNewTicket('https://teams.microsoft.com/v2/#/l/chat/19:1c9dc207-3756-41a0-a469-79af7df11fa2_19425257-101b-4df9-a071-c6f6197fe52b@unq.gbl.spaces/conversations?context=%7B%22contextType%22%3A%22chat%22%7D&amp;deeplinkId=8f7ef103-91fa-4137-acd2-b2a8ea67eef2&amp;launchAgent=join_launcher_web'); return false;" class="ticket-link">New Ticket</a>
   </div>
 </div>
 
@@ -77,6 +79,16 @@
 <div class="footer">v1.9.20</div>
 
 <script src="click-log.js"></script>
+<script>
+// open the Teams New Ticket link in a maximized window
+function openNewTicket(url) {
+  var w = window.open(url, '_blank',
+    'width=' + screen.width + ',height=' + screen.height + ',top=0,left=0,resizable=yes,scrollbars=yes');
+  if (w) {
+    try { w.moveTo(0, 0); w.resizeTo(screen.width, screen.height); } catch (e) {}
+  }
+}
+</script>
 <script>
 // remote mode: Passwords + User admin tabs are localhost-only;
 // Access log tab is also localhost-only (page enforces Super Admin login)
