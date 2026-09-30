@@ -1,9 +1,0 @@
-2026-09-24 17:32:55: >> Resolved TB0806E007.dannylky-gmail-com to 103.102.33.205:1-10.107.147.121:33333
-2026-09-24 17:32:55: LOCAL C:103.102.33.205(10.107.147.42) -> S:TB0806E007.dannylky-gmail-com.goodsync:33333
-2026-09-24 17:32:55: == Sync Started by User Command
-2026-09-24 17:32:55: Start only 1 threads, limited by tasks to run
-2026-09-24 17:32:55: Copy New 'C:/Work/Projects/ShekMun/[Buddy]/[Report]/AV_room_audit.html' -> 'gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/[Buddy]/[Report]/AV_room_audit.html' (428,511)
-2026-09-24 17:32:55: Save State File C:/Work/Projects/ShekMun/[Buddy]/[Report]/_gsdata_/_file_state_v4._gs
-2026-09-24 17:32:55: Save State File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/[Buddy]/[Report]/_gsdata_/_file_state_v4._gs
-2026-09-24 17:32:55: GsDeleteEmptyFoldersFS: Single: ListDirPaged: The system cannot find the path specified.  (error 3)
-2026-09-24 17:32:55: == Sync Complete. Time: 00:00:00, Speed: 0.00/s, OK: 561, Errors: 0

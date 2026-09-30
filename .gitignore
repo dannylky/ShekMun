@@ -31,3 +31,6 @@ monitoring/spare-equipment.json
 monitoring/users.json
 
 
+
+# Buddy workspace (not part of the project)
+[Buddy]/
