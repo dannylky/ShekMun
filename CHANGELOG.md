@@ -2,6 +2,10 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.22] - 2026-09-30
+- AVoIP page, SM-11-07: new "Reset all decoders" button (Companion
+  preset on 172.18.2.57, location 3/0/3).
+
 ## [1.9.21] - 2026-09-30
 - AVoIP page, SM-11-07: new control buttons "Source:PC" and
   "Source:Laptop" (Companion presets on 172.18.2.57, location
