@@ -1,0 +1,625 @@
+2026-09-24 17:30:07: >> Resolved TB0806E007.dannylky-gmail-com to 103.102.33.205:1-10.107.147.121:33333
+2026-09-24 17:30:07: LOCAL C:103.102.33.205(10.107.147.42) -> S:TB0806E007.dannylky-gmail-com.goodsync:33333
+2026-09-24 17:30:07: == Sync Started by User Command
+2026-09-24 17:30:07: ConnectCloned connected to file:///C:/Work/Projects/ShekMun/[Buddy]/[Report]
+2026-09-24 17:30:07: ConnectCloned connected to file:///C:/Work/Projects/ShekMun/[Buddy]/[Report]
+2026-09-24 17:30:07: ConnectCloned connected to file:///C:/Work/Projects/ShekMun/[Buddy]/[Report]
+2026-09-24 17:30:07: LOCAL C:103.102.33.205(10.107.147.42) -> S:TB0806E007.dannylky-gmail-com.goodsync:33333
+2026-09-24 17:30:07: LOCAL C:103.102.33.205(10.107.147.42) -> S:TB0806E007.dannylky-gmail-com.goodsync:33333
+2026-09-24 17:30:07: LOCAL C:103.102.33.205(10.107.147.42) -> S:TB0806E007.dannylky-gmail-com.goodsync:33333
+2026-09-24 17:30:07: ConnectCloned connected to gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun
+2026-09-24 17:30:07: ConnectCloned connected to gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun
+2026-09-24 17:30:07: ConnectCloned connected to gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/avoip.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/INSTALLATION-GUIDE.md
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/config.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/creds.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/creds.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/creds.json.example
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/dashboard.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/devices.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/logs/monitor-error.log
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/logs/status-20260819.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/logs/status-20260820.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/logs/status-20260821.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/logs/temp-20260819.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/logs/temp-20260820.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/logs/temp-20260821.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/monitor-control.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/ptc.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/serve-dashboard.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/temp-monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/temp-snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/README-RUN.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/setup-once.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/logs/temp-monitor-error.log
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/Shek Mun SOP Original.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/Shek Mun SOP Short.docx
+2026-09-24 17:30:07: Copy New 'C:/Work/Projects/ShekMun/[Buddy]/[Report]/AV_room_audit.html' -> 'gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/AV_room_audit.html' (428,511)
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/Start Monitor Control.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/INSTALLATION-GUIDE.md
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/avoip.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/creds.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/config.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/dashboard.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/creds.json.example
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/creds.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/devices.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/logs/monitor-error.log
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/logs/status-20260901.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/logs/status-20260826.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/logs/temp-20260901.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/logs/temp-20260826.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/monitor-control.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/ptc.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/ops-guide.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/serve-dashboard.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/temp-snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/temp-monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/README-RUN.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/setup-once.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/Shek Mun SOP Original.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/Shek Mun SOP Short.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/Start Monitor Control.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/INSTALLATION-GUIDE.md
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/avoip.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/cam-default.ps1
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/case-followup.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/config.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/creds.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/creds.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/creds.json.example
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/dashboard.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/devices.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/enhancement.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/enhancements.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/known-issues.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/logs/status-20260916.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/logs/temp-20260916.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/monitor-control.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/ops-guide.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/ptc.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/serve-dashboard.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/suspended.js
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/README-RUN.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/temp-monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/temp-snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/Shek Mun SOP Original.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/setup-once.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/Shek Mun SOP Short.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/Start Monitor Control.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/INSTALLATION-GUIDE.md
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/avoip.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/cam-default.ps1
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/case-followup.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/creds.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/config.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/creds.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/dashboard.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/creds.json.example
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/enhancement.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/devices.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/logs/status-20260916.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/logs/temp-20260916.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/known-issues.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/monitor-control.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/enhancements.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/ops-guide.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/ptc.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/serve-dashboard.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/suspended.js
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/README-RUN.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/setup-once.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/Shek Mun SOP Original.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/Shek Mun SOP Short.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/Start Monitor Control.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/temp-snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/temp-monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/INSTALLATION-GUIDE.md
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/avoip.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/case-followup.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/cam-default.ps1
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/config.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/creds.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/creds.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/creds.json.example
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/dashboard.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/devices.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/enhancement.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/enhancements.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/known-issues.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/logs/cam-default.log
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/logs/status-20260916.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/logs/status-20260917.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/monitor-control.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/logs/temp-20260917.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/logs/temp-20260916.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/ops-guide.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/ptc.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/serve-dashboard.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/spare-equipment.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/spare-equipment.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/temp-monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/README-RUN.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/setup-once.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/Shek Mun SOP Original.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/Shek Mun SOP Short.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/Start Monitor Control.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/temp-snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/suspended.js
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/INSTALLATION-GUIDE.md
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/avoip.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/cam-default.ps1
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/case-followup.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/config.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/creds.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/creds.json.example
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/creds.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/dashboard.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/devices.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/enhancement.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/enhancements.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/logs/cam-default.log
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/known-issues.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/logs/monitor-error.log
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/monitor-control.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/ops-guide-content.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/ops-guide.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/ptc.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/serve-dashboard.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/spare-equipment.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/spare-equipment.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/logs/temp-20260917.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/suspended.js
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/logs/status-20260917.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/temp-monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/README-RUN.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/temp-snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/Shek Mun SOP Short.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/setup-once.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/INSTALLATION-GUIDE.md
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/avoip.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/cam-default.ps1
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/case-followup.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/config.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/creds.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/creds.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/creds.json.example
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/Shek Mun SOP Original.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/Start Monitor Control.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/dashboard.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/enhancements.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/devices.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/logs/status-20260918.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/logs/temp-20260918.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/enhancement.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/known-issues.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/monitor-control.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/ops-guide-content.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/ops-guide.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/ptc.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/serve-dashboard.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/spare-equipment.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/spare-equipment.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/suspended.js
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/temp-monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/user-admin.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/temp-snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/users.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/Shek Mun SOP Original.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/setup-once.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/README-RUN.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/INSTALLATION-GUIDE.md
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/avoip.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/cam-default.ps1
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/case-followup.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/Shek Mun SOP Short.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/Start Monitor Control.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/config.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/creds.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/creds.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/creds.json.example
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/dashboard.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/enhancement.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/devices.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/enhancements.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/known-issues.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/monitor-control.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/logs/status-20260918.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/logs/temp-20260918.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/ops-guide-content.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/ops-guide.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/ptc.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/serve-dashboard.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/spare-equipment.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/spare-equipment.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/suspended.js
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/temp-monitor.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/temp-snapshot.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/user-admin.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/users.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/README-RUN.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/setup-once.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/Shek Mun SOP Original.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/Start Monitor Control.bat
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/Shek Mun SOP Short.docx
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/INSTALLATION-GUIDE.md
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/access-log.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/cam-default.ps1
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/case-followup.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/avoip.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/click-log.js
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/creds.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/config.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/creds.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/dashboard.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/creds.json.example
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/devices.json
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/enhancement.html
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/enhancements.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/known-issues.txt
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/logs/temp-20260918.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/logs/status-20260918.csv
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/logs/clicks.log
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/monitor-control.exe
+2026-09-24 17:30:07: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/ops-guide-content.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/ops-guide.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/ptc.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/serve-dashboard.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/spare-equipment.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/spare-equipment.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/temp-monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/suspended.js
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/temp-snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/user-admin.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/users.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/README-RUN.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/setup-once.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/Shek Mun SOP Original.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/Shek Mun SOP Short.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/Start Monitor Control.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/INSTALLATION-GUIDE.md
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/avoip.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/access-log.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/cam-default.ps1
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/config.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/click-log.js
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/case-followup.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/creds.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/creds.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/creds.json.example
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/dashboard.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/devices.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/enhancements.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/logs/cam-default.log
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/logs/clicks.log
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/logs/monitor-error.log
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/known-issues.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/enhancement.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/logs/status-20260918.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/logs/status-20260922.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/logs/status-20260924.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/logs/temp-20260918.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/logs/temp-20260922.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/monitor-control.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/logs/temp-20260924.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/ops-guide-content.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/ops-guide.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/serve-dashboard.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/ptc.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/spare-equipment.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/suspended.js
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/spare-equipment.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/temp-monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/user-admin.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/README-RUN.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/setup-once.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/Shek Mun SOP Original.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/temp-snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/users.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/Shek Mun SOP Short.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/Start Monitor Control.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/INSTALLATION-GUIDE.md
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/avoip.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/config.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/creds.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/creds.json.example
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/creds.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/dashboard.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/devices.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/logs/status-20260902.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/logs/temp-20260902.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/monitor-control.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/ops-guide.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/ptc.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/serve-dashboard.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/suspended.js
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/README-RUN.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/setup-once.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/Shek Mun SOP Original.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/Shek Mun SOP Short.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/Start Monitor Control.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/creds.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/INSTALLATION-GUIDE.md
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/temp-monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/temp-snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/avoip.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/case-followup.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/config.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/creds.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/creds.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/creds.json.example
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/dashboard.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/devices.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/logs/monitor-error.log
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/logs/status-20260902.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/monitor-control.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/ops-guide.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/ptc.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/logs/temp-20260902.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/serve-dashboard.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/suspended.js
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/README-RUN.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/setup-once.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/Shek Mun SOP Original.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/Shek Mun SOP Short.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/Start Monitor Control.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/temp-snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/temp-monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/INSTALLATION-GUIDE.md
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/avoip.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/config.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/case-followup.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/creds.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/creds.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/dashboard.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/creds.json.example
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/devices.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/logs/status-20260902.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/logs/monitor-error.log
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/logs/temp-20260904.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/logs/status-20260904.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/logs/temp-20260902.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/ops-guide.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/ptc.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/monitor-control.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/serve-dashboard.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/suspended.js
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/temp-monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/temp-snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/README-RUN.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/setup-once.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/Shek Mun SOP Original.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/Shek Mun SOP Short.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/INSTALLATION-GUIDE.md
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/avoip.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/case-followup.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/config.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/creds.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/creds.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/Start Monitor Control.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/creds.json.example
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/dashboard.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/devices.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/enhancement.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/enhancements.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/logs/status-20260904.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/logs/temp-20260904.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/monitor-control.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/ops-guide.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/ptc.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/serve-dashboard.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/suspended.js
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/temp-monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/temp-snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/README-RUN.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/setup-once.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/Shek Mun SOP Original.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/INSTALLATION-GUIDE.md
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/avoip.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/case-followup.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/Shek Mun SOP Short.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/Start Monitor Control.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/config.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/creds.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/creds.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/creds.json.example
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/dashboard.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/devices.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/enhancement.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/enhancements.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/known-issues.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/logs/monitor-error.log
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/logs/status-20260904.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/logs/temp-20260904.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/monitor-control.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/serve-dashboard.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/ptc.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/ops-guide.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/temp-snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/temp-monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/suspended.js
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/setup-once.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/README-RUN.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/Shek Mun SOP Original.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/INSTALLATION-GUIDE.md
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/avoip.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/case-followup.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/config.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/creds.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/creds.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/Shek Mun SOP Short.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/Start Monitor Control.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/creds.json.example
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/dashboard.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/enhancement.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/devices.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/enhancements.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/known-issues.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/logs/monitor-error.log
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/logs/status-20260910.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/logs/temp-20260910.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/logs/temp-monitor-error.log
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/monitor-control.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/ops-guide.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/ptc.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/serve-dashboard.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/suspended.js
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/temp-monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/temp-snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/setup-once.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/README-RUN.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/Shek Mun SOP Original.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/Shek Mun SOP Short.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/Start Monitor Control.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/INSTALLATION-GUIDE.md
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/config.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/avoip.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/case-followup.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/creds.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/creds.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/creds.json.example
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/dashboard.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/dashboard_PTZ.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/dashboard_shekmun.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/devices.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/enhancement.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/enhancements.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/known-issues.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/logs/monitor-error.log
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/logs/status-20260915.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/logs/temp-20260915.csv
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/logs/temp-monitor-error.log
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/monitor-control.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/ops-guide.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/ptc.html
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/serve-dashboard.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/suspended.js
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/temp-monitor.exe
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/temp-snapshot.json
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/README-RUN.txt
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/setup-once.bat
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/Shek Mun SOP Original.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/Shek Mun SOP Short.docx
+2026-09-24 17:30:08: Delete File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/Start Monitor Control.bat
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring/logs
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3/monitoring
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.0
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.12
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.13
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.11
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.14
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.15
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.17
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.19
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.3
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.4
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.7
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.5
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.6
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.8
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.9
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.9.20
+- ERROR: GsDeleteDestToRecycleHistory: Cannot Delete Destination Folder: server: Cannot delete folder: The process cannot access the file because it is being used by another process.  (error 32)
+2026-09-24 17:30:08: Delete Folder gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/ShekMun-Monitor-v1.8.3
+2026-09-24 17:30:08: Save State File C:/Work/Projects/ShekMun/[Buddy]/[Report]/_gsdata_/_file_state_v4._gs
+2026-09-24 17:30:08: Save State File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/_gsdata_/_file_state_v4._gs
+2026-09-24 17:30:08: == Sync Complete. Time: 00:00:01, Speed: 0.00/s, OK: 608, Errors: 1

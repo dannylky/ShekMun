@@ -1,0 +1,10 @@
+2026-09-24 17:27:59: >> Resolved TB0806E007.dannylky-gmail-com to 103.102.33.205:1-10.107.147.121:33333
+2026-09-24 17:27:59: LOCAL C:103.102.33.205(10.107.147.42) -> S:TB0806E007.dannylky-gmail-com.goodsync:33333
+2026-09-24 17:27:59: -- Analysis Started by User Command
+2026-09-24 17:27:59: L: Reading State File C:/Work/Projects/ShekMun/[Buddy]/[Report]/_gsdata_/_file_state_v4._gs
+2026-09-24 17:27:59: L: State file does not exist: C:/Work/Projects/ShekMun/[Buddy]/[Report]/_gsdata_/_file_state_v4._gs
+2026-09-24 17:27:59: R: Reading State File gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/_gsdata_/_file_state_v4._gs
+2026-09-24 17:27:59: R: State file does not exist: gstps://TB0806E007.dannylky-gmail-com.goodsync/D:/Projects/Shekmun/_gsdata_/_file_state_v4._gs
+2026-09-24 17:27:59: Changes: 609, Conflicts: 0, CopyTime: 0, FixState: 0, Errors: 0, All: 610
+2026-09-24 17:27:59: Left to Right: Copy File: 1 Delete File: 608 
+2026-09-24 17:27:59: -- Analysis Complete. Time 00:00:00, Speed: Many files/s

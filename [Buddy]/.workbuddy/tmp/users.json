@@ -1,0 +1,62 @@
+[
+  {
+    "name": "rcteacher1",
+    "password": "rcteacher1",
+    "group": "admin",
+    "created": "2026-09-18"
+  },
+  {
+    "name": "Tier1support",
+    "password": "Tier1support",
+    "group": "support",
+    "created": "2026-09-18"
+  },
+  {
+    "name": "dannylam",
+    "password": "Dlky@y202402",
+    "group": "super",
+    "created": "2026-09-18"
+  },
+  {
+    "name": "rubyleung",
+    "password": "P@ssw0rd",
+    "group": "admin",
+    "created": "2026-09-18",
+    "mustChangePw": true
+  },
+  {
+    "name": "benpang",
+    "password": "P@ssw0rd",
+    "group": "admin",
+    "created": "2026-09-18",
+    "mustChangePw": true
+  },
+  {
+    "name": "samuelkong",
+    "password": "P@ssw0rd",
+    "group": "support",
+    "created": "2026-09-18",
+    "mustChangePw": true
+  },
+  {
+    "name": "jackychoi",
+    "password": "P@ssw0rd",
+    "group": "support",
+    "created": "2026-09-18",
+    "mustChangePw": true
+  },
+  {
+    "name": "leochu",
+    "password": "P@ssw0rd",
+    "group": "support",
+    "created": "2026-09-18",
+    "mustChangePw": true
+  },
+  {
+    "name": "tonymak",
+    "password": "P@ssw0rd",
+    "group": "support",
+    "created": "2026-09-18",
+    "mustChangePw": true
+  }
+]

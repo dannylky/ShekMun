@@ -1,0 +1,28 @@
+written C:\Work\Projects\ShekMun\[Buddy]\AV_room_audit.html 566715 bytes
+STATS fetch=0.1 grab=48.3 analyse=10.7 render=0.0 total=59.1
+SM-11-01     online=True lum=86 motion=7.79% decoders=4
+SM-11-02     online=True lum=67 motion=0.22% decoders=2
+SM-11-03     online=True lum=108 motion=7.34% decoders=1
+SM-11-04     online=True lum=88 motion=9.23% decoders=1
+SM-11-05     online=True lum=103 motion=8.97% decoders=1
+SM-11-06     online=True lum=54 motion=0.00% decoders=1
+SM-11-07     online=True lum=100 motion=0.00% decoders=2
+SM-11-08     online=True lum=98 motion=2.36% decoders=2
+Common Area  online=False lum=0 motion=0.00% decoders=1
+SHEET: C:\Work\Projects\ShekMun\[Buddy]\all_rooms_20260921_1724.jpg
+SUBJECT: HSUHK@Shek Mun Audit report- 2026-09-21 17:24 / Status: Abnormal (SM-11-02)
+body bytes: 13618
+  SM-11-01     online=True lum=86 dark=15 motion=7.79 dec=4 ok=4
+  SM-11-02     online=True lum=67 dark=40 motion=0.22 dec=2 ok=2
+  SM-11-03     online=True lum=108 dark=10 motion=7.34 dec=1 ok=1
+  SM-11-04     online=True lum=88 dark=15 motion=9.23 dec=1 ok=1
+  SM-11-05     online=True lum=103 dark=9 motion=8.97 dec=1 ok=1
+  SM-11-06     online=True lum=54 dark=31 motion=0.00 dec=1 ok=1
+  SM-11-07     online=True lum=100 dark=11 motion=0.00 dec=2 ok=2
+  SM-11-08     online=True lum=98 dark=18 motion=2.36 dec=2 ok=2
+  Common Area  online=False lum=0 dark=0 motion=0.00 dec=1 ok=0
+RESULT stats=Run stats — generated 2026-09-21 17:24:01 in 61.2 s (scan 60.7 s · contact sheet 0.3 s · email body 0.1 s) · scan internals: fetch=0.1 grab=48.3 analyse=10.7 render=0.0 total=59.1. Estimated LLM tokens for this run: ~6,404 (mail body ~3,404 tok + skill/tool overhead ~3,000 tok); the HTML attachment is 553 KB (~141,743 tok only if it is pulled into context). Estimate assumes ~4 characters per token.
+RESULT subject=HSUHK@Shek Mun Audit report- 2026-09-21 17:24 / Status: Abnormal (SM-11-02)
+RESULT html=C:\Work\Projects\ShekMun\[Buddy]\AV_room_audit.html
+RESULT sheet=C:\Work\Projects\ShekMun\[Buddy]\all_rooms_20260921_1724.jpg
+RESULT body=C:\Work\Projects\ShekMun\[Buddy]\.workbuddy\tmp\mail_body.html

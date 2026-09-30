@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.21] - 2026-09-30
+- AVoIP page, SM-11-07: new control buttons "Source:PC" and
+  "Source:Laptop" (Companion presets on 172.18.2.57, location
+  3/1/3 and 3/2/3). Buttons POST on click with brief OK/error
+  feedback; clicks are recorded by click-log.js.
+
 ## [1.9.20] - 2026-09-18
 - Access log page: localhost access is now direct - the Super Admin
   login wall was removed. Remote access remains blocked. The tab shows
