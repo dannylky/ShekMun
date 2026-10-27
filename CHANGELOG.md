@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.26] - 2026-10-27
+- AVoIP page: control buttons (Source:PC, Source:Laptop, Reset all
+  decoders) also added to SM-11-01 (172.18.2.51). All 8 rooms now have
+  the control row.
+
 ## [1.9.25] - 2026-10-27
 - AVoIP page: SM-11-02 control buttons (Source:PC, Source:Laptop,
   Reset all decoders) copied to SM-11-03 (172.18.2.53), SM-11-04
