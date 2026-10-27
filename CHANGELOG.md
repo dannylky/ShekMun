@@ -2,6 +2,12 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.25] - 2026-10-27
+- AVoIP page: SM-11-02 control buttons (Source:PC, Source:Laptop,
+  Reset all decoders) copied to SM-11-03 (172.18.2.53), SM-11-04
+  (172.18.2.54), SM-11-05 (172.18.2.55) and SM-11-06 (172.18.2.56),
+  same Companion presets (location 3/1/3, 3/2/3, 3/0/3).
+
 ## [1.9.24] - 2026-09-30
 - AVoIP page: removed the "xx-xx-Audio-DEC7" snapshot frame from every
   room (Output rows now show the TV decoders only). Audio-DEC unit
