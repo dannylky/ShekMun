@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.27] - 2026-10-27
+- AVoIP page: all room control buttons (Source:PC, Source:Laptop,
+  Reset all decoders) now show a confirmation dialog before sending -
+  the dialog names the room and the action; cancelling sends nothing.
+
 ## [1.9.26] - 2026-10-27
 - AVoIP page: control buttons (Source:PC, Source:Laptop, Reset all
   decoders) also added to SM-11-01 (172.18.2.51). All 8 rooms now have

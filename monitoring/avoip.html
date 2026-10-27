@@ -122,7 +122,7 @@
 <a href="user-admin.html" style="display:none">User admin</a>
 </nav>
 <h1>Shek Mun AVoIP - Room Views</h1>
-<div id="meta">AVoIP snapshots from the Kramer manager (172.18.22.5). Refresh every 5s. v1.9.26</div>
+<div id="meta">AVoIP snapshots from the Kramer manager (172.18.22.5). Refresh every 5s. v1.9.27</div>
 <div class="rooms" id="rooms"></div>
 
 <div class="gate" id="gate">
@@ -283,8 +283,10 @@ const ROOM_CONTROLS = {
   ]
 };
 
-// Fire-and-forget control press with brief visual feedback on the button.
-function pressControl(btn, url) {
+// Confirm, then fire control press with brief visual feedback on the button.
+function pressControl(btn, url, room, action) {
+  var label = (room ? room + ' - ' : '') + (action || 'Send command');
+  if (!confirm(label + '\n\nSend this command to the room controller?')) return;
   btn.disabled = true;
   fetch(url, { method: 'POST' })
     .then(function (r) { btn.className = 'ctrl-btn ' + (r.ok ? 'ok' : 'err'); })
@@ -345,7 +347,7 @@ function buildRooms() {
         const b = document.createElement('button');
         b.className = 'ctrl-btn';
         b.textContent = c.name;
-        b.addEventListener('click', function () { pressControl(b, c.url); });
+        b.addEventListener('click', function () { pressControl(b, c.url, room, c.name); });
         cr.appendChild(b);
       });
       div.appendChild(cr);
