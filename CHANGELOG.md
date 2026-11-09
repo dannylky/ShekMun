@@ -2,6 +2,11 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.29] - 2026-11-09
+- PTZ access refined: the PTZ tab and page are available by default on
+  localhost (trusted, no login). Remote access still requires a Super
+  Admin login and the tab stays hidden for Admin/Support sessions.
+
 ## [1.9.28] - 2026-11-09
 - PTZ page locked down to the Super Admin group: the PTZ tab is hidden
   by default on every page and appears only while a Super Admin session

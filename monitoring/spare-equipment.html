@@ -105,7 +105,7 @@
 </div>
 
 <div class="note">Notes: Items marked as provisional or one lot should be physically verified before the inventory is finalized.</div>
-<div class="footer">v1.9.28 &middot; Editable list &middot; Autosaves a few seconds after you stop typing</div>
+<div class="footer">v1.9.29 &middot; Editable list &middot; Autosaves a few seconds after you stop typing</div>
 
 <script src="click-log.js"></script>
 <script>
@@ -240,7 +240,7 @@ load();
   let isSuper = false;
   try { const s = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); isSuper = !!(s && s.group === 'super'); } catch (e) {}
   const ptz = document.querySelector('a[href="ptc.html"]');
-  if (ptz) ptz.style.display = isSuper ? '' : 'none';
+  if (ptz) ptz.style.display = (local || isSuper) ? '' : 'none';
   if (local) {
     const ua = document.querySelector('a[href="user-admin.html"]');
     if (ua) ua.style.display = '';

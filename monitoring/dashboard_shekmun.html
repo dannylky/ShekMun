@@ -92,7 +92,7 @@
   <div class="panel" id="hotPanel"><h2>Hot KDS units (&ge;45&deg;C)</h2><ul id="hotList"><li>Loading...</li></ul></div>
   <div class="panel" id="failPanel"><h2>Latest failures</h2><ul id="failList"><li>Loading...</li></ul></div>
 </div>
-<div class="footer">v1.9.28 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
+<div class="footer">v1.9.29 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
 
 <script src="click-log.js"></script>
 <script src="suspended.js"></script>
@@ -247,7 +247,7 @@ setInterval(load, REFRESH_MS);
   let isSuper = false;
   try { const s = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); isSuper = !!(s && s.group === 'super'); } catch (e) {}
   const ptz = document.querySelector('a[href="ptc.html"]');
-  if (ptz) ptz.style.display = isSuper ? '' : 'none';
+  if (ptz) ptz.style.display = (local || isSuper) ? '' : 'none';
   if (local) {
     const ua = document.querySelector('a[href="user-admin.html"]');
     if (ua) ua.style.display = '';

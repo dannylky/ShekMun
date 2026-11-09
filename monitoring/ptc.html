@@ -70,7 +70,7 @@
 <a href="user-admin.html" style="display:none">User admin</a>
 </nav>
 <iframe id="ptc" src="dashboard_PTZ.html" title="PTZ main page"></iframe>
-<div class="footer" style="color:var(--muted);font-size:12px;margin-top:12px;">v1.9.28</div>
+<div class="footer" style="color:var(--muted);font-size:12px;margin-top:12px;">v1.9.29</div>
 
 <div class="gate" id="gate">
   <div class="card">
@@ -81,15 +81,18 @@
     <input type="password" id="gateNewPw2" placeholder="Confirm new password" autocomplete="new-password" style="display:none">
     <div><button id="gateBtn">Sign in</button> <button id="gateBack" style="background:var(--panel2);color:var(--text);">Back</button></div>
     <div class="err" id="gateErr"></div>
-    <div class="hint" id="gateHint">Super Admin group access only</div>
+    <div class="hint" id="gateHint">Remote access: Super Admin group only</div>
     <div class="chglink"><a href="#" id="gateChgLink">Change password</a></div>
   </div>
 </div>
 
 <script src="click-log.js"></script>
 <script>
-// PTZ access: Super Admin group only (both localhost and remote)
+// PTZ access: free on localhost; remote access requires the Super Admin group
 (function () {
+  const host = location.hostname;
+  const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
+  if (local) return;
   const gate = document.getElementById('gate');
   const userEl = document.getElementById('gateUser');
   const pw = document.getElementById('gatePw');
@@ -224,7 +227,7 @@
   let isSuper = false;
   try { const s = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); isSuper = !!(s && s.group === 'super'); } catch (e) {}
   const ptz = document.querySelector('a[href="ptc.html"]');
-  if (ptz) ptz.style.display = isSuper ? '' : 'none';
+  if (ptz) ptz.style.display = (local || isSuper) ? '' : 'none';
   if (local) {
     const ua = document.querySelector('a[href="user-admin.html"]');
     if (ua) ua.style.display = '';
