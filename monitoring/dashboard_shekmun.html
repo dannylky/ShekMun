@@ -70,7 +70,7 @@
 <nav class="tabs">
   <a href="dashboard_shekmun.html" class="active">Main</a>
   <a href="dashboard.html">Dashboard</a>
-<a href="ptc.html">PTZ</a>
+<a href="ptc.html" style="display:none">PTZ</a>
   <a href="avoip.html">AVoIP</a>
   <a href="ops-guide.html">Operation Guide</a>
   <a href="case-followup.html">Case Follow Up</a>
@@ -92,7 +92,7 @@
   <div class="panel" id="hotPanel"><h2>Hot KDS units (&ge;45&deg;C)</h2><ul id="hotList"><li>Loading...</li></ul></div>
   <div class="panel" id="failPanel"><h2>Latest failures</h2><ul id="failList"><li>Loading...</li></ul></div>
 </div>
-<div class="footer">v1.9.27 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
+<div class="footer">v1.9.28 &middot; Auto-refresh every 10 seconds &middot; serve with: powershell -File serve-dashboard.ps1</div>
 
 <script src="click-log.js"></script>
 <script src="suspended.js"></script>
@@ -238,11 +238,16 @@ setInterval(load, REFRESH_MS);
 </script>
 <script>
 // remote mode: Passwords + User admin tabs are localhost-only;
-// Access log tab is also localhost-only (page enforces Super Admin login)
+// Access log tab is also localhost-only (page enforces Super Admin login);
+// PTZ tab is shown only for a logged-in Super Admin session
 (function () {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
   const lock = '\uD83D\uDD12';
+  let isSuper = false;
+  try { const s = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); isSuper = !!(s && s.group === 'super'); } catch (e) {}
+  const ptz = document.querySelector('a[href="ptc.html"]');
+  if (ptz) ptz.style.display = isSuper ? '' : 'none';
   if (local) {
     const ua = document.querySelector('a[href="user-admin.html"]');
     if (ua) ua.style.display = '';

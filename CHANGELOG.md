@@ -2,6 +2,14 @@
 
 All notable changes to the Shek Mun monitoring system. Newest first.
 
+## [1.9.28] - 2026-11-09
+- PTZ page locked down to the Super Admin group: the PTZ tab is hidden
+  by default on every page and appears only while a Super Admin session
+  is active. The page itself now shows a login wall (localhost and
+  remote) and rejects Admin/Support accounts. Save a Super Admin user
+  in User admin to access PTZ. Removed the old 05:00-09:00 support
+  window handling for PTZ.
+
 ## [1.9.27] - 2026-10-27
 - AVoIP page: all room control buttons (Source:PC, Source:Laptop,
   Reset all decoders) now show a confirmation dialog before sending -

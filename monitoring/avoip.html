@@ -111,7 +111,7 @@
 <nav class="tabs">
   <a href="dashboard_shekmun.html">Main</a>
   <a href="dashboard.html">Dashboard</a>
-  <a href="ptc.html">PTZ</a>
+  <a href="ptc.html" style="display:none">PTZ</a>
   <a href="avoip.html" class="active">AVoIP</a>
   <a href="ops-guide.html">Operation Guide</a>
   <a href="case-followup.html">Case Follow Up</a>
@@ -122,7 +122,7 @@
 <a href="user-admin.html" style="display:none">User admin</a>
 </nav>
 <h1>Shek Mun AVoIP - Room Views</h1>
-<div id="meta">AVoIP snapshots from the Kramer manager (172.18.22.5). Refresh every 5s. v1.9.27</div>
+<div id="meta">AVoIP snapshots from the Kramer manager (172.18.22.5). Refresh every 5s. v1.9.28</div>
 <div class="rooms" id="rooms"></div>
 
 <div class="gate" id="gate">
@@ -557,11 +557,16 @@ setInterval(loadTemps, 10000);
 </script>
 <script>
 // remote mode: Passwords + User admin tabs are localhost-only;
-// Access log tab is also localhost-only (page enforces Super Admin login)
+// Access log tab is also localhost-only (page enforces Super Admin login);
+// PTZ tab is shown only for a logged-in Super Admin session
 (function () {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
   const lock = '\uD83D\uDD12';
+  let isSuper = false;
+  try { const s = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); isSuper = !!(s && s.group === 'super'); } catch (e) {}
+  const ptz = document.querySelector('a[href="ptc.html"]');
+  if (ptz) ptz.style.display = isSuper ? '' : 'none';
   if (local) {
     const ua = document.querySelector('a[href="user-admin.html"]');
     if (ua) ua.style.display = '';

@@ -86,7 +86,7 @@
 <nav class="tabs">
   <a href="dashboard_shekmun.html">Main</a>
   <a href="dashboard.html">Dashboard</a>
-  <a href="ptc.html">PTZ</a>
+  <a href="ptc.html" style="display:none">PTZ</a>
   <a href="avoip.html">AVoIP</a>
   <a href="ops-guide.html">Operation Guide</a>
   <a href="case-followup.html">Case Follow Up</a>
@@ -99,7 +99,7 @@
 
 <div id="page">
   <h1>User Administration</h1>
-  <div class="sub">Manage login accounts for the PTZ / AVoIP / Passwords pages. Available on localhost only.</div>
+  <div class="sub">Manage login accounts for the AVoIP / Passwords pages (PTZ is Super Admin only). Available on localhost only.</div>
 
   <div class="card">
     <h2>Add User</h2>
@@ -117,7 +117,7 @@
       <button class="btn primary" id="addBtn">Add User</button>
       <span id="status"></span>
     </div>
-    <div class="hint">New users get the default password P@ssw0rd (pre-filled) and are forced to change it at their first login. Support group members can access the PTZ page only between 05:00 and 09:00. Admin group members have full access at all times. AVoIP: both groups, all day.</div>
+    <div class="hint">New users get the default password P@ssw0rd (pre-filled) and are forced to change it at their first login. Support and Admin groups can access AVoIP all day. The PTZ page is restricted to the Super Admin group.</div>
   </div>
 
   <div class="card">
@@ -134,14 +134,14 @@
   <div class="card">
     <h2>User Groups &amp; Access Rules</h2>
 <div class="access-note">
-      <div class="item"><span class="badge admin">Admin group member</span> &nbsp;full access at all times (e.g. rcteacher1 profile)</div>
-      <div class="item"><span class="badge support">Support group member</span> &nbsp;access time limitation 05:00-09:00 (e.g. Tier1support profile)</div>
-      <div class="item"><span class="badge super">Super Admin group member</span> &nbsp;full access like Admin, plus the Access log page (localhost only)</div>
+      <div class="item"><span class="badge admin">Admin group member</span> &nbsp;AVoIP / Passwords access at all times (e.g. rcteacher1 profile)</div>
+      <div class="item"><span class="badge support">Support group member</span> &nbsp;AVoIP / Passwords access (e.g. Tier1support profile)</div>
+      <div class="item"><span class="badge super">Super Admin group member</span> &nbsp;full access like Admin, plus the PTZ page and Access log</div>
     </div>
   </div>
 </div>
 
-<div class="footer">v1.9.27 &middot; Users are stored in monitoring\users.json</div>
+<div class="footer">v1.9.28 &middot; Users are stored in monitoring\users.json</div>
 
 <script src="click-log.js"></script>
 <script>
@@ -297,11 +297,16 @@ loadUsers();
 </script>
 <script>
 // remote mode: Passwords + User admin tabs are localhost-only;
-// Access log tab is also localhost-only (page enforces Super Admin login)
+// Access log tab is also localhost-only (page enforces Super Admin login);
+// PTZ tab is shown only for a logged-in Super Admin session
 (function () {
   const host = location.hostname;
   const local = host === 'localhost' || host === '127.0.0.1' || host === '::1' || host === '[::1]';
   const lock = '\uD83D\uDD12';
+  let isSuper = false;
+  try { const s = JSON.parse(sessionStorage.getItem('shekmunSession') || 'null'); isSuper = !!(s && s.group === 'super'); } catch (e) {}
+  const ptz = document.querySelector('a[href="ptc.html"]');
+  if (ptz) ptz.style.display = isSuper ? '' : 'none';
   if (local) {
     const ua = document.querySelector('a[href="user-admin.html"]');
     if (ua) ua.style.display = '';
